@@ -22,7 +22,7 @@ class Entity:
             for j in range(0, len(ASCII[i])):
                 if ASCII[i][j] != Entity.transparent: # ignore any transparent values currently "T"
                     try:
-                        screen[self.y + i][self.x + j] = ASCII[i][j]
+                        screen.buffer[self.y + i][self.x + j] = ASCII[i][j]
                     except IndexError:
                         print("out of bounds")
 

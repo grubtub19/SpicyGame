@@ -1,7 +1,5 @@
-from Universe import *
-
-
 class Overworld:
+
     def __init__(self, universe, x, y):
         self.universe = universe
         self.x = x
@@ -12,3 +10,4 @@ class Overworld:
 
     def draw(self, screen):
         self.universe.player.drawOverworld(screen)
+        self.universe.monsters[0].drawOverworld(screen)

@@ -1,7 +1,9 @@
+from Overworld import *
 from Player import *
 from Monster import *
-from Overworld import *
 from Arena import *
+from Screen import *
+
 
 class Universe:
     """
@@ -10,6 +12,7 @@ class Universe:
     controls = ['w','a','s','d']
 
     def __init__(self, x, y):
+        self.screen = Screen(x, y)
         self.x = x
         self.y = y
         self.isOverworld = True  # False if the current stage is the Arena
@@ -17,6 +20,7 @@ class Universe:
         self.player = Player(10, 2, ["TT___TT","T/   \T","|     |","T\   /T", "TT---TT"], "P", 10, 10, 100) # note that "T" is transparent
         self.monsters = [Monster(-2, -2, ["MONSTER","MADNESS"], "M", 10, 10, 100)]  # array containing all monsters
         self.arena = None  # we use startArena to instantiate this
+        self.loop()
 
     def startArena(self, monster):
         """
@@ -26,12 +30,21 @@ class Universe:
         self.isOverworld = False
         self.arena = Arena(self.player, monster, self.x, self.y)
 
+    def loop(self):
+        while(True):
+            self.update(self.getInputs())
+            self.draw(self.screen)
+
+
+    def getInputs(self):
+        return input(">>")
+
     def update(self, inputs):
         """
             updates either the Overworld or the Arena depending on which one is active
         :param inputs: most recent input
         """
-        self.startArena(self.monsters[0])
+        #self.startArena(self.monsters[0])
         if self.isOverworld:
             self.overworld.update(inputs)
         else:
@@ -46,5 +59,7 @@ class Universe:
             self.overworld.draw(screen)
         else:
             self.arena.draw(screen)
+        screen.print()
 
 
+game = Universe(30, 10)
