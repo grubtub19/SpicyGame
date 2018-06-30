@@ -11,6 +11,34 @@ class Arena:
         self.y = y
         self.state = 0 # Not sure how the actual arena code will work, but if there are different phases or turns, using states might come in handy
 
+    def animatePlayerAttack(self):
+        """Draws and prints intermediate frames for the player's attack animation."""
+
+        # Player raises sword.
+        self.player.ASCII = ["_____@", "@@\o/@",
+                                "@@/@@@", "@/@\@@", "/@@@\\@"]
+        self.player.drawArena(self.universe.screen, 5, 2)
+        self.monster.drawArena(self.universe.screen, 19, 3)
+        self.universe.screen.print()
+        print()
+        sleep(0.5)
+
+        # Player swings sword.
+        self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
+        self.player.drawArena(self.universe.screen, 14, 3)
+        # Monster flinches.
+        self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
+        self.monster.drawArena(self.universe.screen, 19, 3)
+        self.universe.screen.print()
+        print()
+        sleep(0.5)
+
+        # Update player and monster ASCII with the original positions
+        # for the start of the usual draw step.
+        self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
+        self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+
+
     def update(self, inputs):
         """
         :param inputs: User input.
@@ -39,28 +67,7 @@ class Arena:
             self.monster.currentHealth -= self.player.attackPower
 
             # Hacky drawing of intermediate action frames here.
-            # Player raises sword.
-            self.player.ASCII = ["_____@", "@@\o/@", "@@/@@@", "@/@\@@", "/@@@\\@"]
-            self.player.drawArena(self.universe.screen, 5, 2)
-            self.monster.drawArena(self.universe.screen, 19, 3)
-            self.universe.screen.print()
-            print()
-            sleep(0.5)
-
-            # Player swings sword.
-            self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
-            self.player.drawArena(self.universe.screen, 14, 3)
-            # Monster flinches.
-            self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
-            self.monster.drawArena(self.universe.screen, 19, 3)
-            self.universe.screen.print()
-            print()
-            sleep(0.5)
-
-            # Update player and monster ASCII with the original positions
-            # for the start of the usual draw step.
-            self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
-            self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+            self.animatePlayerAttack()
 
         if self.monster.currentHealth <= 0:
             # Monster defeated.
@@ -70,7 +77,8 @@ class Arena:
 
 
     def draw(self, screen):
-        # Hard code these since we don't mind them being in the same spot each time.
+        # There are hard coded since we don't mind them
+        # being in the same spot each time.
         self.player.drawArena(screen, 5, 3)
         self.monster.drawArena(screen, 19, 3)
         self.arenaHealthBars.draw(screen)
