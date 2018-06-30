@@ -19,6 +19,7 @@ class Arena:
         pass
 
     def draw(self, screen):
-        self.player.drawArena(screen)
-        self.monster.drawArena(screen)
-        self.healthBars.draw(screen)
+        # Hard code these since we don't mind them being in the same spot each time.
+        self.player.drawArena(screen, 5, 3)
+        self.monster.drawArena(screen, 19, 3)
+        self.arenaHealthBars.draw(screen)

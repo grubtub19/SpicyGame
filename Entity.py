@@ -12,7 +12,7 @@ class Entity:
         self.ASCII = ASCII  #Arena - Array of Strings (2D)
         self.overworldChar = overworldChar # single char
 
-    def draw(self, screen, ASCII):
+    def draw(self, screen, ASCII, x, y):
         """
             "Draws" the Entity's ASCII on the screen starting from x, y and drawing to the right and down
         :param screen:
@@ -22,22 +22,23 @@ class Entity:
             for j in range(0, len(ASCII[i])):
                 if ASCII[i][j] != Entity.transparent: # ignore any transparent values currently "T"
                     try:
-                        screen.buffer[self.y + i][self.x + j] = ASCII[i][j]
+                        screen.buffer[y + i][x + j] = ASCII[i][j]
                     except IndexError:
                         print("out of bounds")
 
-    def drawArena(self, screen):
+    def drawArena(self, screen, x, y):
         """
             draws the Arena ASCII
         :param screen:
         """
-        self.draw(screen, self.ASCII)
+        self.draw(screen, self.ASCII, x, y)
 
     def drawOverworld(self, screen):
         """
             Draws the Overworld ASCII
         :param screen:
         """
-        self.draw(screen, self.overworldChar)
+        # TODO: Re-evaluate this.
+        self.draw(screen, self.overworldChar, self.x, self.y)
 
 
