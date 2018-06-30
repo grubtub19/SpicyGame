@@ -20,20 +20,20 @@ class Universe:
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt.
         # (Darth Vader and Luke go at it!)
         self.player = Player(
-            10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 30, 10, 100)
+            10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 40, 10, 100)
         # array containing all monsters
         self.monsters = [
             Monster(-2, -2, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100)]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
-    def startArena(self, monster):
+    def startArena(self, monsterIndex):
         """
             Instantiates the arena against a monster and changes the stage
         :param monster:
         """
         self.isOverworld = False
-        self.arena = Arena(self, self.player, monster, self.x, self.y)
+        self.arena = Arena(self, self.player, monsterIndex, self.x, self.y)
 
     def loop(self):
         while(True):
@@ -57,8 +57,8 @@ class Universe:
             self.overworld.update(inputs)
         else:
             if self.arena == None:
-                # TODO: Pass in the appropriate monster here.
-                self.startArena(self.monsters[0])
+                # TODO: Pass in the appropriate monster index here.
+                self.startArena(0)
             self.arena.update(inputs)
 
     def draw(self, screen):

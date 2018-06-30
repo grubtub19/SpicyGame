@@ -2,11 +2,12 @@ from ArenaHealthBars import *
 from time import sleep
 
 class Arena:
-    def __init__(self, universe, player, monster, x, y):
+    def __init__(self, universe, player, monsterIndex, x, y):
         self.universe = universe # Easy access to universe.
         self.player = player
-        self.monster = monster
-        self.arenaHealthBars = ArenaHealthBars(player, monster)
+        self.monsterIndex = monsterIndex
+        self.monster = self.universe.monsters[monsterIndex]
+        self.arenaHealthBars = ArenaHealthBars(player, self.monster)
         self.x = x  # screen dimensions just in case we need them
         self.y = y
         self.state = 0 # Not sure how the actual arena code will work, but if there are different phases or turns, using states might come in handy
@@ -72,11 +73,25 @@ class Arena:
             # Hacky drawing of intermediate action frames here.
             self.animatePlayerAttack()
 
-        if self.monster.currentHealth <= 0:
+        if self.monster.currentHealth < 10:
+            # Any number <10 will cause 0 bars to be drawn for the health bar.
+            # So although the monster technically still has health left,
+            # it's misleading and bad UX to draw 0 bars.
+
             # Monster defeated.
             # TODO: Draw and print victory screen.
+            print('VICTORY!')
+
+            # Remove monster from monster list.
+            del self.universe.monsters[self.monsterIndex]
+
+            # This clean up needs to happen after the victory screen is
+            # drawn and printed, otherwise there won't be an Arena to refer
+            # to.
             self.universe.arena = None
             self.universe.isOverworld = True
+
+        # TODO: Implement monster attack.
 
 
     def draw(self, screen):

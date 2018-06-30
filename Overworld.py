@@ -9,5 +9,9 @@ class Overworld:
         self.universe.player.update(inputs)
 
     def draw(self, screen):
+        for monster in self.universe.monsters:
+            monster.drawOverworld(screen)
+
+        # This is drawn last so the player is always 'on top' in relation
+        # to other drawn objects.
         self.universe.player.drawOverworld(screen)
-        self.universe.monsters[0].drawOverworld(screen)
