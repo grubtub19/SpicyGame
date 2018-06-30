@@ -2,7 +2,8 @@ from ArenaHealthBars import *
 from time import sleep
 
 class Arena:
-    def __init__(self, player, monster, x, y):
+    def __init__(self, universe, player, monster, x, y):
+        self.universe = universe # Easy access to universe.
         self.player = player
         self.monster = monster
         self.arenaHealthBars = ArenaHealthBars(player, monster)
@@ -10,10 +11,9 @@ class Arena:
         self.y = y
         self.state = 0 # Not sure how the actual arena code will work, but if there are different phases or turns, using states might come in handy
 
-    def update(self, inputs, universe):
+    def update(self, inputs):
         """
         :param inputs: User input.
-        :param universe: A pointer back to the Universe, so its data can be accessed.
         """
         acceptable_inputs = ['a', 'r']
 
@@ -26,9 +26,8 @@ class Arena:
             print('run away')
 
             # Destroy Arena and return to Overworld.
-            # TODO: Is there a better way than passing a pointer?
-            universe.arena = None
-            universe.isOverworld = True
+            self.universe.arena = None
+            self.universe.isOverworld = True
 
         if inputs == 'a':
             print('attack')
@@ -42,19 +41,19 @@ class Arena:
             # Hacky drawing of intermediate action frames here.
             # Player raises sword.
             self.player.ASCII = ["_____@", "@@\o/@", "@@/@@@", "@/@\@@", "/@@@\\@"]
-            self.player.drawArena(universe.screen, 5, 2)
-            self.monster.drawArena(universe.screen, 19, 3)
-            universe.screen.print()
+            self.player.drawArena(self.universe.screen, 5, 2)
+            self.monster.drawArena(self.universe.screen, 19, 3)
+            self.universe.screen.print()
             print()
             sleep(0.5)
 
             # Player swings sword.
             self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
-            self.player.drawArena(universe.screen, 14, 3)
+            self.player.drawArena(self.universe.screen, 14, 3)
             # Monster flinches.
             self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
-            self.monster.drawArena(universe.screen, 19, 3)
-            universe.screen.print()
+            self.monster.drawArena(self.universe.screen, 19, 3)
+            self.universe.screen.print()
             print()
             sleep(0.5)
 
@@ -66,8 +65,8 @@ class Arena:
         if self.monster.currentHealth <= 0:
             # Monster defeated.
             # TODO: Draw and print victory screen.
-            universe.arena = None
-            universe.isOverworld = True
+            self.universe.arena = None
+            self.universe.isOverworld = True
 
 
     def draw(self, screen):

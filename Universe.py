@@ -17,8 +17,6 @@ class Universe:
         self.y = y # Unused for now.
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(self, x, y)
-        # This is rendered differently on my console, hence the adjustments.
-        # note that "@" is transparent.
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt.
         # (Darth Vader and Luke go at it!)
         self.player = Player(
@@ -35,7 +33,7 @@ class Universe:
         :param monster:
         """
         self.isOverworld = False
-        self.arena = Arena(self.player, monster, self.x, self.y)
+        self.arena = Arena(self, self.player, monster, self.x, self.y)
 
     def loop(self):
         while(True):
@@ -61,7 +59,7 @@ class Universe:
             if self.arena == None:
                 # TODO: Pass in the appropriate monster here.
                 self.startArena(self.monsters[0])
-            self.arena.update(inputs, self)
+            self.arena.update(inputs)
 
     def draw(self, screen):
         """
