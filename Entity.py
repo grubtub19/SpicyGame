@@ -1,6 +1,6 @@
 class Entity:
 
-    transparent = "T" # This character is ignored when drawing the ASCII art
+    transparent = "@" # This character is ignored when drawing the ASCII art
 
     def __init__(self, x, y, ASCII, overworldChar):
         self.x = x
@@ -20,7 +20,7 @@ class Entity:
         """
         for i in range(0, len(ASCII)):
             for j in range(0, len(ASCII[i])):
-                if ASCII[i][j] != Entity.transparent: # ignore any transparent values currently "T"
+                if ASCII[i][j] != Entity.transparent: # ignore any transparent values.
                     try:
                         screen.buffer[y + i][x + j] = ASCII[i][j]
                     except IndexError:
