@@ -13,12 +13,19 @@ class Universe:
 
     def __init__(self, x, y):
         self.screen = Screen(x, y)
-        self.x = x
-        self.y = y
+        self.x = x # Unused for now.
+        self.y = y # Unused for now.
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(self, x, y)
-        self.player = Player(10, 2, ["TT___TT","T/   \T","|     |","T\   /T", "TT---TT"], "P", 10, 10, 100) # note that "T" is transparent
-        self.monsters = [Monster(-2, -2, ["MONSTER","MADNESS"], "M", 10, 10, 100)]  # array containing all monsters
+        # This is rendered differently on my console, hence the adjustments.
+        # note that "@" is transparent.
+        # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt.
+        # (Darth Vader and Luke go at it!)
+        self.player = Player(
+            10, 2, ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"], "P", 30, 10, 100)
+        # array containing all monsters
+        self.monsters = [
+            Monster(-2, -2, ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"], "M", 10, 10, 100)]
         self.arena = None  # we use startArena to instantiate this
         self.loop()
 
@@ -44,11 +51,17 @@ class Universe:
             updates either the Overworld or the Arena depending on which one is active
         :param inputs: most recent input
         """
-        #self.startArena(self.monsters[0])
+        # This is for testing only.
+        # TODO: Remove this once Overworld to Arena transition is implemented.
+        self.isOverworld = False
+
         if self.isOverworld:
             self.overworld.update(inputs)
         else:
-            self.arena.update(inputs)
+            if self.arena == None:
+                # TODO: Pass in the appropriate monster here.
+                self.startArena(self.monsters[0])
+            self.arena.update(inputs, self)
 
     def draw(self, screen):
         """

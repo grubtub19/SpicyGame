@@ -2,10 +2,19 @@ class ArenaHealthBars:
     barLength = 10
 
     def __init__(self, player, monster):
-        self.player = player  # we extract health data from these
+        # We extract health data from these.
+        self.player = player
         self.monster = monster
 
     def draw(self, screen):
-        barNum = ArenaHealthBars.barLength * int(round(self.player.currentHealth/self.player.maxHealth))  # calculate how many characters make up the healthbar
-        for i in range(0, barNum):
-            screen.buffer[0][i] = "X" # print player healthbar in top left corner
+        # Calculate how many characters make up the healthbar.
+        playerBarNum = int(ArenaHealthBars.barLength \
+            * self.player.currentHealth / self.player.maxHealth)
+        monsterBarNum = int(ArenaHealthBars.barLength \
+            * self.monster.currentHealth / self.monster.maxHealth)
+
+        for i in range(0, playerBarNum):
+            screen.buffer[0][i] = '#' # print player healthbar in top left corner
+
+        for j in range(len(screen.buffer[0]) - 1, len(screen.buffer[0]) - 1 - monsterBarNum, -1):
+            screen.buffer[len(screen.buffer) - 1][j] = '#'
