@@ -61,10 +61,13 @@ class Arena:
             print('attack')
             # Attack.
 
-            # TODO: Factor in defense power into calculation.
+            # Calculate damage.
+            # damage = att * att / (att + def)
+            damage = int(self.player.attackPower * self.player.attackPower / (self.player.attackPower + self.monster.defensePower))
+            print(damage)
 
-            # Apply player attack to monster.
-            self.monster.currentHealth -= self.player.attackPower
+            # Apply damage to monster.
+            self.monster.currentHealth -= damage
 
             # Hacky drawing of intermediate action frames here.
             self.animatePlayerAttack()
