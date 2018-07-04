@@ -23,7 +23,7 @@ class Universe:
             10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 40, 10, 100)
         # array containing all monsters
         self.monsters = [
-            Monster(-2, -2, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100)]
+            Monster(8, 1, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100)]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
@@ -51,7 +51,7 @@ class Universe:
         """
         # This is for testing only.
         # TODO: Remove this once Overworld to Arena transition is implemented.
-        self.isOverworld = False
+        #self.isOverworld = False
 
         if self.isOverworld:
             self.overworld.update(inputs)
