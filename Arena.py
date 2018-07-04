@@ -110,8 +110,6 @@ class Arena:
 
 
     def draw(self, screen):
-        # There are hard coded since we don't mind them
-        # being in the same spot each time.
         self.player.drawArena(screen)
         self.monster.drawArena(screen)
         self.arenaHealthBars.draw(screen)

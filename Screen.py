@@ -21,7 +21,6 @@ class Screen:
         for line in self.buffer:
             for char in line:
                 # Not having spaces results in prettier ASCII art.
-                # TODO: Review this.
                 print(char, end='')
             print()
         self.wipeScreen()

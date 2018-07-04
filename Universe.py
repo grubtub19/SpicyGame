@@ -40,7 +40,6 @@ class Universe:
             self.update(self.getInputs())
             self.draw(self.screen)
 
-
     def getInputs(self):
         return input(">>")
 
@@ -49,10 +48,6 @@ class Universe:
             updates either the Overworld or the Arena depending on which one is active
         :param inputs: most recent input
         """
-        # This is for testing only.
-        # TODO: Remove this once Overworld to Arena transition is implemented.
-        #self.isOverworld = False
-
         if self.isOverworld:
             self.overworld.update(inputs)
         else:
@@ -72,5 +67,6 @@ class Universe:
             self.arena.draw(screen)
         screen.print()
 
-
-game = Universe(30, 10)
+if __name__ == '__main__':
+    # Run the game only if this module is run as the main program.
+    game = Universe(30, 10)
