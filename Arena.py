@@ -18,25 +18,31 @@ class Arena:
         # Player raises sword.
         self.player.ASCII = ["_____@", "@@\o/@",
                                 "@@/@@@", "@/@\@@", "/@@@\\@"]
-        self.player.drawArena(self.universe.screen, 5, 2)
-        self.monster.drawArena(self.universe.screen, 19, 3)
+        # This needs to be 2 because there's an extra line in this ASCII art.
+        self.player.move(5, 2)
+        self.player.drawArena(self.universe.screen)
+        self.monster.move(19, 3)
+        self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         print()
         sleep(0.5)
 
         # Player swings sword.
         self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
-        self.player.drawArena(self.universe.screen, 14, 3)
+        self.player.move(14, 3)
+        self.player.drawArena(self.universe.screen)
         # Monster flinches.
         self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
-        self.monster.drawArena(self.universe.screen, 19, 3)
+        self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         print()
         sleep(0.5)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
+        self.player.move(5, 3)
         self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
+        self.monster.move(19, 3)
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
 
 
@@ -45,6 +51,10 @@ class Arena:
         :param inputs: User input.
         """
         acceptable_inputs = ['a', 'r']
+
+        # Initial positions.
+        self.player.move(5, 3)
+        self.monster.move(19, 3)
 
         if len(inputs) != 1 or inputs not in acceptable_inputs:
             print('Invalid input')
@@ -98,6 +108,6 @@ class Arena:
     def draw(self, screen):
         # There are hard coded since we don't mind them
         # being in the same spot each time.
-        self.player.drawArena(screen, 5, 3)
-        self.monster.drawArena(screen, 19, 3)
+        self.player.drawArena(screen)
+        self.monster.drawArena(screen)
         self.arenaHealthBars.draw(screen)
