@@ -1,6 +1,6 @@
-
 from Player import *
 from Monster import*
+import sys
 
 class Overworld:
 
@@ -10,6 +10,12 @@ class Overworld:
         self.y = y
 
     def update(self, inputs):
+        # TODO: Evaluate if this might be more appropriate in Universe.
+        if inputs == 'q':
+            res = input('Are you sure you want to quit? (y/n) >> ')
+            if res == 'y' or 'q':
+                sys.exit()
+
         # Update player position.
         self.universe.player.update(inputs)
 

@@ -37,11 +37,12 @@ class Universe:
 
     def loop(self):
         while(True):
+            # TODO: Add title screen.
             self.update(self.getInputs())
             self.draw(self.screen)
 
     def getInputs(self):
-        return input(">>")
+        return input('>> ')
 
     def update(self, inputs):
         """
