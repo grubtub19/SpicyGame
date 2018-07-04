@@ -1,30 +1,41 @@
 # SpicyGame
-This is one spicy game
 
-Class Structure:
+> This is one spicy game.
 
-Inside our game "SpicyGame", there exists a Universe that has no form. It only stores the information about all the objects that exist. 
-Inside the Universe, there is both an Arena(side view) and an Overworld(top down view). The Overworld gets instantiated once.
-However, we instantiate the Arena every time we use it. Once the battle is over, the same Overworld as before appears.
+## Class Structure
 
-NOT INHERITANCE (just how data flows in general):
-SpicyGame
-	Universe
-		Arena
-		or
-		Overworld
+The game starts with a `Universe` that has no form. It only stores the information about all the objects that exist.
 
-"Spicy Game calls update() in Universe which calls update() in Arena"
+Inside the `Universe`, there is both an `Arena` (Pokemon battle style view) and an `Overworld` (top down view). The `Overworld` gets instantiated once. However, we instantiate the `Arena` every time we use it. Once the battle is over, the same `Overworld` as before appears.
 
+## Data Flow
+This is not inheritance, but just how data flows in general:
 
+```
+Universe
+	Screen
+	Overworld or Arena
+		Entity
+			Pokemon
+				Player
+				Monster
+```
 
+`Universe` calls `update()` which calls `update()` in `Overworld` or `Arena`.
 
-An Entity is any game object that has a position and ASCII representation. A Pokemon is any Entity that can fight. The ArenaHealthBar
-is an example of using the Entity class by itself.
+### Entity
+An `Entity` is any game object that has a position and ASCII representation.
 
-Inheritance:
+### Pokemon
+A `Pokemon` is any `Entity` that can exist in the `Arena`. The `ArenaHealthBar`
+is an example of using the `Entity` class by itself.
+
+## Inheritance
+
+```
 Entity
 	Pokemon
 		Player
 		Monster
 	ArenaHealthBar
+```
