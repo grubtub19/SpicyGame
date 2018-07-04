@@ -1,5 +1,6 @@
 from ArenaHealthBars import *
 from time import sleep
+import random
 
 class Arena:
     def __init__(self, universe, player, monsterIndex, x, y):
@@ -72,14 +73,8 @@ class Arena:
             print('attack')
             # Attack.
 
-            # Calculate damage.
-            # damage = att * att / (att + def)
-            # https://gamedev.stackexchange.com/questions/129319/rpg-formula-attack-and-defense
-            damage = int(self.player.attackPower * self.player.attackPower / (self.player.attackPower + self.monster.defensePower))
-            print(damage)
+            self.player.attack(self.monster)
 
-            # Apply damage to monster.
-            self.monster.currentHealth -= damage
 
             # Hacky drawing of intermediate action frames here.
             self.animatePlayerAttack()
