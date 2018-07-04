@@ -12,9 +12,11 @@ class Overworld:
     def update(self, inputs):
         self.universe.player.update(inputs)
         for i in range(len(self.universe.monsters)):
-            if (self.universe.player.x == self.universe.monsters[i].x):
-                # and self.universe.player.y == self.universe.monsters[i].y):
-                print("Y")
+            
+            #checks if player is in same position as monster
+            if (self.universe.player.x == self.universe.monsters[i].x and self.universe.player.y == self.universe.monsters[i].y):
+
+                #start battle
                 self.universe.startArena(i)
             
     def draw(self, screen):
