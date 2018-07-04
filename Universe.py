@@ -51,9 +51,6 @@ class Universe:
         if self.isOverworld:
             self.overworld.update(inputs)
         else:
-            if self.arena == None:
-                # TODO: Pass in the appropriate monster index here.
-                self.startArena(0)
             self.arena.update(inputs)
 
     def draw(self, screen):
