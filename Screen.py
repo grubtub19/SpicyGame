@@ -15,9 +15,11 @@ class Screen:
 
     def print(self):
         """Prints the buffer's contents to the console."""
-        # This is an initial attemp to print some whitespace above the drawn
+        # This is an initial attempt to print some whitespace above the drawn
         # frames so that past frames don't show up in the console.
         # This way, we'll have a better illusion of real animation.
+        # TODO: Do some math to accommodate having dialog printed near the
+        # frame, alongside the whitespace lines. Otherwise it's just oblivion.
         print('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n')
 
         for line in self.buffer:
