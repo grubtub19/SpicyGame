@@ -20,6 +20,7 @@ class Arena:
     def animatePlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
         # Player raises sword.
+        self.arenaHealthBars.draw(self.universe.screen)
         self.player.ASCII = ["_____@", "@@\o/@",
                                 "@@/@@@", "@/@\@@", "/@@@\\@"]
         # This needs to be 2 because there's an extra line in this ASCII art.
@@ -27,18 +28,17 @@ class Arena:
         self.player.drawArena(self.universe.screen)
         self.monster.moveInArena(19, 3)
         self.monster.drawArena(self.universe.screen)
-        self.arenaHealthBars.draw(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
 
         # Player swings sword.
+        self.arenaHealthBars.draw(self.universe.screen)
         self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
         self.player.moveInArena(14, 3)
         self.player.drawArena(self.universe.screen)
         # Monster flinches.
         self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
         self.monster.drawArena(self.universe.screen)
-        self.arenaHealthBars.draw(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
 
@@ -74,10 +74,15 @@ class Arena:
             # TODO: Either remove this or turn it into a useful dialog.
             print('attack')
 
-            self.player.attack(self.monster)
-
             # Hacky drawing of intermediate action frames here.
             self.animatePlayerAttack()
+
+            # Damage is applied after the intermediate action frames show
+            # the attack successfully landing. This results in the
+            # health bar being shown to shorten only after the attack lands.
+            # Otherwise, the health bar is shown to shorten before the
+            # attack even lands.
+            self.player.attack(self.monster)
 
         if self.monster.currentHealth <= 0:
             # Any number <10 will cause 0 bars to be drawn for the health bar.

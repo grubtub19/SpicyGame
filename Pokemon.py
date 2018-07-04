@@ -27,7 +27,3 @@ class Pokemon(Entity):
         print(damage)
         #  Apply damage to monster.
         monster.currentHealth -= damage
-
-
-
-
