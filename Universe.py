@@ -20,10 +20,10 @@ class Universe:
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt.
         # (Darth Vader and Luke go at it!)
         self.player = Player(
-            10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 40, 10, 100)
+            10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 40, 10, 100, 100)
         # array containing all monsters
         self.monsters = [
-            Monster(8, 1, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100, )]
+            Monster(8, 1, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100, 20)]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
