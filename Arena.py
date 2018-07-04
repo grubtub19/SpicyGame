@@ -5,8 +5,12 @@ class Arena:
     def __init__(self, universe, player, monsterIndex, x, y):
         self.universe = universe # Easy access to universe.
         self.player = player
+        self.player.arena_x = 5
+        self.player.arena_y = 3
         self.monsterIndex = monsterIndex
         self.monster = self.universe.monsters[monsterIndex]
+        self.monster.arena_x = 19
+        self.monster.arena_y = 3
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
         self.x = x  # screen dimensions just in case we need them
         self.y = y

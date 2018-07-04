@@ -2,9 +2,15 @@ class Entity:
 
     transparent = "@" # This character is ignored when drawing the ASCII art
 
-    def __init__(self, x, y, ASCII, overworldChar):
-        self.x = x
-        self.y = y
+    def __init__(self, overworld_x, overworld_y, ASCII, overworldChar, arena_x, arena_y):
+        
+        #overworld x and y
+        self.overworld_x = overworld_x
+        self.overworld_y = overworld_y
+        
+        #positions for arena/ batt;e
+        self.arena_x = arena_x
+        self.arena_y = arena_y
         # defines the origin at the top left of the ASCII art. Example of 3x3 ASCII art below. "O" is the position of the x, y values
         #      O X X
         #      X X X
@@ -12,7 +18,7 @@ class Entity:
         self.ASCII = ASCII  #Arena - Array of Strings (2D)
         self.overworldChar = overworldChar # single char
 
-    def draw(self, screen, ASCII):
+    def draw(self, screen, ASCII, x, y):
         """
             "Draws" the Entity's ASCII on the screen starting from x, y and drawing to the right and down
         :param screen:
@@ -22,7 +28,7 @@ class Entity:
             for j in range(0, len(ASCII[i])):
                 if ASCII[i][j] != Entity.transparent: # ignore any transparent values.
                     try:
-                        screen.buffer[self.y + i][self.x + j] = ASCII[i][j]
+                        screen.buffer[y + i][x + j] = ASCII[i][j]
                     except IndexError:
                         print("out of bounds")
 
@@ -36,12 +42,11 @@ class Entity:
             draws the Arena ASCII
         :param screen:
         """
-        self.draw(screen, self.ASCII)
+        self.draw(screen, self.ASCII, self.arena_x, self.arena_y)
 
     def drawOverworld(self, screen):
         """
             Draws the Overworld ASCII
         :param screen:
         """
-        # TODO: Re-evaluate this.
-        self.draw(screen, self.overworldChar)
+        self.draw(screen, self.overworldChar, self.overworld_x,self.overworld_y)

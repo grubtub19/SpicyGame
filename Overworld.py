@@ -14,7 +14,7 @@ class Overworld:
         for i in range(len(self.universe.monsters)):
             
             #checks if player is in same position as monster
-            if (self.universe.player.x == self.universe.monsters[i].x and self.universe.player.y == self.universe.monsters[i].y):
+            if (self.universe.player.overworld_x == self.universe.monsters[i].overworld_x and self.universe.player.overworld_y == self.universe.monsters[i].overworld_y):
 
                 #start battle
                 self.universe.startArena(i)

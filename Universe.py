@@ -23,7 +23,7 @@ class Universe:
             10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 40, 10, 100)
         # array containing all monsters
         self.monsters = [
-            Monster(8, 1, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100)]
+            Monster(8, 1, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100, )]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
