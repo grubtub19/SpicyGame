@@ -19,10 +19,6 @@ class Arena:
 
     def animatePlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
-        # TODO: Do some math to print some whitespace above the drawn frames so that
-        # past frames don't show up in the console. This way, we'll have a
-        # better illusion of real animation.
-
         # Player raises sword.
         self.player.ASCII = ["_____@", "@@\o/@",
                                 "@@/@@@", "@/@\@@", "/@@@\\@"]
@@ -33,7 +29,6 @@ class Arena:
         self.monster.drawArena(self.universe.screen)
         self.arenaHealthBars.draw(self.universe.screen)
         self.universe.screen.print()
-        print()
         sleep(0.5)
 
         # Player swings sword.
@@ -45,7 +40,6 @@ class Arena:
         self.monster.drawArena(self.universe.screen)
         self.arenaHealthBars.draw(self.universe.screen)
         self.universe.screen.print()
-        print()
         sleep(0.5)
 
         # Update player and monster ASCII with the original positions
@@ -68,6 +62,9 @@ class Arena:
         if inputs == 'r':
             # Run away.
             print('run away')
+
+            # TODO: We'll need to remember the last position of Player in
+            # the Overworld so we can revert to it in case we run.
 
             # Destroy Arena and return to Overworld.
             self.universe.arena = None
