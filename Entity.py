@@ -33,10 +33,12 @@ class Entity:
                     except IndexError:
                         print("out of bounds")
 
-    def move(self, x, y):
-        """Moves the entity to the specified x, y coordinates"""
-        self.x = x
-        self.y = y
+    def moveInArena(self, x, y):
+        """Moves the entity to the specified x, y coordinates in the Arena.
+
+        This should only be used in Arena."""
+        self.arena_x = x
+        self.arena_y = y
 
     def drawArena(self, screen):
         """Draws ASCII art in the Arena.

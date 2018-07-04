@@ -19,14 +19,17 @@ class Arena:
 
     def animatePlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
+        # TODO: Do some math to print some whitespace above the drawn frames so that
+        # past frames don't show up in the console. This way, we'll have a
+        # better illusion of real animation.
 
         # Player raises sword.
         self.player.ASCII = ["_____@", "@@\o/@",
                                 "@@/@@@", "@/@\@@", "/@@@\\@"]
         # This needs to be 2 because there's an extra line in this ASCII art.
-        self.player.move(5, 2)
+        self.player.moveInArena(5, 2)
         self.player.drawArena(self.universe.screen)
-        self.monster.move(19, 3)
+        self.monster.moveInArena(19, 3)
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         print()
@@ -34,7 +37,7 @@ class Arena:
 
         # Player swings sword.
         self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
-        self.player.move(14, 3)
+        self.player.moveInArena(14, 3)
         self.player.drawArena(self.universe.screen)
         # Monster flinches.
         self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
@@ -45,9 +48,9 @@ class Arena:
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
-        self.player.move(5, 3)
+        self.player.moveInArena(5, 3)
         self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
-        self.monster.move(19, 3)
+        self.monster.moveInArena(19, 3)
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
 
     def update(self, inputs):
