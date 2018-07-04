@@ -64,6 +64,7 @@ class Arena:
 
             # Calculate damage.
             # damage = att * att / (att + def)
+            # https://gamedev.stackexchange.com/questions/129319/rpg-formula-attack-and-defense
             damage = int(self.player.attackPower * self.player.attackPower / (self.player.attackPower + self.monster.defensePower))
             print(damage)
 
@@ -73,7 +74,7 @@ class Arena:
             # Hacky drawing of intermediate action frames here.
             self.animatePlayerAttack()
 
-        if self.monster.currentHealth < 10:
+        if self.monster.currentHealth <= 0:
             # Any number <10 will cause 0 bars to be drawn for the health bar.
             # So although the monster technically still has health left,
             # it's misleading and bad UX to draw 0 bars.

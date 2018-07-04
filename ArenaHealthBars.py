@@ -1,3 +1,5 @@
+from math import ceil
+
 class ArenaHealthBars:
     barLength = 10
 
@@ -8,9 +10,9 @@ class ArenaHealthBars:
 
     def draw(self, screen):
         # Calculate how many characters make up the healthbar.
-        playerBarNum = int(ArenaHealthBars.barLength \
+        playerBarNum = ceil(ArenaHealthBars.barLength \
             * self.player.currentHealth / self.player.maxHealth)
-        monsterBarNum = int(ArenaHealthBars.barLength \
+        monsterBarNum = ceil(ArenaHealthBars.barLength
             * self.monster.currentHealth / self.monster.maxHealth)
 
         for i in range(0, playerBarNum):
