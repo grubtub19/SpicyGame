@@ -5,11 +5,11 @@ class Arena:
     def __init__(self, universe, player, monsterIndex, x, y):
         self.universe = universe # Easy access to universe.
         self.player = player
-        self.player.arena_x = 5
+        self.player.arena_x = 5 # Initial player position in Arena.
         self.player.arena_y = 3
         self.monsterIndex = monsterIndex
         self.monster = self.universe.monsters[monsterIndex]
-        self.monster.arena_x = 19
+        self.monster.arena_x = 19 # Initial monster position in Arena.
         self.monster.arena_y = 3
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
         self.x = x  # screen dimensions just in case we need them
@@ -49,16 +49,11 @@ class Arena:
         self.monster.move(19, 3)
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
 
-
     def update(self, inputs):
         """
         :param inputs: User input.
         """
         acceptable_inputs = ['a', 'r']
-
-        # Initial positions.
-        self.player.move(5, 3)
-        self.monster.move(19, 3)
 
         if len(inputs) != 1 or inputs not in acceptable_inputs:
             print('Invalid input')
