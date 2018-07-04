@@ -31,6 +31,7 @@ class Arena:
         self.player.drawArena(self.universe.screen)
         self.monster.moveInArena(19, 3)
         self.monster.drawArena(self.universe.screen)
+        self.arenaHealthBars.draw(self.universe.screen)
         self.universe.screen.print()
         print()
         sleep(0.5)
@@ -42,6 +43,7 @@ class Arena:
         # Monster flinches.
         self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
         self.monster.drawArena(self.universe.screen)
+        self.arenaHealthBars.draw(self.universe.screen)
         self.universe.screen.print()
         print()
         sleep(0.5)
