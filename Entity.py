@@ -3,26 +3,27 @@ class Entity:
     transparent = "@" # This character is ignored when drawing the ASCII art
 
     def __init__(self, overworld_x, overworld_y, ASCII, overworldChar, arena_x, arena_y):
-        
-        #overworld x and y
+        # Entity's coordinates.
         self.overworld_x = overworld_x
         self.overworld_y = overworld_y
-        
-        #positions for arena/ batt;e
         self.arena_x = arena_x
         self.arena_y = arena_y
-        # defines the origin at the top left of the ASCII art. Example of 3x3 ASCII art below. "O" is the position of the x, y values
+
+        # The origin/start of an Entity's ASCII art is the top left corner.
+        # Example of 3x3 ASCII art below. "O" is defined by x, y in the
+        # Overworld/Arena.
         #      O X X
         #      X X X
         #      X X X
-        self.ASCII = ASCII  #Arena - Array of Strings (2D)
-        self.overworldChar = overworldChar # single char
+        self.ASCII = ASCII  # In the Arena, the ASCII art is a 2D matrix of strings.
+        self.overworldChar = overworldChar # Character that represents the entity in the Overworld.
 
     def draw(self, screen, ASCII, x, y):
-        """
-            "Draws" the Entity's ASCII on the screen starting from x, y and drawing to the right and down
+        """Draws the Entity's ASCII art on the screen starting from x, y,
+        then moving rightwards and then downwards.
+
         :param screen:
-        :param ASCII: either arena or overworld ASCII
+        :param ASCII: Either arena or overworld ASCII
         """
         for i in range(0, len(ASCII)):
             for j in range(0, len(ASCII[i])):
@@ -38,15 +39,15 @@ class Entity:
         self.y = y
 
     def drawArena(self, screen):
-        """
-            draws the Arena ASCII
+        """Draws ASCII art in the Arena.
+
         :param screen:
         """
         self.draw(screen, self.ASCII, self.arena_x, self.arena_y)
 
     def drawOverworld(self, screen):
-        """
-            Draws the Overworld ASCII
+        """Draws ASCII art in the Overworld.
+
         :param screen:
         """
         self.draw(screen, self.overworldChar, self.overworld_x,self.overworld_y)

@@ -17,7 +17,7 @@ class Universe:
         self.y = y # Unused for now.
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(self, x, y)
-        # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt.
+        # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
             10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 40, 10, 100, 100)
