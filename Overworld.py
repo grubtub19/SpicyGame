@@ -22,4 +22,7 @@ class Overworld:
     def draw(self, screen):
         # Draw player.
         self.universe.player.drawOverworld(screen)
-        self.universe.monsters[0].drawOverworld(screen)
+
+        # Draw monsters.
+        for i in range(len(self.universe.monsters)):
+            self.universe.monsters[i].drawOverworld(screen)

@@ -73,13 +73,15 @@ class Arena:
             self.universe.isOverworld = True
 
         if inputs == 'a':
+            # TODO: Either remove this or turn it into a useful dialog.
             print('attack')
-            # Attack.
 
             # Calculate damage.
             # damage = att * att / (att + def)
             # https://gamedev.stackexchange.com/questions/129319/rpg-formula-attack-and-defense
             damage = int(self.player.attackPower * self.player.attackPower / (self.player.attackPower + self.monster.defensePower))
+
+            # TODO: Either remove this or turn it into a useful dialog.
             print(damage)
 
             # Apply damage to monster.
