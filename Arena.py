@@ -1,6 +1,7 @@
 from ArenaHealthBars import *
 from time import sleep
 import random
+import sys
 
 class Arena:
     def __init__(self, universe, player, monsterIndex, x, y):
@@ -137,6 +138,27 @@ class Arena:
             # to.
             self.universe.arena = None
             self.universe.isOverworld = True
+            
+        if self.player.currentHealth <= 0:
+            # Any number <10 will cause 0 bars to be drawn for the health bar.
+            # So although the monster technically still has health left,
+            # it's misleading and bad UX to draw 0 bars.
+
+            # Player defeated.
+            # TODO: Draw and print victory screen.
+            print('DEFEAT')
+
+            # Remove player
+            del self.universe.player
+
+            # This clean up needs to happen after the drawn screen is
+            # drawn and printed, otherwise there won't be an Arena to refer
+            # to.
+            self.universe.arena = None
+            self.universe.isOverworld = True
+            
+            #terminate game
+            sys.exit()
 
 
 
