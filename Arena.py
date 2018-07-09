@@ -50,7 +50,7 @@ class Arena:
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
 
     def animateMonsterAttack(self):
-        """Draws and prints intermediate frames for the player's attack animation."""
+        """Draws and prints intermediate frames for the monster's attack animation."""
         # Monster raises sword.
         self.arenaHealthBars.draw(self.universe.screen)
         self.monster.ASCII = ["@_____", "@\A/@@",
@@ -115,6 +115,8 @@ class Arena:
             # Otherwise, the health bar is shown to shorten before the
             # attack even lands.
             self.player.attack(self.monster)
+            
+            #same as above but with the monster
             self.animateMonsterAttack()
             self.monster.attack(self.player)
 
@@ -136,7 +138,6 @@ class Arena:
             self.universe.arena = None
             self.universe.isOverworld = True
 
-        # TODO: Implement monster attack.
 
 
     def draw(self, screen):
