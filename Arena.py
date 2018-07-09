@@ -49,6 +49,38 @@ class Arena:
         self.monster.moveInArena(19, 3)
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
 
+    def animateMonsterAttack(self):
+        """Draws and prints intermediate frames for the player's attack animation."""
+        # Monster raises sword.
+        self.arenaHealthBars.draw(self.universe.screen)
+        self.monster.ASCII = ["@_____", "@\A/@@",
+                                "@@\@@@", "@/@\@@", "/@@@\\@"]
+        # This needs to be 2 because there's an extra line in this ASCII art.
+        self.monster.moveInArena(19, 2)
+        self.monster.drawArena(self.universe.screen)
+        self.player.moveInArena(5, 3)
+        self.player.drawArena(self.universe.screen)
+        self.universe.screen.print()
+        sleep(0.5)
+    
+        # Monster swings sword.
+        self.arenaHealthBars.draw(self.universe.screen)
+        self.monster.ASCII = ["@@@A@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
+        self.monster.moveInArena(9, 3)
+        self.monster.drawArena(self.universe.screen)
+        # Player flinches.
+        self.player.ASCII = ["@@\o/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
+        self.player.drawArena(self.universe.screen)
+        self.universe.screen.print()
+        sleep(0.5)
+    
+        # Update player and monster ASCII with the original positions
+        # for the start of the usual draw step.
+        self.monster.moveInArena(19, 3)
+        self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+        self.player.moveInArena(5, 3)
+        self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"]
+
     def update(self, inputs):
         """
         :param inputs: User input.
@@ -83,6 +115,8 @@ class Arena:
             # Otherwise, the health bar is shown to shorten before the
             # attack even lands.
             self.player.attack(self.monster)
+            self.animateMonsterAttack()
+            self.monster.attack(self.player)
 
         if self.monster.currentHealth <= 0:
             # Any number <10 will cause 0 bars to be drawn for the health bar.
