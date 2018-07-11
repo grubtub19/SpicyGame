@@ -1,6 +1,7 @@
 from ArenaHealthBars import *
 from time import sleep
 import random
+import sys
 
 class Arena:
     def __init__(self, universe, player, monsterIndex, x, y):
@@ -44,10 +45,47 @@ class Arena:
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
+        self.arenaHealthBars.draw(self.universe.screen)
         self.player.moveInArena(5, 3)
         self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
         self.monster.moveInArena(19, 3)
+        self.player.drawArena(self.universe.screen)
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+        self.monster.drawArena(self.universe.screen)
+        self.universe.screen.print()
+        sleep(0.5)
+
+    def animateMonsterAttack(self):
+        """Draws and prints intermediate frames for the monster's attack animation."""
+        # Monster raises sword.
+        self.arenaHealthBars.draw(self.universe.screen)
+        self.monster.ASCII = ["@_____", "@\A/@@",
+                                "@@\@@@", "@/@\@@", "/@@@\\@"]
+        # This needs to be 2 because there's an extra line in this ASCII art.
+        self.monster.moveInArena(19, 2)
+        self.monster.drawArena(self.universe.screen)
+        self.player.moveInArena(5, 3)
+        self.player.drawArena(self.universe.screen)
+        self.universe.screen.print()
+        sleep(0.5)
+
+        # Monster swings sword.
+        self.arenaHealthBars.draw(self.universe.screen)
+        self.monster.ASCII = ["@@@A@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
+        self.monster.moveInArena(9, 3)
+        self.monster.drawArena(self.universe.screen)
+        # Player flinches.
+        self.player.ASCII = ["@@\o/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
+        self.player.drawArena(self.universe.screen)
+        self.universe.screen.print()
+        sleep(0.5)
+
+        # Update player and monster ASCII with the original positions
+        # for the start of the usual draw step.
+        self.monster.moveInArena(19, 3)
+        self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+        self.player.moveInArena(5, 3)
+        self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"]
 
     def update(self, inputs):
         """
@@ -84,11 +122,11 @@ class Arena:
             # attack even lands.
             self.player.attack(self.monster)
 
-        if self.monster.currentHealth <= 0:
-            # Any number <10 will cause 0 bars to be drawn for the health bar.
-            # So although the monster technically still has health left,
-            # it's misleading and bad UX to draw 0 bars.
+            #same as above but with the monster
+            self.animateMonsterAttack()
+            self.monster.attack(self.player)
 
+        if self.monster.currentHealth <= 0:
             # Monster defeated.
             # TODO: Draw and print victory screen.
             print('VICTORY!')
@@ -102,8 +140,25 @@ class Arena:
             self.universe.arena = None
             self.universe.isOverworld = True
 
-        # TODO: Implement monster attack.
+        if self.player.currentHealth <= 0:
+            # Player defeated.
+            # TODO: Draw and print defeat screen.
+            print('DEFEAT')
 
+            # TODO: Provide the option to start a new game here?
+            sleep(5)
+
+            # Remove player
+            del self.universe.player
+
+            # This clean up needs to happen after the drawn screen is
+            # drawn and printed, otherwise there won't be an Arena to refer
+            # to.
+            self.universe.arena = None
+            self.universe.isOverworld = True
+
+            # Terminate game.
+            sys.exit()
 
     def draw(self, screen):
         self.player.drawArena(screen)

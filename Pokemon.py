@@ -27,3 +27,18 @@ class Pokemon(Entity):
         print(damage)
         #  Apply damage to monster.
         monster.currentHealth -= damage
+        
+    def monsterAttack(self, player):
+        #  Calculate damage.
+        # damage = att * att / (att + def)
+        # https://gamedev.stackexchange.com/questions/129319/rpg-formula-attack-and-defense
+        damage = int(self.attackPower * self.attackPower / (
+            self.attackPower + player.defensePower))
+        # implrment critical chance and damage
+        prob = random.randint(0, 100)
+        if prob <= self.crit:
+            print("we crit")
+            damage = damage * 1.5
+        print(damage)
+        #  Apply damage to player.
+        player.currentHealth -= damage
