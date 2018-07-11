@@ -4,6 +4,7 @@ from Monster import *
 from Arena import *
 from Screen import *
 from Attack import *
+from HealthPot import *
 
 
 class Universe:
@@ -53,6 +54,14 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ])
         ]
+        
+        self.healthpot = [
+        
+            HealthPot(overworld_x=10, overworld_y=4, overworldChar = "+", ASCII = ["+"], health = 150),
+            
+            HealthPot(overworld_x=4, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
+            ]
+        
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
