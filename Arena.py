@@ -127,10 +127,6 @@ class Arena:
             self.monster.attack(self.player)
 
         if self.monster.currentHealth <= 0:
-            # Any number <10 will cause 0 bars to be drawn for the health bar.
-            # So although the monster technically still has health left,
-            # it's misleading and bad UX to draw 0 bars.
-
             # Monster defeated.
             # TODO: Draw and print victory screen.
             print('VICTORY!')
@@ -143,15 +139,14 @@ class Arena:
             # to.
             self.universe.arena = None
             self.universe.isOverworld = True
-            
-        if self.player.currentHealth <= 0:
-            # Any number <10 will cause 0 bars to be drawn for the health bar.
-            # So although the monster technically still has health left,
-            # it's misleading and bad UX to draw 0 bars.
 
+        if self.player.currentHealth <= 0:
             # Player defeated.
-            # TODO: Draw and print victory screen.
+            # TODO: Draw and print defeat screen.
             print('DEFEAT')
+
+            # TODO: Provide the option to start a new game here?
+            sleep(5)
 
             # Remove player
             del self.universe.player
@@ -161,11 +156,9 @@ class Arena:
             # to.
             self.universe.arena = None
             self.universe.isOverworld = True
-            
-            #terminate game
+
+            # Terminate game.
             sys.exit()
-
-
 
     def draw(self, screen):
         self.player.drawArena(screen)
