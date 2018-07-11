@@ -2,5 +2,6 @@ from Pokemon import *
 
 
 class Monster(Pokemon):
-    def __init__(self, overworld_x, overworld_y, ASCII, overworldChar, attackPower, defensePower, health, crit):
-        Pokemon.__init__(self, overworld_x, overworld_y, ASCII, overworldChar, attackPower, defensePower, health, 0, 0, crit)
+    def __init__(self, overworld_x, overworld_y, ASCII, overworldChar, arena_x, arena_y, defensePower, health, crit, moveset):
+        Pokemon.__init__(self, overworld_x, overworld_y, ASCII,
+                         overworldChar, arena_x, arena_y, defensePower, health, crit, moveset)

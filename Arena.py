@@ -112,6 +112,10 @@ class Arena:
             # TODO: Either remove this or turn it into a useful dialog.
             print('attack')
 
+            # TODO: The health bar update after the player's hit lands
+            # is less than optimal. Fix this. Test it out to see
+            # what I mean, I'm short on time right now.
+
             # Hacky drawing of intermediate action frames here.
             self.animatePlayerAttack()
 
@@ -120,11 +124,12 @@ class Arena:
             # health bar being shown to shorten only after the attack lands.
             # Otherwise, the health bar is shown to shorten before the
             # attack even lands.
-            self.player.attack(self.monster)
+            # TODO: Allow for variable attack input.
+            self.player.attack(self.player.moveset[0], self.monster)
 
             #same as above but with the monster
             self.animateMonsterAttack()
-            self.monster.attack(self.player)
+            self.monster.attack(self.monster.moveset[0], self.player)
 
         if self.monster.currentHealth <= 0:
             # Monster defeated.

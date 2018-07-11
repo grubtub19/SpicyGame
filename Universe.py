@@ -3,6 +3,7 @@ from Player import *
 from Monster import *
 from Arena import *
 from Screen import *
+from Attack import *
 
 
 class Universe:
@@ -20,12 +21,38 @@ class Universe:
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
-            10, 2, ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], "P", 50, 10, 100, 100)
+            overworld_x=10, overworld_y=2, ASCII=["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], overworldChar="P", arena_x=50, arena_y=10, defensePower=100,
+            health=1000, crit=0.2, moveset=[  # TODO: Balance these.
+                Attack(name='Heavy Attack', damage=400, hitChance=0.6),
+                Attack(name='Regular Attack', damage=100, hitChance=0.6),
+                Attack(name='Light Attack', damage=70, hitChance=0.6)
+            ])
         # array containing all monsters
         self.monsters = [
-            Monster(8, 1, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100, 20), 
-            Monster(27, 8, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100, 20),
-            Monster(2, 5, ["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], "M", 10, 10, 100, 20)]
+            Monster(
+                overworld_x=8, overworld_y=1, ASCII=["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"],
+                overworldChar="M", arena_x=10, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                moveset=[  # TODO: Balance these.
+                    Attack(name='Heavy Attack', damage=300, hitChance=0.6),
+                    Attack(name='Regular Attack', damage=75, hitChance=0.6),
+                    Attack(name='Light Attack', damage=18, hitChance=0.6)
+                ]),
+            Monster(
+                overworld_x=2, overworld_y=5, ASCII=["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"],
+                overworldChar="M", arena_x=10, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                moveset=[  # TODO: Balance these.
+                    Attack(name='Heavy Attack', damage=300, hitChance=0.6),
+                    Attack(name='Regular Attack', damage=75, hitChance=0.6),
+                    Attack(name='Light Attack', damage=18, hitChance=0.6)
+                ]),
+            Monster(
+                overworld_x=27, overworld_y=8, ASCII=["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], overworldChar="M", arena_x=10, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                moveset=[  # TODO: Balance these.
+                    Attack(name='Heavy Attack', damage=300, hitChance=0.6),
+                    Attack(name='Regular Attack', damage=75, hitChance=0.6),
+                    Attack(name='Light Attack', damage=18, hitChance=0.6)
+                ])
+        ]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
