@@ -45,10 +45,15 @@ class Arena:
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
+        self.arenaHealthBars.draw(self.universe.screen)
         self.player.moveInArena(5, 3)
         self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
         self.monster.moveInArena(19, 3)
+        self.player.drawArena(self.universe.screen)
         self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+        self.monster.drawArena(self.universe.screen)
+        self.universe.screen.print()
+        sleep(0.5)
 
     def animateMonsterAttack(self):
         """Draws and prints intermediate frames for the monster's attack animation."""
@@ -63,7 +68,7 @@ class Arena:
         self.player.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
-    
+
         # Monster swings sword.
         self.arenaHealthBars.draw(self.universe.screen)
         self.monster.ASCII = ["@@@A@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
@@ -74,7 +79,7 @@ class Arena:
         self.player.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
-    
+
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
         self.monster.moveInArena(19, 3)
@@ -116,7 +121,7 @@ class Arena:
             # Otherwise, the health bar is shown to shorten before the
             # attack even lands.
             self.player.attack(self.monster)
-            
+
             #same as above but with the monster
             self.animateMonsterAttack()
             self.monster.attack(self.player)
