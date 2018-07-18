@@ -1,6 +1,9 @@
+from Entity import *
+
+
 class StatusEffect():
-    def __init__(self, name, turnsLeft, damagePerTurn, ASCII=None):
+    def __init__(self, name, duration, damagePerTurn, ASCII=None):
         self.name = name
-        self.turnsLeft = turnsLeft
+        self.duration = duration
         self.damagePerTurn = damagePerTurn
-        self.ASCII = ASCII
+        self.icon = Entity(overworld_x=0, overworld_y=0, ASCII=ASCII, overworldChar="", arena_x=0, arena_y=0)
