@@ -35,7 +35,7 @@ class Universe:
         self.monsters = [
             Monster(
                 overworld_x=8, overworld_y=1,
-                sprites_path='monster.txt',
+                sprites_path='PepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Poison Attack', damage=300, hitChance=0.6,
@@ -106,4 +106,4 @@ class Universe:
 
 if __name__ == '__main__':
     # Run the game only if this module is run as the main program.
-    game = Universe(70, 20)
+    game = Universe(160, 18)

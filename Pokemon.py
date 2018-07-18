@@ -20,21 +20,28 @@ class Pokemon(Entity):
         self.currentHealth = health
         self.crit = crit
         self.moveset = moveset
+        self.nextAttackDamage = 0
+        self.nextAttackHits = True
 
-    def attack(self, attack, target):
-        #  Calculate damage.
+    def calcAttack(self, attack, target):
+        #  Calculate damage that is to be applied to the target in the future.
         # damage = att * att / (att + def)
         # https://gamedev.stackexchange.com/questions/129319/rpg-formula-attack-and-defense
         damage = int(attack.damage * attack.damage / (
-            attack.damage + target.defensePower))
+                attack.damage + target.defensePower))
         # implrment critical chance and damage
         prob = random.randint(0, 100) / 100
         if prob <= self.crit:
             print("we crit")
             damage = damage * 1.5
-        print(damage)
+        self.nextAttackDamage = damage
+        self.applyStatus(attack, target)
+
+    def applyAttack(self, target):
+
+
         #  Apply damage to monster.
-        target.currentHealth -= damage
+        target.currentHealth -= self.nextAttackDamage
 
     def loadSprites(self, filename):
         """Loads sprites from a .txt file and assigns them to Pokemon's attributes.

@@ -18,7 +18,7 @@ class Arena:
         self.y = y
         self.state = 0 # Not sure how the actual arena code will work, but if there are different phases or turns, using states might come in handy
 
-    def animatePlayerAttack(self):
+    def doPlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
         # Player raises sword.
         self.arenaHealthBars.draw(self.universe.screen)
@@ -29,8 +29,9 @@ class Arena:
         self.monster.moveInArena(19, 3)
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(0.5)
+        sleep(2)
 
+        self.player.calcAttack(self.player.moveset[0], self.monster)
         # Player swings sword.
         self.arenaHealthBars.draw(self.universe.screen)
         self.player.ASCII = self.player.endAttackSprite
@@ -40,10 +41,11 @@ class Arena:
         self.monster.ASCII = self.monster.flinchSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(0.5)
+        sleep(2)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
+        self.player.applyAttack(self.monster)
         self.arenaHealthBars.draw(self.universe.screen)
         self.player.moveInArena(5, 3)
         self.player.ASCII = self.player.neutralSprite
@@ -52,34 +54,41 @@ class Arena:
         self.monster.ASCII = self.monster.neutralSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(0.5)
+        sleep(2)
 
-    def animateMonsterAttack(self):
+    def doMonsterAttack(self):
         """Draws and prints intermediate frames for the monster's attack animation."""
         # Monster raises sword.
+
         self.arenaHealthBars.draw(self.universe.screen)
+
         self.monster.ASCII = self.monster.startAttackSprite
-        # This needs to be 2 because there's an extra line in this ASCII art.
-        self.monster.moveInArena(19, 2)
         self.monster.drawArena(self.universe.screen)
+
         self.player.moveInArena(5, 3)
         self.player.drawArena(self.universe.screen)
+
         self.universe.screen.print()
-        sleep(0.5)
+        sleep(2)
 
         # Monster swings sword.
+        self.monster.calcAttack(self.monster.moveset[0], self.player)
         self.arenaHealthBars.draw(self.universe.screen)
+
+        self.player.ASCII = self.player.flinchSprite
+        self.player.drawArena(self.universe.screen)
+
+        # Player flinches.
         self.monster.ASCII = self.monster.endAttackSprite
         self.monster.moveInArena(9, 3)
         self.monster.drawArena(self.universe.screen)
-        # Player flinches.
-        self.player.ASCII = self.player.flinchSprite
-        self.player.drawArena(self.universe.screen)
+
         self.universe.screen.print()
-        sleep(0.5)
+        sleep(2)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
+        self.monster.applyAttack(self.player)
         self.monster.moveInArena(19, 3)
         self.monster.ASCII = self.monster.neutralSprite
         self.player.moveInArena(5, 3)
@@ -115,7 +124,7 @@ class Arena:
             # what I mean, I'm short on time right now.
 
             # Hacky drawing of intermediate action frames here.
-            self.animatePlayerAttack()
+            self.doPlayerAttack()
 
             # Damage is applied after the intermediate action frames show
             # the attack successfully landing. This results in the
@@ -123,13 +132,11 @@ class Arena:
             # Otherwise, the health bar is shown to shorten before the
             # attack even lands.
             # TODO: Allow for variable attack input.
-            self.player.attack(self.player.moveset[0], self.monster)
 
+        if self.monster.currentHealth > 0:
             #same as above but with the monster
-            self.animateMonsterAttack()
-            self.monster.attack(self.monster.moveset[0], self.player)
-
-        if self.monster.currentHealth <= 0:
+            self.doMonsterAttack()
+        else:
             # Monster defeated.
             # TODO: Draw and print victory screen.
             print('VICTORY!')
