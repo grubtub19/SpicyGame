@@ -122,4 +122,4 @@ class Universe:
 
 if __name__ == '__main__':
     # Run the game only if this module is run as the main program.
-    game = Universe(30, 10)
+    game = Universe(70, 20)
