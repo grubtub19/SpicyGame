@@ -22,8 +22,7 @@ class Arena:
         """Draws and prints intermediate frames for the player's attack animation."""
         # Player raises sword.
         self.arenaHealthBars.draw(self.universe.screen)
-        self.player.ASCII = ["_____@", "@@\o/@",
-                                "@@/@@@", "@/@\@@", "/@@@\\@"]
+        self.player.ASCII = self.player.startAttackSprite
         # This needs to be 2 because there's an extra line in this ASCII art.
         self.player.moveInArena(5, 2)
         self.player.drawArena(self.universe.screen)
@@ -34,11 +33,11 @@ class Arena:
 
         # Player swings sword.
         self.arenaHealthBars.draw(self.universe.screen)
-        self.player.ASCII = ["@@@o@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
+        self.player.ASCII = self.player.endAttackSprite
         self.player.moveInArena(14, 3)
         self.player.drawArena(self.universe.screen)
         # Monster flinches.
-        self.monster.ASCII = ["@@\A/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
+        self.monster.ASCII = self.monster.flinchSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
@@ -47,10 +46,10 @@ class Arena:
         # for the start of the usual draw step.
         self.arenaHealthBars.draw(self.universe.screen)
         self.player.moveInArena(5, 3)
-        self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\@@", "/@@@\@"]
+        self.player.ASCII = self.player.neutralSprite
         self.monster.moveInArena(19, 3)
         self.player.drawArena(self.universe.screen)
-        self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+        self.monster.ASCII = self.monster.neutralSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
@@ -59,8 +58,7 @@ class Arena:
         """Draws and prints intermediate frames for the monster's attack animation."""
         # Monster raises sword.
         self.arenaHealthBars.draw(self.universe.screen)
-        self.monster.ASCII = ["@_____", "@\A/@@",
-                                "@@\@@@", "@/@\@@", "/@@@\\@"]
+        self.monster.ASCII = self.monster.startAttackSprite
         # This needs to be 2 because there's an extra line in this ASCII art.
         self.monster.moveInArena(19, 2)
         self.monster.drawArena(self.universe.screen)
@@ -71,11 +69,11 @@ class Arena:
 
         # Monster swings sword.
         self.arenaHealthBars.draw(self.universe.screen)
-        self.monster.ASCII = ["@@@A@@", "@@/\@@", "@/@\\\@", "/@@@\\\\"]
+        self.monster.ASCII = self.monster.endAttackSprite
         self.monster.moveInArena(9, 3)
         self.monster.drawArena(self.universe.screen)
         # Player flinches.
-        self.player.ASCII = ["@@\o/@", "@@@|@|", "@@/\@|", "@@\@\\|"]
+        self.player.ASCII = self.player.flinchSprite
         self.player.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
@@ -83,9 +81,9 @@ class Arena:
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
         self.monster.moveInArena(19, 3)
-        self.monster.ASCII = ["\@@A@@", "@\/|>@", "@@@/\@", "@@@\@\\"]
+        self.monster.ASCII = self.monster.neutralSprite
         self.player.moveInArena(5, 3)
-        self.player.ASCII = ["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"]
+        self.player.ASCII = self.player.neutralSprite
 
     def update(self, inputs):
         """

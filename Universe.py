@@ -27,7 +27,9 @@ class Universe:
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
-            overworld_x=10, overworld_y=2, ASCII=["@@@o@/", "@@/</@", "@/@\\@@", "/@@@\\@"], overworldChar="P", arena_x=50, arena_y=10, defensePower=100,
+            overworld_x=10, overworld_y=2, ASCII=[],
+            sprites=self.playerSprites,
+            overworldChar="P", arena_x=50, arena_y=10, defensePower=100,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
                 Attack(name='Heavy Attack', damage=400, hitChance=0.6),
                 Attack(name='Regular Attack', damage=100, hitChance=0.6),
@@ -36,23 +38,27 @@ class Universe:
         # array containing all monsters
         self.monsters = [
             Monster(
-                overworld_x=8, overworld_y=1, ASCII=["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"],
-                overworldChar="M", arena_x=10, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                overworld_x=8, overworld_y=1, ASCII=[],
+                sprites=self.monsterSprites,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
                     Attack(name='Regular Attack', damage=75, hitChance=0.6),
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=2, overworld_y=5, ASCII=["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"],
-                overworldChar="M", arena_x=10, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                overworld_x=2, overworld_y=5, ASCII=[],
+                sprites=self.monsterSprites,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
                     Attack(name='Regular Attack', damage=75, hitChance=0.6),
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=27, overworld_y=8, ASCII=["\\@@A@@", "@\\/|>@", "@@@/\\@", "@@@\\@\\"], overworldChar="M", arena_x=10, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                overworld_x=27, overworld_y=8, ASCII=[],
+                sprites=self.monsterSprites,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
                     Attack(name='Regular Attack', damage=75, hitChance=0.6),
