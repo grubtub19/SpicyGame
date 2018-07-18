@@ -18,6 +18,12 @@ class Universe:
         self.y = y # Unused for now.
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(self, x, y)
+
+        self.playerSprites = []
+        self.monsterSprites = []
+        self.loadSprites('monster.txt', self.monsterSprites)
+        self.loadSprites('player.txt', self.playerSprites)
+
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
@@ -55,6 +61,26 @@ class Universe:
         ]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
+
+    def loadSprites(self, filename, sprites):
+        """Loads sprites from a .txt file and returns a list of lists.
+
+        Each list item on the top level represents a single sprite.
+        Assumes that each sprite in the .txt file is delimited by an empty line.
+        Assumes that each sprite is 15 lines tall.
+        """
+        with open(filename) as f:
+            sprite = []
+            for line in f:
+                sprite.append(line.rstrip())
+                if line == '\n':
+                    # Delimit on empty lines.
+                    del sprite[-1]
+                    sprites.append(sprite)
+                    sprite = []
+            # The last \n in the file doesn't seem to show, so
+            # here's a hack around that.
+            sprites.append(sprite)
 
     def startArena(self, monsterIndex):
         """
