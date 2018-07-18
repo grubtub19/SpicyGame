@@ -4,6 +4,7 @@ from Monster import *
 from Arena import *
 from Screen import *
 from Attack import *
+from StatusEffect import *
 
 
 class Universe:
@@ -37,8 +38,10 @@ class Universe:
                 sprites_path='monster.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
-                    Attack(name='Heavy Attack', damage=300, hitChance=0.6),
-                    Attack(name='Regular Attack', damage=75, hitChance=0.6),
+                    Attack(name='Poison Attack', damage=300, hitChance=0.6,
+                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=10, ASCII="")),
+                    Attack(name='Spice Attack', damage=75, hitChance=0.6,
+                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, ASCII="")),
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
