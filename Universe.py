@@ -21,13 +21,15 @@ class Universe:
 
         self.playerSprites = []
         self.monsterSprites = []
+        # TODO: Maybe factorize this out into a helper functions class/object.
         self.loadSprites('monster.txt', self.monsterSprites)
         self.loadSprites('player.txt', self.playerSprites)
 
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
-            overworld_x=10, overworld_y=2, ASCII=[],
+            overworld_x=10, overworld_y=2,
+            # TODO: sprites='player.txt'
             sprites=self.playerSprites,
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
@@ -38,7 +40,7 @@ class Universe:
         # array containing all monsters
         self.monsters = [
             Monster(
-                overworld_x=8, overworld_y=1, ASCII=[],
+                overworld_x=8, overworld_y=1,
                 sprites=self.monsterSprites,
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -47,7 +49,7 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=2, overworld_y=5, ASCII=[],
+                overworld_x=2, overworld_y=5,
                 sprites=self.monsterSprites,
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -56,7 +58,7 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=27, overworld_y=8, ASCII=[],
+                overworld_x=27, overworld_y=8,
                 sprites=self.monsterSprites,
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.

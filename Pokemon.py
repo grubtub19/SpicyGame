@@ -6,8 +6,8 @@ class Pokemon(Entity):
         Any Entity that can battle is a Pokemon (Player, Monster)
     """
 
-    def __init__(self, overworld_x, overworld_y, ASCII, sprites, overworldChar, arena_x, arena_y, defensePower, health,  crit, moveset):
-        Entity.__init__(self, overworld_x, overworld_y, ASCII, overworldChar, arena_x, arena_y)
+    def __init__(self, overworld_x, overworld_y, sprites, overworldChar, arena_x, arena_y, defensePower, health,  crit, moveset):
+        Entity.__init__(self, overworld_x, overworld_y, sprites[0], overworldChar, arena_x, arena_y)
         self.defensePower = defensePower
         self.maxHealth = health
         self.currentHealth = health
@@ -18,10 +18,6 @@ class Pokemon(Entity):
         self.startAttackSprite = sprites[1]
         self.endAttackSprite = sprites[2]
         self.flinchSprite = sprites[3]
-        # Initial sprite.
-        # TODO: With this, it might be redundant to specify ASCII in the constructor.
-        # Shall we remove ASCII as a constructor argument?
-        self.ASCII = self.neutralSprite
 
     def attack(self, attack, target):
         #  Calculate damage.
