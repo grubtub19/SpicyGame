@@ -7,12 +7,12 @@ class Arena:
     def __init__(self, universe, player, monsterIndex, x, y):
         self.universe = universe # Easy access to universe.
         self.player = player
-        self.player.arena_x = 5 # Initial player position in Arena.
+        self.player.arena_x = 2 # Initial player position in Arena.
         self.player.arena_y = 3
         self.monsterIndex = monsterIndex
         self.monster = self.universe.monsters[monsterIndex]
-        self.monster.arena_x = 19 # Initial monster position in Arena.
-        self.monster.arena_y = 3
+        self.monster.arena_x = 30 # Initial monster position in Arena.
+        self.monster.arena_y = 8
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
         self.x = x  # screen dimensions just in case we need them
         self.y = y
@@ -24,9 +24,9 @@ class Arena:
         self.arenaHealthBars.draw(self.universe.screen)
         self.player.ASCII = self.player.startAttackSprite
         # This needs to be 2 because there's an extra line in this ASCII art.
-        self.player.moveInArena(5, 2)
+        self.player.moveInArena(2, 3)
         self.player.drawArena(self.universe.screen)
-        self.monster.moveInArena(19, 3)
+        self.monster.moveInArena(30, 8)
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
@@ -45,9 +45,9 @@ class Arena:
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
         self.arenaHealthBars.draw(self.universe.screen)
-        self.player.moveInArena(5, 3)
+        self.player.moveInArena(2, 3)
         self.player.ASCII = self.player.neutralSprite
-        self.monster.moveInArena(19, 3)
+        self.monster.moveInArena(30, 8)
         self.player.drawArena(self.universe.screen)
         self.monster.ASCII = self.monster.neutralSprite
         self.monster.drawArena(self.universe.screen)
@@ -60,9 +60,9 @@ class Arena:
         self.arenaHealthBars.draw(self.universe.screen)
         self.monster.ASCII = self.monster.startAttackSprite
         # This needs to be 2 because there's an extra line in this ASCII art.
-        self.monster.moveInArena(19, 2)
+        self.monster.moveInArena(30, 8)
         self.monster.drawArena(self.universe.screen)
-        self.player.moveInArena(5, 3)
+        self.player.moveInArena(2, 3)
         self.player.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(0.5)
@@ -70,7 +70,7 @@ class Arena:
         # Monster swings sword.
         self.arenaHealthBars.draw(self.universe.screen)
         self.monster.ASCII = self.monster.endAttackSprite
-        self.monster.moveInArena(9, 3)
+        self.monster.moveInArena(9, 8)
         self.monster.drawArena(self.universe.screen)
         # Player flinches.
         self.player.ASCII = self.player.flinchSprite
@@ -80,9 +80,9 @@ class Arena:
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
-        self.monster.moveInArena(19, 3)
+        self.monster.moveInArena(30, 8)
         self.monster.ASCII = self.monster.neutralSprite
-        self.player.moveInArena(5, 3)
+        self.player.moveInArena(2, 3)
         self.player.ASCII = self.player.neutralSprite
 
     def update(self, inputs):
