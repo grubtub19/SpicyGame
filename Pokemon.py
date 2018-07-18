@@ -34,8 +34,7 @@ class Pokemon(Entity):
         prob = random.randint(0, 100) / 100
         if finalHitChance >= prob:
             self.nextAttackHits = True
-        else:
-            self.nextAttackHits = False
+
 
     def calcDamage(self, attack, target):
         """
@@ -48,20 +47,19 @@ class Pokemon(Entity):
         if self.crit >= prob:
             self.nextAttackCrits = True
             damage = damage * Pokemon.critMultiplier
-        else:
-            self.nextAttackCrits = False
         self.nextAttackDamage = damage
 
     def calcAttack(self, attack, target):
         #  Calculate damage that is to be applied to the target in the future.
         # damage = att * att / (att + def)
         # https://gamedev.stackexchange.com/questions/129319/rpg-formula-attack-and-defense
+        self.nextAttackHits = False
+        self.nextAttackCrits = False
+        self.nextAttackDamage = 0
+
         self.calcHit(attack, target)
         if self.nextAttackHits:
             self.calcDamage(attack, target)
-        else:
-            self.nextAttackCrits = False
-            self.nextAttackDamage = 0
 
     def applyAttack(self, attack, target):
         #  Apply damage to monster.
