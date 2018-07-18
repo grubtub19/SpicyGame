@@ -19,18 +19,11 @@ class Universe:
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(self, x, y)
 
-        self.playerSprites = []
-        self.monsterSprites = []
-        # TODO: Maybe factorize this out into a helper functions class/object.
-        self.loadSprites('monster.txt', self.monsterSprites)
-        self.loadSprites('player.txt', self.playerSprites)
-
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
             overworld_x=10, overworld_y=2,
-            # TODO: sprites='player.txt'
-            sprites=self.playerSprites,
+            sprites_path='player.txt',
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
                 Attack(name='Heavy Attack', damage=400, hitChance=0.6),
@@ -41,7 +34,7 @@ class Universe:
         self.monsters = [
             Monster(
                 overworld_x=8, overworld_y=1,
-                sprites=self.monsterSprites,
+                sprites_path='monster.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
@@ -50,7 +43,7 @@ class Universe:
                 ]),
             Monster(
                 overworld_x=2, overworld_y=5,
-                sprites=self.monsterSprites,
+                sprites_path='monster.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
@@ -59,7 +52,7 @@ class Universe:
                 ]),
             Monster(
                 overworld_x=27, overworld_y=8,
-                sprites=self.monsterSprites,
+                sprites_path='monster.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
@@ -69,26 +62,6 @@ class Universe:
         ]
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
-
-    def loadSprites(self, filename, sprites):
-        """Loads sprites from a .txt file and returns a list of lists.
-
-        Each list item on the top level represents a single sprite.
-        Assumes that each sprite in the .txt file is delimited by an empty line.
-        Assumes that each sprite is 15 lines tall.
-        """
-        with open(filename) as f:
-            sprite = []
-            for line in f:
-                sprite.append(line.rstrip())
-                if line == '\n':
-                    # Delimit on empty lines.
-                    del sprite[-1]
-                    sprites.append(sprite)
-                    sprite = []
-            # The last \n in the file doesn't seem to show, so
-            # here's a hack around that.
-            sprites.append(sprite)
 
     def startArena(self, monsterIndex):
         """
