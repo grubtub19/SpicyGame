@@ -3,6 +3,11 @@ from Entity import *
 
 class TextBox(Entity):
     def __init__(self, x, y):
+        """
+        A textBox is an Entity that only uses the Arena position and sprite. Overworld variable are never used. Always call textBox.drawArena()
+        :param x:
+        :param y:
+        """
         Entity.__init__(self, overworld_x=0, overworld_y=0, sprite=["ojas","alsndkn","asldjf"], overworldChar=[], arena_x=x, arena_y=y)
         self.blankSprite = ["------------------------",
                  "|                      |",
@@ -10,12 +15,12 @@ class TextBox(Entity):
                  "|                      |",
                  "------------------------"]
         self.sprite = self.blankSprite
-        self.text = ["string","",""]
+        self.text = ["hi bob","string",""]
         self.height = 3
 
     def print(self, string):
         self.text.insert(0,string)
-        self.text.pop(3)
+        self.text.pop(self.height)
 
     def drawBox(self, screen):
         """
