@@ -57,6 +57,7 @@ class Arena:
         self.universe.screen.print()
         sleep(1/self.speed)
 
+
     def doMonsterAttack(self):
         """Draws and prints intermediate frames for the monster's attack animation."""
         # Monster raises sword.
@@ -126,6 +127,7 @@ class Arena:
 
             # Hacky drawing of intermediate action frames here.
             self.doPlayerAttack()
+            self.monster.applyStatusEffects()
 
             # Damage is applied after the intermediate action frames show
             # the attack successfully landing. This results in the
@@ -137,6 +139,7 @@ class Arena:
         if self.monster.currentHealth > 0:
             #same as above but with the monster
             self.doMonsterAttack()
+            self.player.applyStatusEffects()
         else:
             # Monster defeated.
             # TODO: Draw and print victory screen.

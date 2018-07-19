@@ -1,5 +1,6 @@
 from Entity import *
 import random
+import copy
 
 class Pokemon(Entity):
     """
@@ -25,6 +26,7 @@ class Pokemon(Entity):
         self.nextAttackDamage = 0
         self.nextAttackCrits = False
         self.nextAttackHits = True
+        self.currStatusEffects = []
 
     def calcHit(self, attack, target):
         """
@@ -65,9 +67,41 @@ class Pokemon(Entity):
         #  Apply damage to monster.
         if self.nextAttackHits:
             target.currentHealth -= self.nextAttackDamage
-            #self.applyStatus(attack, target)
+            if attack.statusEffect != None:
+                self.addStatusEffect(attack.statusEffect, target)
+            else:
+                print("did not add effect")
 
-    #TODO: self.applyStatus()
+    def addStatusEffect(self, statusEffect, target):
+        print("added status effect " + statusEffect.name)
+        target.currStatusEffects.append(copy.deepcopy(statusEffect))
+
+    def applyStatusEffects(self):
+        """
+        Selects the most damaging effect of each effect type and applies it. Decrements each effect's duration, and removes any that reach 0.
+        :return:
+        """
+        appliedEffects = []
+        toRemove = []
+        for effect in self.currStatusEffects:
+
+            mostDamagingEffect = effect
+            if effect.name not in appliedEffects:
+                appliedEffects.append(effect.name)
+                for otherEffect in self.currStatusEffects:
+                    if otherEffect.name == effect.name and otherEffect.damagePerTurn > mostDamagingEffect.damagePerTurn:
+                        otherEffect = mostDamagingEffect
+                self.currentHealth -= mostDamagingEffect.damagePerTurn
+                print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
+
+            effect.duration -= 1
+            if effect.duration <= 0:
+                toRemove.append(effect)
+
+        for item in toRemove:
+            print("removed " + item.name + " from effects list")
+            self.currStatusEffects.remove(item)
+
 
 
     def loadSprites(self, filename):
