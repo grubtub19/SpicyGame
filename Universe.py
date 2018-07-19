@@ -35,7 +35,7 @@ class Universe:
         # array containing all monsters
         self.monsters = [
             Monster(
-                overworld_x=8, overworld_y=1,
+                overworld_x=81, overworld_y=10,
                 sprites_path='PepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -46,7 +46,7 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=2, overworld_y=5,
+                overworld_x=70, overworld_y=5,
                 sprites_path='PepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -55,7 +55,7 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=27, overworld_y=8,
+                overworld_x=74, overworld_y=8,
                 sprites_path='pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
