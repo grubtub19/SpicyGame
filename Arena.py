@@ -92,7 +92,9 @@ class Arena:
         self.monster.moveInArena(9, 8)
         self.monster.drawArena(self.universe.screen)
         #Just an example of how to access the textBox
-        self.universe.textBox.print("you took 10 damage")
+        self.universe.textBox.print("Normal Attack -> 'a'")
+        self.universe.textBox.print("Strong Attack -> 's'")
+        self.universe.textBox.print("Weak Attack -> 'd'")
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
