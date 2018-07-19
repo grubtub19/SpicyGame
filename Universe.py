@@ -109,5 +109,8 @@ class Universe:
         screen.print()
 
 if __name__ == '__main__':
+    f = open("startingscreen.txt", "r")
+    startingScreen = f.read()
+    print(startingScreen)
     # Run the game only if this module is run as the main program.
-    game = Universe(160, 18)
+    game = Universe(160, 20)

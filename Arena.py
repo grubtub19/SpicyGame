@@ -11,14 +11,19 @@ class Arena:
 
         # Initialize Player.
         self.player = player
-        self.player.arena_x = 5
+        self.player.arena_x = 50
         self.player.arena_y = 3
 
         # Initialize Monster.
         self.monsterIndex = monsterIndex
         self.monster = self.universe.monsters[monsterIndex]
+
         self.monster.arena_x = 30
         self.monster.arena_y = 8
+
+        self.monster.arena_x = 75
+        self.monster.arena_y = 5
+
 
         # Initialize ArenaHealthBars.
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
@@ -32,9 +37,11 @@ class Arena:
         self.arenaHealthBars.draw(self.universe.screen)
         self.player.sprite = self.player.startAttackSprite
         # This needs to be 2 because there's an extra line in this ASCII art.
-        self.player.moveInArena(2, 3)
+
+        self.player.moveInArena(50, 1)
         self.player.drawArena(self.universe.screen)
-        self.monster.moveInArena(30, 8)
+        self.monster.moveInArena(75, 5)
+
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
@@ -43,7 +50,7 @@ class Arena:
         # Player swings sword.
         self.arenaHealthBars.draw(self.universe.screen)
         self.player.sprite = self.player.endAttackSprite
-        self.player.moveInArena(14, 3)
+        self.player.moveInArena(60, 3)
         self.player.drawArena(self.universe.screen)
         # Monster flinches.
         self.monster.sprite = self.monster.flinchSprite
@@ -55,9 +62,15 @@ class Arena:
         # for the start of the usual draw step.
         self.player.applyAttack(self.player.moveset[0], self.monster)
         self.arenaHealthBars.draw(self.universe.screen)
+
         self.player.moveInArena(2, 3)
         self.player.sprite = self.player.neutralSprite
         self.monster.moveInArena(30, 8)
+
+        self.player.moveInArena(50, 3)
+        self.player.sprite = self.player.neutralSprite
+        self.monster.moveInArena(75, 5)
+
         self.player.drawArena(self.universe.screen)
         self.monster.sprite = self.monster.neutralSprite
         self.monster.drawArena(self.universe.screen)
@@ -76,6 +89,9 @@ class Arena:
         self.monster.moveInArena(30, 8)
 
         self.player.moveInArena(2, 3)
+
+        self.player.moveInArena(50, 3)
+
         self.player.drawArena(self.universe.screen)
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
@@ -89,7 +105,11 @@ class Arena:
 
         # Player flinches.
         self.monster.sprite = self.monster.endAttackSprite
+
         self.monster.moveInArena(9, 8)
+
+        self.monster.moveInArena(65, 5)
+
         self.monster.drawArena(self.universe.screen)
         #Just an example of how to access the textBox
         self.universe.textBox.print("you took 10 damage")
@@ -98,6 +118,12 @@ class Arena:
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
+
+        self.monster.applyAttack(self.monster.moveset[0], self.player)
+        self.monster.moveInArena(75, 5)
+        self.monster.sprite = self.monster.neutralSprite
+        self.player.moveInArena(50, 2)
+        self.player.sprite = self.player.neutralSprite
 
     def update(self, inputs):
         """
