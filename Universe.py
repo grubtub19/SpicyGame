@@ -5,6 +5,7 @@ from Arena import *
 from Screen import *
 from Attack import *
 from StatusEffect import *
+from TextBox import *
 
 
 class Universe:
@@ -14,9 +15,11 @@ class Universe:
     controls = ['w','a','s','d']
 
     def __init__(self, screen_width, screen_height):
+        self.textBox = TextBox(0,13)
         self.screen = Screen(screen_width, screen_height)
         self.screen_width = screen_width
         self.screen_height = screen_height
+
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(
             self, width=40, height=15, overworld_x=60, overworld_y=1)

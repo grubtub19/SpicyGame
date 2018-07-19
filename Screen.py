@@ -2,7 +2,8 @@ class Screen:
 
     blankChar = "."
 
-    def __init__(self, width, height):
+    def __init__(self, universe, width, height):
+        self.universe = universe
         self.width = width
         self.height = height
         self.buffer = [[self.blankChar for i in range(0, self.width)] for j in range(0, self.height)]
@@ -14,6 +15,8 @@ class Screen:
         self.buffer = [[self.blankChar for i in range(0, self.width)] for j in range(0, self.height)]
 
     def print(self):
+        # TODO: optionally draw the textBox since we don't want it on some screens like the start menu
+        self.universe.textBox.drawBox(self.universe.screen)
         """Prints the buffer's contents to the console."""
         # This is an initial attempt to print some whitespace above the drawn
         # frames so that past frames don't show up in the console.

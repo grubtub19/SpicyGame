@@ -76,7 +76,6 @@ class Arena:
 
         self.player.moveInArena(5, 3)
         self.player.drawArena(self.universe.screen)
-
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
@@ -91,7 +90,8 @@ class Arena:
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(9, 3)
         self.monster.drawArena(self.universe.screen)
-
+        #Just an example of how to access the textBox
+        self.universe.textBox.print("you took 10 damage")
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
