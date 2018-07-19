@@ -4,6 +4,7 @@ import random
 import sys
 
 class Arena:
+
     def __init__(self, universe, player, monsterIndex, x, y):
         self.universe = universe # Easy access to universe.
         self.player = player
@@ -16,7 +17,7 @@ class Arena:
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
         self.x = x  # screen dimensions just in case we need them
         self.y = y
-        self.state = 0 # Not sure how the actual arena code will work, but if there are different phases or turns, using states might come in handy
+        self.speed = 1
 
     def doPlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
@@ -29,7 +30,7 @@ class Arena:
         self.monster.moveInArena(19, 3)
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(2)
+        sleep(1/self.speed)
 
         self.player.calcAttack(self.player.moveset[0], self.monster)
         # Player swings sword.
@@ -41,7 +42,7 @@ class Arena:
         self.monster.sprite = self.monster.flinchSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(2)
+        sleep(1/self.speed)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
@@ -54,7 +55,7 @@ class Arena:
         self.monster.sprite = self.monster.neutralSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(2)
+        sleep(1/self.speed)
 
     def doMonsterAttack(self):
         """Draws and prints intermediate frames for the monster's attack animation."""
@@ -69,7 +70,7 @@ class Arena:
         self.player.drawArena(self.universe.screen)
 
         self.universe.screen.print()
-        sleep(2)
+        sleep(1/self.speed)
 
         # Monster swings sword.
         self.monster.calcAttack(self.monster.moveset[0], self.player)
@@ -84,7 +85,7 @@ class Arena:
         self.monster.drawArena(self.universe.screen)
 
         self.universe.screen.print()
-        sleep(2)
+        sleep(1/self.speed)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
