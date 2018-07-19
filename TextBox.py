@@ -28,10 +28,11 @@ class TextBox(Entity):
         """
         self.sprite = self.blankSprite
         for i in range(0, len(self.text)):
-            for j in range(0, len(self.text[i])):
+            self.sprite[self.height-i] = self.sprite[self.height-i][:2] + self.text[i] + self.sprite[self.height-i][len(self.text[i])+2:]
+            """for j in range(0, len(self.text[i])):
                 self.sprite[self.height-i] = self.sprite[self.height-i][:j+2] + self.text[i][j] + self.sprite[self.height-i][j+3:]
                 if j > len(self.sprite[0]) - 6:
-                    break
+                    break"""
         self.drawArena(screen)
 
         #TODO: self.wipe():
