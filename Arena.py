@@ -5,19 +5,26 @@ import sys
 
 class Arena:
 
-    def __init__(self, universe, player, monsterIndex, x, y):
-        self.universe = universe # Easy access to universe.
+    def __init__(self, universe, player, monsterIndex):
+        # Easy access to universe.
+        self.universe = universe
+
+        # Initialize Player.
         self.player = player
-        self.player.arena_x = 5 # Initial player position in Arena.
+        self.player.arena_x = 5
         self.player.arena_y = 3
+
+        # Initialize Monster.
         self.monsterIndex = monsterIndex
         self.monster = self.universe.monsters[monsterIndex]
-        self.monster.arena_x = 19 # Initial monster position in Arena.
+        self.monster.arena_x = 19
         self.monster.arena_y = 3
+
+        # Initialize ArenaHealthBars.
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
-        self.x = x  # screen dimensions just in case we need them
-        self.y = y
-        self.speed = 1
+
+        # For scaling the animation speed.
+        self.animationSpeedScale = 1
 
     def doPlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
@@ -30,7 +37,7 @@ class Arena:
         self.monster.moveInArena(19, 3)
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(1/self.speed)
+        sleep(1/self.animationSpeedScale)
 
         self.player.calcAttack(self.player.moveset[0], self.monster)
         # Player swings sword.
@@ -42,7 +49,7 @@ class Arena:
         self.monster.sprite = self.monster.flinchSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(1/self.speed)
+        sleep(1/self.animationSpeedScale)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.
@@ -55,7 +62,7 @@ class Arena:
         self.monster.sprite = self.monster.neutralSprite
         self.monster.drawArena(self.universe.screen)
         self.universe.screen.print()
-        sleep(1/self.speed)
+        sleep(1/self.animationSpeedScale)
 
 
     def doMonsterAttack(self):
@@ -71,7 +78,7 @@ class Arena:
         self.player.drawArena(self.universe.screen)
 
         self.universe.screen.print()
-        sleep(1/self.speed)
+        sleep(1/self.animationSpeedScale)
 
         # Monster swings sword.
         self.monster.calcAttack(self.monster.moveset[0], self.player)
@@ -86,7 +93,7 @@ class Arena:
         self.monster.drawArena(self.universe.screen)
 
         self.universe.screen.print()
-        sleep(1/self.speed)
+        sleep(1/self.animationSpeedScale)
 
         # Update player and monster ASCII with the original positions
         # for the start of the usual draw step.

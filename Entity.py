@@ -50,14 +50,14 @@ class Entity:
         self.arena_y = y
 
     def drawArena(self, screen):
-        """Draws ASCII art in the Arena.
+        """Draws a sprite in the Arena.
 
         :param screen:
         """
         self.draw(screen, self.sprite, self.arena_x, self.arena_y)
 
     def drawOverworld(self, screen):
-        """Draws ASCII art in the Overworld.
+        """Draws a character in the Overworld.
 
         :param screen:
         """

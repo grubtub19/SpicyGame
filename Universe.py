@@ -73,7 +73,7 @@ class Universe:
         :param monster:
         """
         self.isOverworld = False
-        self.arena = Arena(self, self.player, monsterIndex, self.screen_width, self.screen_height)
+        self.arena = Arena(self, self.player, monsterIndex)
 
     def loop(self):
         while(True):
