@@ -28,76 +28,128 @@ class Arena:
 
     def doPlayerAttack(self):
         """Draws and prints intermediate frames for the player's attack animation."""
-        # Player raises sword.
+        # Frame 1.
+        # Draw health bars.
         self.arenaHealthBars.draw(self.universe.screen)
+
+        # Player starts attack.
         self.player.sprite = self.player.startAttackSprite
-        # This needs to be 2 because there's an extra line in this ASCII art.
-        self.player.moveInArena(2, 3)
+        self.player.moveInArena(2, 2)
         self.player.drawArena(self.universe.screen)
+
+        # Monster stays neutral.
         self.monster.moveInArena(30, 8)
         self.monster.drawArena(self.universe.screen)
+
+        # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
-        self.player.calcAttack(self.player.moveset[0], self.monster)
-        # Player swings sword.
+        # Frame 2.
+        # Draw health bars.
         self.arenaHealthBars.draw(self.universe.screen)
+
+        # Player ends attack.
+        # Calculate attack to be applied during the next frame.
+        self.player.calcAttack(self.player.moveset[0], self.monster)
         self.player.sprite = self.player.endAttackSprite
         self.player.moveInArena(14, 3)
         self.player.drawArena(self.universe.screen)
+
         # Monster flinches.
         self.monster.sprite = self.monster.flinchSprite
         self.monster.drawArena(self.universe.screen)
+
+        # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
-        # Update player and monster ASCII with the original positions
-        # for the start of the usual draw step.
+        # Frame 3.
+        # Apply attack so that health bars are drawn according
+        # to the Monster's updated health. Then draw health bars.
         self.player.applyAttack(self.player.moveset[0], self.monster)
         self.arenaHealthBars.draw(self.universe.screen)
-        self.player.moveInArena(2, 3)
+
+        # Update Player with the original positions
+        # and sprites for the start of the usual draw step.
         self.player.sprite = self.player.neutralSprite
-        self.monster.moveInArena(30, 8)
+        self.player.moveInArena(2, 3)
         self.player.drawArena(self.universe.screen)
+
+        # Update Monster with the original positions
+        # and sprites for the start of the usual draw step.
         self.monster.sprite = self.monster.neutralSprite
+        self.monster.moveInArena(30, 8)
         self.monster.drawArena(self.universe.screen)
+
+        # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
-
 
     def doMonsterAttack(self):
         """Draws and prints intermediate frames for the monster's attack animation."""
-        # Monster raises sword.
-
+        # Frame 1.
+        # Print health bars.
         self.arenaHealthBars.draw(self.universe.screen)
 
+        # Monster starts attack.
         self.monster.sprite = self.monster.startAttackSprite
-        self.monster.drawArena(self.universe.screen)
         self.monster.moveInArena(30, 8)
+        self.monster.drawArena(self.universe.screen)
 
+        # Player stays neutral.
         self.player.moveInArena(2, 3)
         self.player.drawArena(self.universe.screen)
+
+        # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
-        # Monster swings sword.
-        self.monster.calcAttack(self.monster.moveset[0], self.player)
+        # Frame 2.
+        # Draw health bars.
         self.arenaHealthBars.draw(self.universe.screen)
 
+        # Player flinches.
         self.player.sprite = self.player.flinchSprite
         self.player.drawArena(self.universe.screen)
 
-        # Player flinches.
+        # Monster ends attack.
+        # Monster is drawn after Player so that Monster's attack sprite
+        # is visible over the Player.
+        # Calculate attack to be applied during the next frame.
+        self.monster.calcAttack(self.monster.moveset[0], self.player)
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(9, 8)
         self.monster.drawArena(self.universe.screen)
+
         #Just an example of how to access the textBox
         self.universe.textBox.print("you took 10 damage")
+
+        # Print frame.
+        self.universe.screen.print()
+        sleep(1 / self.animationSpeedScale)
+
+        # Frame 3.
+        # Apply attack so that health bars are drawn according
+        # to the Player's updated health. Then draw health bars.
+        self.monster.applyAttack(self.monster.moveset[0], self.player)
+        self.arenaHealthBars.draw(self.universe.screen)
+
+        # Update Monster with the original positions
+        # and sprites for the start of the usual draw step.
+        self.monster.sprite = self.monster.neutralSprite
+        self.monster.moveInArena(30, 8)
+        self.monster.drawArena(self.universe.screen)
+
+        # Update Player with the original positions
+        # and sprites for the start of the usual draw step.
+        self.player.sprite = self.player.neutralSprite
+        self.player.moveInArena(2, 3)
+        self.player.drawArena(self.universe.screen)
+
+        # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
-
-        # Update player and monster ASCII with the original positions
-        # for the start of the usual draw step.
 
     def update(self, inputs):
         """

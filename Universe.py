@@ -6,6 +6,7 @@ from Screen import *
 from Attack import *
 from StatusEffect import *
 from TextBox import *
+from HealthPot import *
 
 
 class Universe:
@@ -67,6 +68,12 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ])
         ]
+
+        self.healthpot = [
+            HealthPot(overworld_x=70, overworld_y=4, overworldChar = "+", ASCII = ["+"], health = 150),
+            HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
+        ]
+
         self.arena = None  # we use startArena() to instantiate this
         self.loop()
 
