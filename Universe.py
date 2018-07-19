@@ -24,8 +24,8 @@ class Universe:
         # (Darth Vader and Luke go at it!)
         self.player = Player(
             overworld_x=10, overworld_y=2,
-            sprites_path='player.txt',
-            overworldChar="P", arena_x=50, arena_y=10, defensePower=100,
+            sprites_path="player.txt",
+            overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
                 Attack(name='Heavy Attack', damage=400, hitChance=0.6),
                 Attack(name='Regular Attack', damage=100, hitChance=0.6),
@@ -36,18 +36,18 @@ class Universe:
             Monster(
                 overworld_x=8, overworld_y=1,
                 sprites_path='PepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Poison Attack', damage=300, hitChance=0.6,
-                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=10, ASCII="")),
+                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=10, sprite_path="poisonEffect.txt")),
                     Attack(name='Spice Attack', damage=75, hitChance=0.6,
-                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, ASCII="")),
+                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="spiceEffect.txt")),
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
                 overworld_x=2, overworld_y=5,
-                sprites_path='monster.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                sprites_path='PepperSprite.txt',
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
                     Attack(name='Regular Attack', damage=75, hitChance=0.6),
@@ -55,8 +55,8 @@ class Universe:
                 ]),
             Monster(
                 overworld_x=27, overworld_y=8,
-                sprites_path='monster.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, crit=0.1,
+                sprites_path='pepperSprite.txt',
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
                     Attack(name='Regular Attack', damage=75, hitChance=0.6),

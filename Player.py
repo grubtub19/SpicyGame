@@ -6,9 +6,9 @@ class Player(Pokemon):
     controls = ['w', 'a', 's', 'd'] # [up, left, down, right]
 
     def __init__(self, overworld_x, overworld_y, sprites_path, overworldChar, arena_x, arena_y,
-    defensePower, health, crit, moveset):
+    defensePower, health, evade,  crit, moveset):
         Pokemon.__init__(self, overworld_x, overworld_y, sprites_path,
-                         overworldChar, arena_x, arena_y, defensePower, health, crit, moveset)
+                         overworldChar, arena_x, arena_y, defensePower, health, evade, crit, moveset)
 
     def update(self, inputs):
         """

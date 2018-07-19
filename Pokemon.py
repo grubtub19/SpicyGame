@@ -69,6 +69,7 @@ class Pokemon(Entity):
 
     #TODO: self.applyStatus()
 
+
     def loadSprites(self, filename):
         """Loads sprites from a .txt file and assigns them to Pokemon's attributes.
 

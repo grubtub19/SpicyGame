@@ -25,7 +25,7 @@ class Entity:
             sprite = []
             for line in f:
                 sprite.append(line.rstrip())
-        self.ASCII = sprite
+        self.sprite = sprite
 
     def draw(self, screen, ASCII, x, y):
         """Draws the Entity's ASCII art on the screen starting from x, y,
