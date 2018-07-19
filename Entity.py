@@ -2,7 +2,7 @@ class Entity:
 
     transparent = "@" # This character is ignored when drawing the ASCII art
 
-    def __init__(self, overworld_x, overworld_y, ASCII, overworldChar, arena_x, arena_y):
+    def __init__(self, overworld_x, overworld_y, sprite, overworldChar, arena_x, arena_y):
         # Entity's coordinates.
         self.overworld_x = overworld_x
         self.overworld_y = overworld_y
@@ -15,8 +15,17 @@ class Entity:
         #      O X X
         #      X X X
         #      X X X
-        self.ASCII = ASCII  # In the Arena, the ASCII art is a 2D matrix of strings.
+        self.sprite = sprite  # In the Arena, the ASCII art is a 2D matrix of strings.
         self.overworldChar = overworldChar # Character that represents the entity in the Overworld.
+
+    def setSprite(self, sprite_path):
+        """Assumes that there is no trailing newline at the end
+        end of the .txt file."""
+        with open(sprite_path) as f:
+            sprite = []
+            for line in f:
+                sprite.append(line.rstrip())
+        self.ASCII = sprite
 
     def draw(self, screen, ASCII, x, y):
         """Draws the Entity's ASCII art on the screen starting from x, y,
@@ -45,7 +54,7 @@ class Entity:
 
         :param screen:
         """
-        self.draw(screen, self.ASCII, self.arena_x, self.arena_y)
+        self.draw(screen, self.sprite, self.arena_x, self.arena_y)
 
     def drawOverworld(self, screen):
         """Draws ASCII art in the Overworld.
