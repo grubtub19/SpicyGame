@@ -13,17 +13,18 @@ class Universe:
     """
     controls = ['w','a','s','d']
 
-    def __init__(self, x, y):
-        self.screen = Screen(x, y)
-        self.x = x # Unused for now.
-        self.y = y # Unused for now.
+    def __init__(self, screen_width, screen_height):
+        self.screen = Screen(screen_width, screen_height)
+        self.screen_width = screen_width
+        self.screen_height = screen_height
         self.isOverworld = True  # False if the current stage is the Arena
-        self.overworld = Overworld(self, x, y)
+        self.overworld = Overworld(
+            self, width=40, height=15, overworld_x=60, overworld_y=1)
 
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
-            overworld_x=10, overworld_y=2,
+            overworld_x=80, overworld_y=9,
             sprites_path="player.txt",
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
@@ -72,7 +73,7 @@ class Universe:
         :param monster:
         """
         self.isOverworld = False
-        self.arena = Arena(self, self.player, monsterIndex, self.x, self.y)
+        self.arena = Arena(self, self.player, monsterIndex, self.screen_width, self.screen_height)
 
     def loop(self):
         while(True):

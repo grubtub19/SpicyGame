@@ -2,16 +2,16 @@ class Screen:
 
     blankChar = "."
 
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.buffer = [[self.blankChar for i in range(0, self.x)] for j in range(0, self.y)]
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.buffer = [[self.blankChar for i in range(0, self.width)] for j in range(0, self.height)]
 
     def wipeScreen(self):
         """
         resets the screen to be blank (made up of "blankChar"s)
         """
-        self.buffer = [[self.blankChar for i in range(0, self.x)] for j in range(0, self.y)]
+        self.buffer = [[self.blankChar for i in range(0, self.width)] for j in range(0, self.height)]
 
     def print(self):
         """Prints the buffer's contents to the console."""
