@@ -11,14 +11,14 @@ class Arena:
 
         # Initialize Player.
         self.player = player
-        self.player.arena_x = 5
+        self.player.arena_x = 50
         self.player.arena_y = 3
 
         # Initialize Monster.
         self.monsterIndex = monsterIndex
         self.monster = self.universe.monsters[monsterIndex]
-        self.monster.arena_x = 30
-        self.monster.arena_y = 8
+        self.monster.arena_x = 75
+        self.monster.arena_y = 5
 
         # Initialize ArenaHealthBars.
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
@@ -34,11 +34,11 @@ class Arena:
 
         # Player starts attack.
         self.player.sprite = self.player.startAttackSprite
-        self.player.moveInArena(2, 2)
+        self.player.moveInArena(50, 1)
         self.player.drawArena(self.universe.screen)
 
         # Monster stays neutral.
-        self.monster.moveInArena(30, 8)
+        self.monster.moveInArena(75, 5)
         self.monster.drawArena(self.universe.screen)
 
         # Print frame.
@@ -53,7 +53,7 @@ class Arena:
         # Calculate attack to be applied during the next frame.
         self.player.calcAttack(self.player.moveset[0], self.monster)
         self.player.sprite = self.player.endAttackSprite
-        self.player.moveInArena(14, 3)
+        self.player.moveInArena(60, 3)
         self.player.drawArena(self.universe.screen)
 
         # Monster flinches.
@@ -73,13 +73,13 @@ class Arena:
         # Update Player with the original positions
         # and sprites for the start of the usual draw step.
         self.player.sprite = self.player.neutralSprite
-        self.player.moveInArena(2, 3)
+        self.player.moveInArena(50, 3)
         self.player.drawArena(self.universe.screen)
 
         # Update Monster with the original positions
         # and sprites for the start of the usual draw step.
         self.monster.sprite = self.monster.neutralSprite
-        self.monster.moveInArena(30, 8)
+        self.monster.moveInArena(75, 5)
         self.monster.drawArena(self.universe.screen)
 
         # Print frame.
@@ -94,11 +94,11 @@ class Arena:
 
         # Monster starts attack.
         self.monster.sprite = self.monster.startAttackSprite
-        self.monster.moveInArena(30, 8)
+        self.monster.moveInArena(75, 5)
         self.monster.drawArena(self.universe.screen)
 
         # Player stays neutral.
-        self.player.moveInArena(2, 3)
+        self.player.moveInArena(50, 3)
         self.player.drawArena(self.universe.screen)
 
         # Print frame.
@@ -111,6 +111,7 @@ class Arena:
 
         # Player flinches.
         self.player.sprite = self.player.flinchSprite
+        self.player.moveInArena(50, 4)
         self.player.drawArena(self.universe.screen)
 
         # Monster ends attack.
@@ -119,13 +120,15 @@ class Arena:
         # Calculate attack to be applied during the next frame.
         self.monster.calcAttack(self.monster.moveset[0], self.player)
         self.monster.sprite = self.monster.endAttackSprite
-        self.monster.moveInArena(9, 8)
+        self.monster.moveInArena(65, 5)
         self.monster.drawArena(self.universe.screen)
 
-        #Just an example of how to access the textBox
+        # Just an example of how to access the textBox
         self.universe.textBox.print("Normal Attack -> 'a'")
         self.universe.textBox.print("Strong Attack -> 's'")
         self.universe.textBox.print("Weak Attack -> 'd'")
+
+        # Print frame.
         self.universe.screen.print()
         sleep(1 / self.animationSpeedScale)
 
@@ -138,13 +141,13 @@ class Arena:
         # Update Monster with the original positions
         # and sprites for the start of the usual draw step.
         self.monster.sprite = self.monster.neutralSprite
-        self.monster.moveInArena(30, 8)
+        self.monster.moveInArena(75, 5)
         self.monster.drawArena(self.universe.screen)
 
         # Update Player with the original positions
         # and sprites for the start of the usual draw step.
         self.player.sprite = self.player.neutralSprite
-        self.player.moveInArena(2, 3)
+        self.player.moveInArena(50, 3)
         self.player.drawArena(self.universe.screen)
 
         # Print frame.
