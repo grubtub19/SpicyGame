@@ -81,16 +81,20 @@ class Pokemon(Entity):
         Selects the most damaging effect of each effect type and applies it. Decrements each effect's duration, and removes any that reach 0.
         :return:
         """
-        appliedEffects = []
-        toRemove = []
+        appliedEffects = [] # since we only want to apply each status effect type once, we keep track of which ones we've already applied
+        toRemove = [] # keep track of all the effects who's duration has become 0 so we can remove them afterward
         for effect in self.currStatusEffects:
-
             mostDamagingEffect = effect
+            # check if we've already applied the damage of the current effect type
             if effect.name not in appliedEffects:
+
                 appliedEffects.append(effect.name)
+                # ideally we would want to iterate from the current position in self.currStatusEffects onward, but
+                # doing it this was makes it simpler
                 for otherEffect in self.currStatusEffects:
+
                     if otherEffect.name == effect.name and otherEffect.damagePerTurn > mostDamagingEffect.damagePerTurn:
-                        otherEffect = mostDamagingEffect
+                        otherEffect = mostDamagingEffect #compares all effects of the same type and finds the most damaging
                 self.currentHealth -= mostDamagingEffect.damagePerTurn
                 print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
 
