@@ -35,4 +35,5 @@ class TextBox(Entity):
                     break"""
         self.drawArena(screen)
 
-        #TODO: self.wipe():
+    def wipeScreen(self):
+        self.print.clear()

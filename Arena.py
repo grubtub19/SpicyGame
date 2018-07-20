@@ -215,7 +215,9 @@ class Arena:
         if self.player.currentHealth <= 0:
             # Player defeated.
             # TODO: Draw and print defeat screen.
-            print('DEFEAT')
+            f = open("defeatScreen.txt", "r")
+            defeatScreen = f.read()
+            print(defeatScreen)
 
             # TODO: Provide the option to start a new game here?
             sleep(5)
