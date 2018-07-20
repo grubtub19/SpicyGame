@@ -231,7 +231,7 @@ class Arena:
 
         if self.player.currentHealth <= 0:
             # Player defeated.
-            f = open("defeatScreen.txt", "r")
+            f = open("sprites/defeatScreen.txt", "r")
             defeatScreen = f.read()
             print(defeatScreen)
 

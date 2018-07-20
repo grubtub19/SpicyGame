@@ -17,7 +17,7 @@ class Universe:
 
     def __init__(self, screen_width, screen_height):
 
-        f = open("startingscreen.txt", "r")
+        f = open("sprites/startingScreen.txt", "r")
         startingScreen = f.read()
         print(startingScreen)
         self.textBox = TextBox(0,15)
@@ -44,11 +44,9 @@ class Universe:
                 'sprites/overworldControlsLegend.txt'),
             arena_x=0, arena_y=0)
 
-        # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
-        # (Darth Vader and Luke go at it!)
         self.player = Player(
             overworld_x=80, overworld_y=9,
-            sprites_path="player.txt",
+            sprites_path="sprites/player.txt",
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
                 Attack(name='Heavy Attack', damage=400, hitChance=0.6),
@@ -59,18 +57,18 @@ class Universe:
         self.monsters = [
             Monster(
                 overworld_x=81, overworld_y=10,
-                sprites_path='PepperSprite.txt',
+                sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Poison Attack', damage=300, hitChance=1.0,
-                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="poisonEffect.txt")),
+                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
                     Attack(name='Spice Attack', damage=75, hitChance=0.6,
-                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="spiceEffect.txt")),
+                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
                 overworld_x=70, overworld_y=5,
-                sprites_path='PepperSprite.txt',
+                sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
@@ -79,7 +77,7 @@ class Universe:
                 ]),
             Monster(
                 overworld_x=74, overworld_y=8,
-                sprites_path='pepperSprite.txt',
+                sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Heavy Attack', damage=300, hitChance=0.6),
@@ -93,7 +91,7 @@ class Universe:
             HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
         ]
 
-        self.arena = None  # we use startArena() to instantiate this
+        self.arena = None
         self.reset = False
         self.exit = False
         self.loop()
