@@ -16,7 +16,7 @@ class Universe:
     controls = ['w','a','s','d']
 
     def __init__(self, screen_width, screen_height):
-        self.textBox = TextBox(0,13)
+        self.textBox = TextBox(0,15)
         self.screen = Screen(self, screen_width, screen_height)
         self.screen_width = screen_width
         self.screen_height = screen_height
