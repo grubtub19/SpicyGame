@@ -190,6 +190,8 @@ class Arena:
             self.universe.arena = None
             self.universe.isOverworld = True
 
+            return
+
         if inputs == 'a':
             # TODO: Either remove this or turn it into a useful dialog.
             print('attack')
