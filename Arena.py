@@ -229,23 +229,29 @@ class Arena:
 
         if self.player.currentHealth <= 0:
             # Player defeated.
-            # TODO: Draw and print defeat screen.
-            print('DEFEAT')
+            f = open("defeatScreen.txt", "r")
+            defeatScreen = f.read()
+            print(defeatScreen)
 
-            # TODO: Provide the option to start a new game here?
-            sleep(5)
+            sleep(1)
 
-            # Remove player
-            del self.universe.player
+            #option to restart the game
+            isValid = False
+            self.universe.exit = True
+            while not isValid:
+                replay = input("continue? (y or n): ")
+                if replay == "y":
+                    self.universe.reset = True
+                    isValid = True
+                elif replay == "n":
+                    isValid = True
 
-            # This clean up needs to happen after the drawn screen is
-            # drawn and printed, otherwise there won't be an Arena to refer
-            # to.
-            self.universe.arena = None
-            self.universe.isOverworld = True
 
-            # Terminate game.
-            sys.exit()
+                else:
+                    print("invalid input try again!")
+
+
+
 
     def draw(self, screen):
         self.player.drawArena(screen)

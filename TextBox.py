@@ -31,4 +31,5 @@ class TextBox(Entity):
             self.sprite[self.height-i] = self.sprite[self.height-i][:2] + self.text[i] + self.sprite[self.height-i][len(self.text[i])+2:]
         self.drawArena(screen)
 
-        #TODO: self.wipe():
+    def wipeScreen(self):
+        self.text.clear()
