@@ -36,6 +36,7 @@ class Pokemon(Entity):
         prob = random.randint(0, 100) / 100
         if finalHitChance >= prob:
             self.nextAttackHits = True
+            print("hit")
 
 
     def calcDamage(self, attack, target):
@@ -49,7 +50,9 @@ class Pokemon(Entity):
         if self.crit >= prob:
             self.nextAttackCrits = True
             damage = damage * Pokemon.critMultiplier
+            print("Crit for {}".format(damage))
         self.nextAttackDamage = damage
+
 
     def calcAttack(self, attack, target):
         #  Calculate damage that is to be applied to the target in the future.

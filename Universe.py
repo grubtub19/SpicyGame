@@ -16,6 +16,9 @@ class Universe:
     controls = ['w','a','s','d']
 
     def __init__(self, screen_width, screen_height):
+        f = open("startingscreen.txt", "r")
+        startingScreen = f.read()
+        print(startingScreen)
         self.textBox = TextBox(0,13)
         self.screen = Screen(self, screen_width, screen_height)
         self.screen_width = screen_width
@@ -74,7 +77,10 @@ class Universe:
             HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
         ]
 
+
         self.arena = None  # we use startArena() to instantiate this
+        self.reset = False
+        self.exit = False
         self.loop()
 
     def startArena(self, monsterIndex):
@@ -84,12 +90,12 @@ class Universe:
         """
         self.isOverworld = False
         self.arena = Arena(self, self.player, monsterIndex)
-
     def loop(self):
-        while(True):
+        while not self.exit:
             # TODO: Add title screen.
             self.update(self.getInputs())
-            self.draw(self.screen)
+            if not self.exit:
+                self.draw(self.screen)
 
     def getInputs(self):
         return input('>> ')
@@ -115,9 +121,15 @@ class Universe:
             self.arena.draw(screen)
         screen.print()
 
+
+
+
+
+
+
 if __name__ == '__main__':
-    f = open("startingscreen.txt", "r")
-    startingScreen = f.read()
-    print(startingScreen)
+
     # Run the game only if this module is run as the main program.
     game = Universe(160, 20)
+    while (game.reset == True):
+        game = Universe(160, 20)

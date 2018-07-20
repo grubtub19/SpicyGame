@@ -36,4 +36,4 @@ class TextBox(Entity):
         self.drawArena(screen)
 
     def wipeScreen(self):
-        self.print.clear()
+        self.text.clear()
