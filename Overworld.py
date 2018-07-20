@@ -1,6 +1,7 @@
 from Player import *
 from Monster import*
 from HealthPot import *
+from Helper import *
 import sys
 
 class Overworld:
@@ -30,29 +31,29 @@ class Overworld:
             if (self.universe.player.overworld_x == self.universe.monsters[i].overworld_x and self.universe.player.overworld_y == self.universe.monsters[i].overworld_y):
                 # Start battle.
                 self.universe.startArena(i)
-                
+
         for i in range(len(self.universe.healthpot)):
             # Check if player is in same position as health pot.
             if (self.universe.player.overworld_x == self.universe.healthpot[i].overworld_x and self.universe.player.overworld_y == self.universe.healthpot[i].overworld_y):
-                
+
                 #ask if player wants health pot or not
                 foo = input("Do you want to use this health pot? (y/n)")
-                                    
+
                 while not(foo == "y" or foo == "n"):
                     print ("Not a valid input")
                     foo = input("Do you want to use this health pot? (y/n)")
-                        
+
                 if foo == "y":
                     self.universe.player.currentHealth = self.universe.player.currentHealth + self.universe.healthpot[i].health
                     del self.universe.healthpot[i]
                     print ("You have used the health pot!")
                     break
-                    
+
                 if foo == "n":
                     print ("ok")
-                    
-                    
-                
+
+
+
 
     def draw(self, screen):
         # Draw the Overworld border.
@@ -63,13 +64,19 @@ class Overworld:
                 if i == self.overworld_y or i == self.overworld_y + self.height:
                     screen.buffer[i][j] = '-'
 
+        # Draw Overworld characters legend.
+        self.universe.overworldCharactersLegend.drawOverworld(screen)
+
+        # Draw Overworld controls legend.
+        self.universe.overworldControlsLegend.drawOverworld(screen)
+
         # Draw player.
         self.universe.player.drawOverworld(screen)
 
         # Draws monsters.
         for i in range(len(self.universe.monsters)):
             self.universe.monsters[i].drawOverworld(screen)
-            
+
         #Draws health pot
         for i in range(len(self.universe.healthpot)):
             self.universe.healthpot[i].drawOverworld(screen)

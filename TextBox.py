@@ -9,11 +9,13 @@ class TextBox(Entity):
         :param y:
         """
         Entity.__init__(self, overworld_x=0, overworld_y=0, sprite=["ojas","alsndkn","asldjf"], overworldChar=[], arena_x=x, arena_y=y)
-        self.blankSprite = ["------------------------",
-                 "|                      |",
-                 "|                      |",
-                 "|                      |",
-                 "------------------------"]
+        self.blankSprite = [
+                "------------------------",
+                "|                      |",
+                "|                      |",
+                "|                      |",
+                "------------------------"
+            ]
         self.sprite = self.blankSprite
         self.text = ["hi bob","string",""]
         self.height = 3

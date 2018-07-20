@@ -1,0 +1,5 @@
+M = Monster
+@@@@@@@@@@@
+P = Player
+@@@@@@@@@@@
++ = HealthPot

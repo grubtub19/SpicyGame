@@ -29,6 +29,21 @@ class Universe:
         self.overworld = Overworld(
             self, width=40, height=15, overworld_x=60, overworld_y=1)
 
+        # Load Overworld legend sprites.
+        self.overworldCharactersLegend = Entity(
+            overworld_x=40, overworld_y=5,
+            sprite=[],
+            overworldChar=Helper.loadSprite(
+                'sprites/overworldCharactersLegend.txt'),
+            arena_x=0, arena_y=0)
+
+        self.overworldControlsLegend = Entity(
+            overworld_x=108, overworld_y=5,
+            sprite=[],
+            overworldChar=Helper.loadSprite(
+                'sprites/overworldControlsLegend.txt'),
+            arena_x=0, arena_y=0)
+
         # Pulled Player ASCII art from http://www.ascii-art.de/ascii/s/stickman.txt
         # (Darth Vader and Luke go at it!)
         self.player = Player(
@@ -78,7 +93,6 @@ class Universe:
             HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
         ]
 
-
         self.arena = None  # we use startArena() to instantiate this
         self.reset = False
         self.exit = False
@@ -122,13 +136,6 @@ class Universe:
         """
         self.overworld.draw(self.screen)
         self.screen.print()
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
 
