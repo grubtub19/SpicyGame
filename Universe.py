@@ -84,19 +84,22 @@ class Universe:
         """
         self.isOverworld = False
         self.arena = Arena(self, self.player, monsterIndex)
+        self.arena.draw(self.screen)
+        self.screen.print()
 
     def loop(self):
         while(True):
             # TODO: Add title screen.
             self.update(self.getInputs())
-            self.draw(self.screen)
+            if self.isOverworld:
+                self.drawOverworld()
 
     def getInputs(self):
         return input('>> ')
 
     def update(self, inputs):
         """
-            updates either the Overworld or the Arena depending on which one is active
+            Updates either the Overworld or the Arena depending on which one is active
         :param inputs: most recent input
         """
         if self.isOverworld:
@@ -104,16 +107,14 @@ class Universe:
         else:
             self.arena.update(inputs)
 
-    def draw(self, screen):
+    def drawOverworld(self):
         """
-            The screen is drawn using the Overworld or the Arena's draw() function
+            The Overworld is drawn and printed
         :param screen:
         """
-        if self.isOverworld:
-            self.overworld.draw(screen)
-        else:
-            self.arena.draw(screen)
-        screen.print()
+        self.overworld.draw(self.screen)
+        self.screen.print()
+
 
 if __name__ == '__main__':
     f = open("startingscreen.txt", "r")

@@ -49,7 +49,7 @@ class Arena:
 
         # Print frame.
         self.universe.screen.print()
-        sleep(1/self.animationSpeedScale)
+        sleep(1/self.animationSpeedScale * 0.5)
 
         # Frame 2.
         # Draw health bars.
@@ -109,7 +109,7 @@ class Arena:
 
         # Print frame.
         self.universe.screen.print()
-        sleep(1/self.animationSpeedScale)
+        sleep(1/self.animationSpeedScale * 0.5)
 
         # Frame 2.
         # Draw health bars.
@@ -158,7 +158,16 @@ class Arena:
 
         # Print frame.
         self.universe.screen.print()
-        sleep(1/self.animationSpeedScale)
+
+    def doMonsterStatusEffects(self):
+        if self.monster.applyStatusEffects():
+            pass
+            #TODO: Update monster Status Effects UI
+
+    def doPlayerStatusEffects(self):
+        if self.player.applyStatusEffects():
+            pass
+            #TODO: Update player Status Effects UI
 
     def update(self, inputs):
         """
@@ -191,7 +200,7 @@ class Arena:
 
             # Hacky drawing of intermediate action frames here.
             self.doPlayerAttack()
-            self.monster.applyStatusEffects()
+            self.doMonsterStatusEffects()
 
             # Damage is applied after the intermediate action frames show
             # the attack successfully landing. This results in the
@@ -203,7 +212,7 @@ class Arena:
         if self.monster.currentHealth > 0:
             #same as above but with the monster
             self.doMonsterAttack()
-            self.player.applyStatusEffects()
+            self.doPlayerStatusEffects()
         else:
             # Monster defeated.
             # TODO: Draw and print victory screen.
@@ -211,7 +220,7 @@ class Arena:
 
             # Remove monster from monster list.
             del self.universe.monsters[self.monsterIndex]
-
+            self.player.currStatusEffects = []
             # This clean up needs to happen after the victory screen is
             # drawn and printed, otherwise there won't be an Arena to refer
             # to.
