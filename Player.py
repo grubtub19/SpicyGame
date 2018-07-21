@@ -1,6 +1,5 @@
 from Pokemon import *
 
-
 class Player(Pokemon):
 
     controls = ['w', 'a', 's', 'd'] # [up, left, down, right]
@@ -9,6 +8,12 @@ class Player(Pokemon):
     defensePower, health, evade,  crit, moveset):
         Pokemon.__init__(self, overworld_x, overworld_y, sprites_path,
                          overworldChar, arena_x, arena_y, defensePower, health, evade, crit, moveset)
+        self.statusUI = StatusEffectUI(self, True)
+        self.damageText.moveInArena(35, 3)
+
+    def drawArena(self, screen):
+        Entity.draw(self, screen, self.sprite, self.arena_x, self.arena_y)
+        self.statusUI.draw(screen)
 
     def update(self, inputs, overworld):
         """Used in the Overworld, moves the character in the

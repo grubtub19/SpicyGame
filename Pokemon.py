@@ -1,4 +1,6 @@
 from Entity import *
+from StatusEffectUI import *
+from DamageText import *
 import random
 import copy
 
@@ -27,6 +29,7 @@ class Pokemon(Entity):
         self.nextAttackCrits = False
         self.nextAttackHits = True
         self.currStatusEffects = []
+        self.damageText = DamageText(0, 0)
 
     def calcHit(self, attack, target):
         """
@@ -65,15 +68,21 @@ class Pokemon(Entity):
         self.calcHit(attack, target)
         if self.nextAttackHits:
             self.calcDamage(attack, target)
+            target.damageText.setText(self.nextAttackDamage, self.nextAttackCrits, attack.statusEffect)
+            print("Setting damageText to: Damage = " + str(self.nextAttackDamage) + ", Crit = " + str(self.nextAttackCrits) + ". Real sprite is: " + str(target.damageText.sprite))
+        else:
+            target.damageText.setMiss()
+            print("Setting damageText to MISS. Real sprite is: " + str(target.damageText.sprite))
 
     def applyAttack(self, attack, target):
         #  Apply damage to monster.
         if self.nextAttackHits:
             target.currentHealth -= self.nextAttackDamage
-            if attack.statusEffect != None:
+            if attack.statusEffect is not None:
                 self.addStatusEffect(attack.statusEffect, target)
             else:
                 print("did not add effect")
+        print("Number of Status Effect on Player: " + str(len(target.currStatusEffects)))
 
     def addStatusEffect(self, statusEffect, target):
         print("added status effect " + statusEffect.name)
@@ -102,7 +111,6 @@ class Pokemon(Entity):
                         otherEffect = mostDamagingEffect #compares all effects of the same type and finds the most damaging
                 self.currentHealth -= mostDamagingEffect.damagePerTurn
                 print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
-
             effect.duration -= 1
             if effect.duration <= 0:
                 toRemove.append(effect)

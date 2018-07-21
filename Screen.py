@@ -1,6 +1,6 @@
 class Screen:
 
-    blankChar = " "
+    blankChar = "."
 
     def __init__(self, universe, width, height):
         self.universe = universe

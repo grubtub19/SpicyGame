@@ -66,6 +66,8 @@ class Arena:
         self.player.moveInArena(self.playerAttackX, self.playerY)
         self.player.drawArena(self.universe.screen)
 
+        self.monster.damageText.drawArena(self.universe.screen)
+
         # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
@@ -91,6 +93,10 @@ class Arena:
         # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
+
+        # Frame 4 (OPTIONAL)
+        # This frame only applies if the monster has status effects to update
+        self.doMonsterStatusEffects()
 
     def doMonsterAttack(self):
         """Draws and prints intermediate frames for the monster's attack animation."""
@@ -129,6 +135,8 @@ class Arena:
         self.monster.moveInArena(self.monsterAttackX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
 
+        self.player.damageText.drawArena(self.universe.screen)
+
         # Just an example of how to access the textBox
         self.universe.textBox.print("Normal Attack -> 'a'")
         self.universe.textBox.print("Strong Attack -> 's'")
@@ -159,15 +167,34 @@ class Arena:
         # Print frame.
         self.universe.screen.print()
 
+        # Frame 4 (OPTIONAL)
+        # This frame only applies if the player has status effects to update
+        self.doPlayerStatusEffects()
+
     def doMonsterStatusEffects(self):
+        """
+            If the Monster has status effects, apply them and print the screen to update the effectsUI
+        """
         if self.monster.applyStatusEffects():
-            pass
-            #TODO: Update monster Status Effects UI
+            self.player.drawArena(self.universe.screen)
+            self.monster.drawArena(self.universe.screen)
+            self.arenaHealthBars.draw(self.universe.screen)
+            self.monster.statusUI.draw(self.universe.screen)
+            self.universe.screen.print()
 
     def doPlayerStatusEffects(self):
+        """
+            If the Player has status effects, apply them and print the screen to update the effectsUI
+        """
         if self.player.applyStatusEffects():
-            pass
-            #TODO: Update player Status Effects UI
+            print("next is ui update")
+            self.player.drawArena(self.universe.screen)
+            self.monster.drawArena(self.universe.screen)
+            self.arenaHealthBars.draw(self.universe.screen)
+            self.player.statusUI.draw(self.universe.screen)
+            self.universe.screen.print()
+
+
 
     def update(self, inputs):
         """
@@ -202,7 +229,6 @@ class Arena:
 
             # Hacky drawing of intermediate action frames here.
             self.doPlayerAttack()
-            self.doMonsterStatusEffects()
 
             # Damage is applied after the intermediate action frames show
             # the attack successfully landing. This results in the
@@ -214,7 +240,6 @@ class Arena:
         if self.monster.currentHealth > 0:
             #same as above but with the monster
             self.doMonsterAttack()
-            self.doPlayerStatusEffects()
         else:
             # Monster defeated.
             # TODO: Draw and print victory screen.
