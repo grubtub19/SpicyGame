@@ -27,10 +27,10 @@ class Universe:
 
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(
-            self, width=40, height=15, overworld_x=60, overworld_y=1)
+            self, width=40, height=11, overworld_x=60, overworld_y=4)
 
         self.player = Player(
-            overworld_x=80, overworld_y=9,
+            overworld_x=81, overworld_y=9,
             sprites_path="sprites/player.txt",
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
@@ -41,7 +41,7 @@ class Universe:
         # array containing all monsters
         self.monsters = [
             Monster(
-                overworld_x=81, overworld_y=10,
+                overworld_x=84, overworld_y=11,
                 sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -52,7 +52,7 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=70, overworld_y=5,
+                overworld_x=74, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -61,7 +61,7 @@ class Universe:
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
-                overworld_x=74, overworld_y=8,
+                overworld_x=88, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
@@ -72,7 +72,7 @@ class Universe:
         ]
 
         self.healthpot = [
-            HealthPot(overworld_x=70, overworld_y=4, overworldChar = "+", ASCII = ["+"], health = 150),
+            HealthPot(overworld_x=78, overworld_y=11, overworldChar = "+", ASCII = ["+"], health = 150),
             HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
         ]
 
