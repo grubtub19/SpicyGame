@@ -27,6 +27,7 @@ class Arena:
         self.monster.arena_y = self.monsterY
 
         # Just an example of how to access the textBox
+        # TODO: Use the textBox instead of printing to the console
         self.universe.textBox.print("Normal Attack -> a")
         self.universe.textBox.print("Run Away      -> r")
 
@@ -37,8 +38,15 @@ class Arena:
         self.animationSpeedScale = 1
 
     def doPlayerAttack(self):
-        """Draws and prints intermediate frames for the player's attack animation."""
-        # Frame 1.
+        """
+            Draws and prints intermediate frames for the player's attack animation.
+        """
+
+        ########## Frame 1 ###########
+        #   -> Player Raises sword
+        #   -> Monster is Neutral
+        #   -> 0.5 time scale
+
         # Draw health bars.
         self.arenaHealthBars.draw(self.universe.screen)
 
@@ -55,57 +63,80 @@ class Arena:
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale * 0.5)
 
-        # Frame 2.
+
+        ########## Frame 2 ###########
+        #   -> Player Moves to Attack Location
+        #   -> Player Swipes Sword
+        #   -> Monster Flinches
+        #   -> Damage is calculated and saved in Monster (applies next frame)
+        #   -> Damage Numbers Appear
+        #   -> 1.0 time scale
+
         # Draw health bars.
         self.arenaHealthBars.draw(self.universe.screen)
+
+        # Calculate attack and saves values in Monster (applies next frame)
+        self.player.calcAttack(self.player.moveset[0], self.monster)
 
         # Monster flinches.
         self.monster.sprite = self.monster.flinchSprite
         self.monster.drawArena(self.universe.screen)
 
-        # Player ends attack.
-        # Calculate attack to be applied during the next frame.
-        self.player.calcAttack(self.player.moveset[0], self.monster)
+        # Player commences attack.
         self.player.sprite = self.player.endAttackSprite
         self.player.moveInArena(self.playerAttackX, self.playerY)
         self.player.drawArena(self.universe.screen)
 
-        # Damage is taken on this frame, so draw the damage numbers
+        # Monster's damage is taken on this frame, so draw the damage numbers
         self.monster.damageText.drawArena(self.universe.screen)
 
-        # Print frame.
+        # Print frame and sleep for 1.0 time scale
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale)
 
-        # Frame 3.
-        # Apply attack so that health bars are drawn according
-        # to the Monster's updated health. Then draw health bars.
+
+        ########## Frame 3 ###########
+        #   -> Both Player and Monster in neutral
+        #   -> Damage is applied to monster and health bar moves
+        #   -> 0.5 time scale
+
+        # Apply attack and draw changed health bars
         self.player.applyAttack(self.player.moveset[0], self.monster)
         self.arenaHealthBars.draw(self.universe.screen)
 
-        # Update Player with the original positions
-        # and sprites for the start of the usual draw step.
+        # Reset Player to neutral position and neutral sprite
         self.player.sprite = self.player.neutralSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY)
         self.player.drawArena(self.universe.screen)
 
-        # Update Monster with the original positions
-        # and sprites for the start of the usual draw step.
+        # Reset Monster to neutral position and neutral sprite
         self.monster.sprite = self.monster.neutralSprite
         self.monster.moveInArena(self.monsterNeutralX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
 
-        # Print frame.
+        # Print frame and sleep for 0.5 time scale
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale * 0.5)
 
-        # Frame 4 (OPTIONAL)
-        # This frame only applies if the monster has status effects to update
+
+        ########## Frame 3.5 ###########
+        #   -> This frame only occurs if the monster has status effects
+        #   -> Monster Flinches
+        #   -> Status damage is applied to monster
+        #   -> Monster's damage text is drawn
+        #   -> 1.0 time scale
         self.doMonsterStatusEffects()
 
     def doMonsterAttack(self):
-        """Draws and prints intermediate frames for the monster's attack animation."""
-        # Frame 1.
+        """
+            Draws and prints intermediate frames for the monster's attack animation.
+        """
+
+        ########## Frame 1 ###########
+        #   -> Monster prepares attack
+        #   -> Player is Neutral
+        #   -> 0.5 time scale
+
         # Print health bars.
         self.arenaHealthBars.draw(self.universe.screen)
 
@@ -122,84 +153,104 @@ class Arena:
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale * 0.5)
 
-        # Frame 2.
+
+        ########## Frame 2 ###########
+        #   -> Monster Moves to Attack Location
+        #   -> Monster attacks player
+        #   -> Player flinches (we don't have a flinching art tho)
+        #   -> Damage is calculated and saved in player (applied next frame)
+        #   -> Player's Damage Numbers Appear
+        #   -> 1.0 time scale
+
         # Draw health bars.
         self.arenaHealthBars.draw(self.universe.screen)
+
+        # Calculate attack to be applied during the next frame.
+        self.monster.calcAttack(self.monster.moveset[0], self.player)
 
         # Player flinches.
         self.player.sprite = self.player.flinchSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY)
         self.player.drawArena(self.universe.screen)
 
-        # Monster ends attack.
-        # Monster is drawn after Player so that Monster's attack sprite
-        # is visible over the Player.
-        # Calculate attack to be applied during the next frame.
-        self.monster.calcAttack(self.monster.moveset[0], self.player)
+        # Monster attacks
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(self.monsterAttackX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
 
+        # Player's damage is taken on this frame, so draw the damage numbers
         self.player.damageText.drawArena(self.universe.screen)
 
         # Print frame.
         self.universe.screen.print()
         sleep(1 / self.animationSpeedScale)
 
-        # Frame 3.
-        # Apply attack so that health bars are drawn according
-        # to the Player's updated health. Then draw health bars.
+
+        ########## Frame 3 ###########
+        #   -> Both Player and Monster in neutral
+        #   -> Damage is applied to player and health bar moves
+        #   -> 0.5 time scale
+
+        # Apply attack to player and draws changed health bar
         self.monster.applyAttack(self.monster.moveset[0], self.player)
         self.arenaHealthBars.draw(self.universe.screen)
 
-        # Update Monster with the original positions
-        # and sprites for the start of the usual draw step.
+        # Reset Monster to neutral position and neutral sprite
         self.monster.sprite = self.monster.neutralSprite
         self.monster.moveInArena(self.monsterNeutralX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
 
-        # Update Player with the original positions
-        # and sprites for the start of the usual draw step.
+        # Reset Player to neutral position and neutral sprite
         self.player.sprite = self.player.neutralSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY)
         self.player.drawArena(self.universe.screen)
 
-        # Print frame.
+        # Print frame at 0.5 time scale
         self.universe.screen.print()
         sleep(1 / self.animationSpeedScale * 0.5)
 
-        # Frame 4 (OPTIONAL)
-        # This frame only applies if the player has status effects to update
+
+        ########## Frame 3.5 ###########
+        #   -> This frame only occurs if the player has status effects
+        #   -> Player Flinches
+        #   -> Status damage is applied to player
+        #   -> Player's damage text is drawn
+        #   -> 1.0 time scale
         self.doPlayerStatusEffects()
 
     def doMonsterStatusEffects(self):
-        """
-            If the Monster has status effects, apply them and print the screen to update the effectsUI
-        """
+        #   -> This frame only occurs if the monster has status effects
+        #   -> Monster Flinches
+        #   -> Status damage is applied to monster
+        #   -> Monster's damage text is drawn
+        #   -> 1.0 time scale
+
         if self.monster.applyStatusEffects():
             self.player.drawArena(self.universe.screen)
             self.monster.sprite = self.monster.flinchSprite
             self.monster.drawArena(self.universe.screen)
             self.arenaHealthBars.draw(self.universe.screen)
-            self.monster.statusUI.draw(self.universe.screen)
             self.monster.damageText.drawArena(self.universe.screen)
             self.universe.screen.print()
             sleep(1 / self.animationSpeedScale)
 
     def doPlayerStatusEffects(self):
-        """
-            If the Player has status effects, apply them and print the screen to update the effectsUI
-        """
+        #   -> This frame only occurs if the player has status effects
+        #   -> Player Flinches
+        #   -> Status damage is applied to player
+        #   -> Player's damage text is drawn
+        #   -> 1.0 time scale
+
         if self.player.applyStatusEffects():
             print("next is ui update")
             self.player.drawArena(self.universe.screen)
             self.monster.drawArena(self.universe.screen)
             self.arenaHealthBars.draw(self.universe.screen)
-            self.player.statusUI.draw(self.universe.screen)
             self.player.damageText.drawArena(self.universe.screen)
             self.universe.screen.print()
             sleep(1 / self.animationSpeedScale)
 
+        #   -> Extra frame is printed so that player's statusEffect damageText does not remain on screen while inputting
             self.player.drawArena(self.universe.screen)
             self.monster.drawArena(self.universe.screen)
             self.arenaHealthBars.draw(self.universe.screen)
@@ -286,9 +337,6 @@ class Arena:
 
                 else:
                     print("invalid input try again!")
-
-
-
 
     def draw(self, screen):
         self.player.drawArena(screen)
