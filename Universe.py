@@ -5,6 +5,7 @@ from Arena import *
 from Screen import *
 from Attack import *
 from StatusEffect import *
+from HealthBar import *
 from TextBox import *
 from HealthPot import *
 
@@ -33,44 +34,45 @@ class Universe:
             overworld_x=81, overworld_y=9,
             sprites_path="sprites/player.txt",
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
-            health=1000, crit=0.2,
-            moveset=[  # TODO: Balance these.
-                Attack(name='Heavy Attack', damage=400, hitChance=0.5, statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
-                Attack(name='Regular Attack', damage=100, hitChance=0.8),
-                Attack(name='Light Attack', damage=50, hitChance=1)
+            health=2000, crit=0.2, moveset=[  # TODO: Balance these.
+                Attack(name='Heavy Attack', damage=400, hitChance=0.95, statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
+                Attack(name='Regular Attack', damage=100, hitChance=0.6),
+                Attack(name='Light Attack', damage=70, hitChance=0.6)
             ])
         # array containing all monsters
         self.monsters = [
             Monster(
                 overworld_x=84, overworld_y=11,
                 sprites_path='sprites/pepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.1, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=2000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
-                    Attack(name='Poison Attack', damage=300, hitChance=0.5,
+                    Attack(name='Poison Attack', damage=300, hitChance=0.95,
                            statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
-                    Attack(name='Spice Attack', damage=120, hitChance=0.8,
+                    Attack(name='Spice Attack', damage=75, hitChance=0.6,
                            statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
-                    Attack(name='Light Attack', damage=18, hitChance=1)
+                    Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
                 overworld_x=74, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.1, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
-                    Attack(name='Heavy Attack', damage=300, hitChance=0.5),
-                    Attack(name='Regular Attack', damage=75, hitChance=0.8),
-                    Attack(name='Light Attack', damage=18, hitChance=1)
+                    Attack(name='Heavy Attack', damage=300, hitChance=0.95),
+                    Attack(name='Regular Attack', damage=75, hitChance=0.6),
+                    Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
                 overworld_x=88, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.1, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
-                    Attack(name='Heavy Attack', damage=300, hitChance=9999),
-                    Attack(name='Regular Attack', damage=75, hitChance=0.8),
-                    Attack(name='Light Attack', damage=18, hitChance=1)
+                    Attack(name='Heavy Attack', damage=300, hitChance=0.95),
+                    Attack(name='Regular Attack', damage=75, hitChance=0.6),
+                    Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ])
         ]
+
+        self.playerHealthBar = HealthBar(self.player)
 
         self.healthpot = [
             HealthPot(overworld_x=78, overworld_y=11, overworldChar = "+", ASCII = ["+"], health = 150),
@@ -89,12 +91,12 @@ class Universe:
         """
         self.isOverworld = False
         self.arena = Arena(self, self.player, monsterIndex)
+        self.currentMonsterHealthBar = HealthBar(self.monsters[monsterIndex])
         self.arena.draw(self.screen)
         self.screen.print()
 
     def loop(self):
         while not self.exit:
-            # TODO: Add title screen.
             self.update(self.getInputs())
 
             if not self.exit and self.isOverworld:
