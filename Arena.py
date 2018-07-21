@@ -26,6 +26,10 @@ class Arena:
         self.monster.arena_x = self.monsterNeutralX
         self.monster.arena_y = self.monsterY
 
+        # Just an example of how to access the textBox
+        self.universe.textBox.print("Normal Attack -> a")
+        self.universe.textBox.print("Run Away      -> r")
+
         # Initialize ArenaHealthBars.
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
 
@@ -93,7 +97,7 @@ class Arena:
 
         # Print frame.
         self.universe.screen.print()
-        sleep(1/self.animationSpeedScale)
+        sleep(1/self.animationSpeedScale * 0.5)
 
         # Frame 4 (OPTIONAL)
         # This frame only applies if the monster has status effects to update
@@ -138,11 +142,6 @@ class Arena:
 
         self.player.damageText.drawArena(self.universe.screen)
 
-        # Just an example of how to access the textBox
-        self.universe.textBox.print("Normal Attack -> 'a'")
-        self.universe.textBox.print("Strong Attack -> 's'")
-        self.universe.textBox.print("Weak Attack -> 'd'")
-
         # Print frame.
         self.universe.screen.print()
         sleep(1 / self.animationSpeedScale)
@@ -167,7 +166,7 @@ class Arena:
 
         # Print frame.
         self.universe.screen.print()
-        sleep(1 / self.animationSpeedScale)
+        sleep(1 / self.animationSpeedScale * 0.5)
 
         # Frame 4 (OPTIONAL)
         # This frame only applies if the player has status effects to update
