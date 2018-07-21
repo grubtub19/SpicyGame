@@ -67,9 +67,6 @@ class Overworld:
                 if foo == "n":
                     print ("ok")
 
-
-
-
     def draw(self, screen):
         # Draw the Overworld border.
         for i in range(self.overworld_y, self.overworld_y + self.height + 1):
@@ -84,6 +81,9 @@ class Overworld:
 
         # Draw Overworld controls legend.
         self.overworldControlsLegend.drawOverworld(screen)
+
+        # Draw Player health bar.
+        self.universe.playerHealthBar.drawOverworld(screen)
 
         # Draw player.
         self.universe.player.drawOverworld(screen)

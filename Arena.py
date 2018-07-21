@@ -1,4 +1,3 @@
-from ArenaHealthBars import *
 from time import sleep
 import random
 import sys
@@ -31,9 +30,6 @@ class Arena:
         self.universe.textBox.print("Normal Attack -> a")
         self.universe.textBox.print("Run Away      -> r")
 
-        # Initialize ArenaHealthBars.
-        self.arenaHealthBars = ArenaHealthBars(player, self.monster)
-
         # For scaling the animation speed.
         self.animationSpeedScale = 1
 
@@ -48,7 +44,8 @@ class Arena:
         #   -> 0.5 time scale
 
         # Draw health bars.
-        self.arenaHealthBars.draw(self.universe.screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Player starts attack.
         self.player.sprite = self.player.startAttackSprite
@@ -73,7 +70,8 @@ class Arena:
         #   -> 1.0 time scale
 
         # Draw health bars.
-        self.arenaHealthBars.draw(self.universe.screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Calculate attack and saves values in Monster (applies next frame)
         self.player.calcAttack(self.player.moveset[0], self.monster)
@@ -102,7 +100,8 @@ class Arena:
 
         # Apply attack and draw changed health bars
         self.player.applyAttack(self.player.moveset[0], self.monster)
-        self.arenaHealthBars.draw(self.universe.screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Reset Player to neutral position and neutral sprite
         self.player.sprite = self.player.neutralSprite
@@ -138,7 +137,8 @@ class Arena:
         #   -> 0.5 time scale
 
         # Print health bars.
-        self.arenaHealthBars.draw(self.universe.screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Monster starts attack.
         self.monster.sprite = self.monster.startAttackSprite
@@ -163,7 +163,8 @@ class Arena:
         #   -> 1.0 time scale
 
         # Draw health bars.
-        self.arenaHealthBars.draw(self.universe.screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Calculate attack to be applied during the next frame.
         self.monster.calcAttack(self.monster.moveset[0], self.player)
@@ -193,7 +194,8 @@ class Arena:
 
         # Apply attack to player and draws changed health bar
         self.monster.applyAttack(self.monster.moveset[0], self.player)
-        self.arenaHealthBars.draw(self.universe.screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Reset Monster to neutral position and neutral sprite
         self.monster.sprite = self.monster.neutralSprite
@@ -229,7 +231,9 @@ class Arena:
             self.player.drawArena(self.universe.screen)
             self.monster.sprite = self.monster.flinchSprite
             self.monster.drawArena(self.universe.screen)
-            self.arenaHealthBars.draw(self.universe.screen)
+            self.universe.playerHealthBar.drawArena(self.universe.screen)
+            self.universe.currentMonsterHealthBar.drawArena(
+                self.universe.screen)
             self.monster.damageText.drawArena(self.universe.screen)
             self.universe.screen.print()
             sleep(1 / self.animationSpeedScale)
@@ -245,7 +249,9 @@ class Arena:
             print("next is ui update")
             self.player.drawArena(self.universe.screen)
             self.monster.drawArena(self.universe.screen)
-            self.arenaHealthBars.draw(self.universe.screen)
+            self.universe.playerHealthBar.drawArena(self.universe.screen)
+            self.universe.currentMonsterHealthBar.drawArena(
+                self.universe.screen)
             self.player.damageText.drawArena(self.universe.screen)
             self.universe.screen.print()
             sleep(1 / self.animationSpeedScale)
@@ -253,7 +259,9 @@ class Arena:
         #   -> Extra frame is printed so that player's statusEffect damageText does not remain on screen while inputting
             self.player.drawArena(self.universe.screen)
             self.monster.drawArena(self.universe.screen)
-            self.arenaHealthBars.draw(self.universe.screen)
+            self.universe.playerHealthBar.drawArena(self.universe.screen)
+            self.universe.currentMonsterHealthBar.drawArena(
+                self.universe.screen)
             self.player.statusUI.draw(self.universe.screen)
             self.universe.screen.print()
 
@@ -303,8 +311,9 @@ class Arena:
             self.doMonsterAttack()
         else:
             # Monster defeated.
-            # TODO: Draw and print victory screen.
+            # TODO: Draw and print a small victory screen?
             print('VICTORY!')
+            sleep(2)
 
             # Remove monster from monster list.
             del self.universe.monsters[self.monsterIndex]
@@ -341,4 +350,5 @@ class Arena:
     def draw(self, screen):
         self.player.drawArena(screen)
         self.monster.drawArena(screen)
-        self.arenaHealthBars.draw(screen)
+        self.universe.playerHealthBar.drawArena(self.universe.screen)
+        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
