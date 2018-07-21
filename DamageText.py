@@ -11,7 +11,7 @@ class DamageText(Entity):
         if statusEffect is not None:
             string.append(statusEffect.name)
         self.sprite = string
-        print(self.sprite)
+        print("DamageText set to: " + str(self.sprite))
 
     def setMiss(self):
         self.sprite = ["MISS"]

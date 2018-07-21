@@ -66,6 +66,7 @@ class Arena:
         self.player.moveInArena(self.playerAttackX, self.playerY)
         self.player.drawArena(self.universe.screen)
 
+        # Damage is taken on this frame, so draw the damage numbers
         self.monster.damageText.drawArena(self.universe.screen)
 
         # Print frame.
@@ -166,6 +167,7 @@ class Arena:
 
         # Print frame.
         self.universe.screen.print()
+        sleep(1 / self.animationSpeedScale)
 
         # Frame 4 (OPTIONAL)
         # This frame only applies if the player has status effects to update
@@ -177,10 +179,13 @@ class Arena:
         """
         if self.monster.applyStatusEffects():
             self.player.drawArena(self.universe.screen)
+            self.monster.sprite = self.monster.flinchSprite
             self.monster.drawArena(self.universe.screen)
             self.arenaHealthBars.draw(self.universe.screen)
             self.monster.statusUI.draw(self.universe.screen)
+            self.monster.damageText.drawArena(self.universe.screen)
             self.universe.screen.print()
+            sleep(1 / self.animationSpeedScale)
 
     def doPlayerStatusEffects(self):
         """
@@ -192,9 +197,15 @@ class Arena:
             self.monster.drawArena(self.universe.screen)
             self.arenaHealthBars.draw(self.universe.screen)
             self.player.statusUI.draw(self.universe.screen)
+            self.player.damageText.drawArena(self.universe.screen)
             self.universe.screen.print()
+            sleep(1 / self.animationSpeedScale)
 
-
+            self.player.drawArena(self.universe.screen)
+            self.monster.drawArena(self.universe.screen)
+            self.arenaHealthBars.draw(self.universe.screen)
+            self.player.statusUI.draw(self.universe.screen)
+            self.universe.screen.print()
 
     def update(self, inputs):
         """

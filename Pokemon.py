@@ -110,6 +110,7 @@ class Pokemon(Entity):
                     if otherEffect.name == effect.name and otherEffect.damagePerTurn > mostDamagingEffect.damagePerTurn:
                         otherEffect = mostDamagingEffect #compares all effects of the same type and finds the most damaging
                 self.currentHealth -= mostDamagingEffect.damagePerTurn
+                self.damageText.setText(mostDamagingEffect.damagePerTurn, False, mostDamagingEffect)
                 print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
             effect.duration -= 1
             if effect.duration <= 0:
