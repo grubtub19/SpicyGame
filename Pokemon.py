@@ -3,6 +3,7 @@ from StatusEffectUI import *
 from DamageText import *
 import random
 import copy
+from math import ceil
 
 class Pokemon(Entity):
     """
@@ -52,8 +53,7 @@ class Pokemon(Entity):
         prob = random.randint(0, 100) / 100
         if self.crit >= prob:
             self.nextAttackCrits = True
-            damage = damage * Pokemon.critMultiplier
-            print("Crit for {}".format(damage))
+            damage = ceil(damage * Pokemon.critMultiplier)
         self.nextAttackDamage = damage
 
 
