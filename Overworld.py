@@ -17,6 +17,21 @@ class Overworld:
         self.overworld_x = overworld_x
         self.overworld_y = overworld_y
 
+        # Load Overworld legend sprites.
+        self.overworldCharactersLegend = Entity(
+            overworld_x=108, overworld_y=6,
+            sprite=[],
+            overworldChar=Helper.loadSprite(
+                'sprites/overworldCharactersLegend.txt'),
+            arena_x=0, arena_y=0)
+
+        self.overworldControlsLegend = Entity(
+            overworld_x=40, overworld_y=6,
+            sprite=[],
+            overworldChar=Helper.loadSprite(
+                'sprites/overworldControlsLegend.txt'),
+            arena_x=0, arena_y=0)
+
     def update(self, inputs):
         if inputs == 'q':
             res = input('Are you sure you want to quit? (y/n) >> ')
@@ -65,10 +80,10 @@ class Overworld:
                     screen.buffer[i][j] = '-'
 
         # Draw Overworld characters legend.
-        self.universe.overworldCharactersLegend.drawOverworld(screen)
+        self.overworldCharactersLegend.drawOverworld(screen)
 
         # Draw Overworld controls legend.
-        self.universe.overworldControlsLegend.drawOverworld(screen)
+        self.overworldControlsLegend.drawOverworld(screen)
 
         # Draw player.
         self.universe.player.drawOverworld(screen)

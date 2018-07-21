@@ -29,21 +29,6 @@ class Universe:
         self.overworld = Overworld(
             self, width=40, height=15, overworld_x=60, overworld_y=1)
 
-        # Load Overworld legend sprites.
-        self.overworldCharactersLegend = Entity(
-            overworld_x=40, overworld_y=5,
-            sprite=[],
-            overworldChar=Helper.loadSprite(
-                'sprites/overworldCharactersLegend.txt'),
-            arena_x=0, arena_y=0)
-
-        self.overworldControlsLegend = Entity(
-            overworld_x=108, overworld_y=5,
-            sprite=[],
-            overworldChar=Helper.loadSprite(
-                'sprites/overworldControlsLegend.txt'),
-            arena_x=0, arena_y=0)
-
         self.player = Player(
             overworld_x=80, overworld_y=9,
             sprites_path="sprites/player.txt",
