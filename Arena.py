@@ -28,8 +28,9 @@ class Arena:
 
         # Just an example of how to access the textBox
         # TODO: Use the textBox instead of printing to the console
-        self.universe.textBox.print("Normal Attack -> a")
-        self.universe.textBox.print("Run Away      -> r")
+        self.universe.textBox.print("heavy attack -> a")
+        self.universe.textBox.print("Normal Attack -> s")
+        self.universe.textBox.print("light Attack -> d")
 
         # Initialize ArenaHealthBars.
         self.arenaHealthBars = ArenaHealthBars(player, self.monster)
@@ -37,10 +38,18 @@ class Arena:
         # For scaling the animation speed.
         self.animationSpeedScale = 1
 
-    def doPlayerAttack(self):
+
+    def doPlayerAttack(self, inputs):
+
         """
             Draws and prints intermediate frames for the player's attack animation.
         """
+        if inputs == "a":
+            moveNum = 0
+        elif inputs == "s":
+            moveNum = 1
+        elif inputs == "d":
+            moveNum = 2
 
         ########## Frame 1 ###########
         #   -> Player Raises sword
@@ -76,7 +85,7 @@ class Arena:
         self.arenaHealthBars.draw(self.universe.screen)
 
         # Calculate attack and saves values in Monster (applies next frame)
-        self.player.calcAttack(self.player.moveset[0], self.monster)
+        self.player.calcAttack(self.player.moveset[moveNum], self.monster)
 
         # Monster flinches.
         self.monster.sprite = self.monster.flinchSprite
@@ -101,7 +110,10 @@ class Arena:
         #   -> 0.5 time scale
 
         # Apply attack and draw changed health bars
-        self.player.applyAttack(self.player.moveset[0], self.monster)
+
+        self.player.applyAttack(self.player.moveset[moveNum], self.monster)
+
+
         self.arenaHealthBars.draw(self.universe.screen)
 
         # Reset Player to neutral position and neutral sprite
@@ -131,7 +143,9 @@ class Arena:
         """
             Draws and prints intermediate frames for the monster's attack animation.
         """
+        moveNum = random.choices([0,1,2],[0.08,0.46,0.46])[0]
 
+        print(str(moveNum))
         ########## Frame 1 ###########
         #   -> Monster prepares attack
         #   -> Player is Neutral
@@ -166,7 +180,10 @@ class Arena:
         self.arenaHealthBars.draw(self.universe.screen)
 
         # Calculate attack to be applied during the next frame.
-        self.monster.calcAttack(self.monster.moveset[0], self.player)
+
+        #attack option apply
+
+        self.monster.calcAttack(self.monster.moveset[moveNum], self.player)
 
         # Player flinches.
         self.player.sprite = self.player.flinchSprite
@@ -192,7 +209,8 @@ class Arena:
         #   -> 0.5 time scale
 
         # Apply attack to player and draws changed health bar
-        self.monster.applyAttack(self.monster.moveset[0], self.player)
+
+        self.monster.applyAttack(self.monster.moveset[moveNum], self.player)
         self.arenaHealthBars.draw(self.universe.screen)
 
         # Reset Monster to neutral position and neutral sprite
@@ -261,13 +279,11 @@ class Arena:
         """
         :param inputs: User input.
         """
-        acceptable_inputs = ['a', 'r']
-
+        acceptable_inputs = ['a','s','d','r']
         if len(inputs) != 1 or inputs not in acceptable_inputs:
             print('Invalid input')
             return
-
-        if inputs == 'r':
+        if inputs == "r":
             # Run away.
             print('run away')
 
@@ -277,19 +293,19 @@ class Arena:
             # Destroy Arena and return to Overworld.
             self.universe.arena = None
             self.universe.isOverworld = True
-
             return
+        else:
+            self.doPlayerAttack(inputs)
 
-        if inputs == 'a':
             # TODO: Either remove this or turn it into a useful dialog.
-            print('attack')
 
             # TODO: The health bar update after the player's hit lands
             # is less than optimal. Fix this. Test it out to see
             # what I mean, I'm short on time right now.
 
-            # Hacky drawing of intermediate action frames here.
-            self.doPlayerAttack()
+            # Hacky drawing of intermediate action frames here
+
+
 
             # Damage is applied after the intermediate action frames show
             # the attack successfully landing. This results in the

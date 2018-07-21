@@ -4,6 +4,7 @@ from DamageText import *
 import random
 import copy
 
+
 class Pokemon(Entity):
     """
         Any Entity that can battle is a Pokemon (Player, Monster)
@@ -40,6 +41,7 @@ class Pokemon(Entity):
         if finalHitChance >= prob:
             self.nextAttackHits = True
             print("hit")
+            print("hit chance {}: prob {}".format(finalHitChance, prob))
 
 
     def calcDamage(self, attack, target):
