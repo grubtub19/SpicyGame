@@ -72,9 +72,11 @@ class Pokemon(Entity):
             self.calcDamage(attack, target)
             target.damageText.setText(self.nextAttackDamage, self.nextAttackCrits, attack.statusEffect)
             print("Setting damageText to: Damage = " + str(self.nextAttackDamage) + ", Crit = " + str(self.nextAttackCrits) + ". Real sprite is: " + str(target.damageText.sprite))
+            return(self.nextAttackDamage)
         else:
             target.damageText.setMiss()
             print("Setting damageText to MISS. Real sprite is: " + str(target.damageText.sprite))
+            return 0
 
     def applyAttack(self, attack, target):
         #  Apply damage to monster.

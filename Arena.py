@@ -2,8 +2,8 @@ from time import sleep
 import random
 import sys
 
-class Arena:
-
+class Arena:    
+    
     def __init__(self, universe, player, monsterIndex):
         # Easy access to universe.
         self.universe = universe
@@ -33,6 +33,8 @@ class Arena:
 
         # For scaling the animation speed.
         self.animationSpeedScale = 1
+        self.damageInflicted = 0
+        self.damageReceived = 0
 
     def doPlayerAttack(self, inputs):
         """
@@ -124,6 +126,10 @@ class Arena:
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale * 0.5)
 
+        #Keeps track of damage inflicted:
+        self.damageInflicted = self.damageInflicted + self.player.calcAttack(self.player.moveset[moveNum], self.monster) 
+        print ("HELLLOOOOO " + str(self.damageInflicted))
+
 
         ########## Frame 3.5 ###########
         #   -> This frame only occurs if the monster has status effects
@@ -188,6 +194,10 @@ class Arena:
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(self.monsterAttackX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
+        
+        #Keeps track of damage received by player
+        self.damageReceived = self.damageReceived + self.monster.calcAttack(self.monster.moveset[moveNum], self.player)
+        print ("HEEELLLLLOOOO " + str(self.damageReceived))
 
         # Player's damage is taken on this frame, so draw the damage numbers
         self.player.damageText.drawArena(self.universe.screen)
