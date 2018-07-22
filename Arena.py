@@ -327,6 +327,7 @@ class Arena:
             # Remove monster from monster list.
             del self.universe.monsters[self.monsterIndex]
             self.player.currStatusEffects = []
+            self.player.statusUI.visibleEffects = []
             # This clean up needs to happen after the victory screen is
             # drawn and printed, otherwise there won't be an Arena to refer
             # to.

@@ -36,7 +36,7 @@ class Universe:
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
             health=2000, crit=0.2, moveset=[  # TODO: Balance these.
                 Attack(name='Heavy Attack', damage=400, hitChance=0.95, statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
-                Attack(name='Regular Attack', damage=100, hitChance=0.6),
+                Attack(name='Regular Attack', damage=100, hitChance=0.6, statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
                 Attack(name='Light Attack', damage=70, hitChance=0.6)
             ])
         # array containing all monsters
@@ -47,9 +47,9 @@ class Universe:
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=2000, evade=0.2, crit=0.1,
                 moveset=[  # TODO: Balance these.
                     Attack(name='Poison Attack', damage=300, hitChance=0.95,
-                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
+                           statusEffect=StatusEffect(name="Poison", duration=6, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
                     Attack(name='Spice Attack', damage=75, hitChance=0.6,
-                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
+                           statusEffect=StatusEffect(name="Spice", duration=4, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
                     Attack(name='Light Attack', damage=18, hitChance=0.6)
                 ]),
             Monster(
