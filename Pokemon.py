@@ -72,10 +72,14 @@ class Pokemon(Entity):
             self.calcDamage(attack, target)
             target.damageText.setText(self.nextAttackDamage, self.nextAttackCrits, attack.statusEffect)
             print("Setting damageText to: Damage = " + str(self.nextAttackDamage) + ", Crit = " + str(self.nextAttackCrits) + ". Real sprite is: " + str(target.damageText.sprite))
+            
+            #returns integer that is used for stats
             return(self.nextAttackDamage)
         else:
             target.damageText.setMiss()
             print("Setting damageText to MISS. Real sprite is: " + str(target.damageText.sprite))
+            
+            #returns integer that is used for stats
             return 0
 
     def applyAttack(self, attack, target):
@@ -116,6 +120,7 @@ class Pokemon(Entity):
                 self.currentHealth -= mostDamagingEffect.damagePerTurn
                 self.damageText.setText(mostDamagingEffect.damagePerTurn, False, mostDamagingEffect)
                 print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
+                
             effect.duration -= 1
             if effect.duration <= 0:
                 toRemove.append(effect)

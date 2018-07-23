@@ -33,8 +33,6 @@ class Arena:
 
         # For scaling the animation speed.
         self.animationSpeedScale = 1
-        self.damageInflicted = 0
-        self.damageReceived = 0
 
     def doPlayerAttack(self, inputs):
         """
@@ -83,7 +81,10 @@ class Arena:
         self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Calculate attack and saves values in Monster (applies next frame)
-        self.player.calcAttack(self.player.moveset[moveNum], self.monster)
+        #Saves attack damage in counter for stats
+        
+        damageInfStat = self.player.calcAttack(self.player.moveset[moveNum], self.monster)
+        self.universe.damageInflicted += damageInfStat
 
         # Monster flinches.
         self.monster.sprite = self.monster.flinchSprite
@@ -126,10 +127,6 @@ class Arena:
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale * 0.5)
 
-        #Keeps track of damage inflicted:
-        self.damageInflicted = self.damageInflicted + self.player.calcAttack(self.player.moveset[moveNum], self.monster) 
-        print ("HELLLOOOOO " + str(self.damageInflicted))
-
 
         ########## Frame 3.5 ###########
         #   -> This frame only occurs if the monster has status effects
@@ -137,8 +134,15 @@ class Arena:
         #   -> Status damage is applied to monster
         #   -> Monster's damage text is drawn
         #   -> 1.0 time scale
+        
+        monster_healthPreEffect = self.monster.currentHealth
+        
         self.doMonsterStatusEffects()
-
+        
+        monster_healthPostEffect = self.monster.currentHealth
+        
+        self.universe.damageInflicted = self.universe.damageInflicted + (monster_healthPreEffect - monster_healthPostEffect)
+        
     def doMonsterAttack(self):
         """
             Draws and prints intermediate frames for the monster's attack animation.
@@ -183,7 +187,8 @@ class Arena:
         self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Calculate attack to be applied during the next frame.
-        self.monster.calcAttack(self.monster.moveset[moveNum], self.player)
+        damageRecStat = self.monster.calcAttack(self.monster.moveset[moveNum], self.player)
+        self.universe.damageReceived += damageRecStat
 
         # Player flinches.
         self.player.sprite = self.player.flinchSprite
@@ -194,10 +199,7 @@ class Arena:
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(self.monsterAttackX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
-        
-        #Keeps track of damage received by player
-        self.damageReceived = self.damageReceived + self.monster.calcAttack(self.monster.moveset[moveNum], self.player)
-        print ("HEEELLLLLOOOO " + str(self.damageReceived))
+    
 
         # Player's damage is taken on this frame, so draw the damage numbers
         self.player.damageText.drawArena(self.universe.screen)
@@ -229,6 +231,8 @@ class Arena:
 
         # Print frame at 0.5 time scale
         self.universe.screen.print()
+        print ("Inflicted " + str(self.universe.damageInflicted))
+        print ("Received " + str(self.universe.damageReceived))
         sleep(1 / self.animationSpeedScale * 0.5)
 
 
@@ -238,7 +242,15 @@ class Arena:
         #   -> Status damage is applied to player
         #   -> Player's damage text is drawn
         #   -> 1.0 time scale
+        
+        player_healthPreEffect = self.player.currentHealth 
+        
         self.doPlayerStatusEffects()
+        
+        player_healthPostEffect = self.player.currentHealth
+        
+        #adds damage from effect to damageReceived in Universe for stats
+        self.universe.damageReceived = self.universe.damageReceived + ( player_healthPreEffect - player_healthPostEffect)
 
     def doMonsterStatusEffects(self):
         #   -> This frame only occurs if the monster has status effects
