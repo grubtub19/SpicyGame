@@ -30,7 +30,7 @@ class Universe:
         self.overworld = Overworld(
             self, width=40, height=11, overworld_x=60, overworld_y=4)
 
-       self.player = Player(
+        self.player = Player(
             overworld_x=81, overworld_y=9,
             sprites_path="sprites/player.txt",
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
