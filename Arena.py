@@ -232,8 +232,6 @@ class Arena:
 
         # Print frame at 0.5 time scale
         self.universe.screen.print()
-        print ("Inflicted " + str(self.universe.damageInflicted))
-        print ("Received " + str(self.universe.damageReceived))
         sleep(1 / self.animationSpeedScale * 0.5)
 
 
@@ -389,7 +387,11 @@ class Arena:
         #Checks if any monsters left (i.e. if game is won)
                                 
         if (len(self.universe.monsters)==0):
+            
+            self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
+
             print('VICTORY!')
+            
             Stats.WriteFile("/Users/mateiborc/python/SpicyGame/Scores.txt", self.universe)
             
             #option to restart the game
