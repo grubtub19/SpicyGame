@@ -60,6 +60,10 @@ class Overworld:
 
                 if foo == "y":
                     self.universe.player.currentHealth = self.universe.player.currentHealth + self.universe.healthpot[i].health
+
+                    if self.universe.player.currentHealth > self.universe.player.maxHealth:
+                        self.universe.player.currentHealth = self.universe.player.maxHealth
+
                     del self.universe.healthpot[i]
                     print ("You have used the health pot!")
                     break
