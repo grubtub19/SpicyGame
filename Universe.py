@@ -81,9 +81,9 @@ class Universe:
 
         #Counters for stats
         self.damageInflicted = 0
-        self.damageReceived = 0  
-        self.score = 0      
-        
+        self.damageReceived = 0
+        self.score = 0
+
         self.arena = None
         self.reset = False
         self.exit = False

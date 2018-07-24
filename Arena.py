@@ -3,8 +3,8 @@ import random
 import sys
 from Stats import *
 
-class Arena:    
-    
+class Arena:
+
     def __init__(self, universe, player, monsterIndex):
         # Easy access to universe.
         self.universe = universe
@@ -83,7 +83,7 @@ class Arena:
 
         # Calculate attack and saves values in Monster (applies next frame)
         #Saves attack damage in counter for stats
-        
+
         damageInfStat = self.player.calcAttack(self.player.moveset[moveNum], self.monster)
         self.universe.damageInflicted += damageInfStat
 
@@ -135,15 +135,15 @@ class Arena:
         #   -> Status damage is applied to monster
         #   -> Monster's damage text is drawn
         #   -> 1.0 time scale
-        
+
         monster_healthPreEffect = self.monster.currentHealth
-        
+
         self.doMonsterStatusEffects()
-        
+
         monster_healthPostEffect = self.monster.currentHealth
-        
+
         self.universe.damageInflicted = self.universe.damageInflicted + (monster_healthPreEffect - monster_healthPostEffect)
-        
+
     def doMonsterAttack(self):
         """
             Draws and prints intermediate frames for the monster's attack animation.
@@ -200,7 +200,7 @@ class Arena:
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(self.monsterAttackX, self.monsterY)
         self.monster.drawArena(self.universe.screen)
-    
+
 
         # Player's damage is taken on this frame, so draw the damage numbers
         self.player.damageText.drawArena(self.universe.screen)
@@ -241,13 +241,13 @@ class Arena:
         #   -> Status damage is applied to player
         #   -> Player's damage text is drawn
         #   -> 1.0 time scale
-        
-        player_healthPreEffect = self.player.currentHealth 
-        
+
+        player_healthPreEffect = self.player.currentHealth
+
         self.doPlayerStatusEffects()
-        
+
         player_healthPostEffect = self.player.currentHealth
-        
+
         #adds damage from effect to damageReceived in Universe for stats
         self.universe.damageReceived = self.universe.damageReceived + ( player_healthPreEffect - player_healthPostEffect)
 
@@ -362,19 +362,19 @@ class Arena:
             print(defeatScreen)
 
             sleep(1)
-            
+
             #option to restart the game
             isValid = False
             self.universe.exit = True
-            
+
             #Calculates Final score
             self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
             print (self.universe.score)
-            
+
             #print score in a new file
-            Stats.WriteFile("/Users/mateiborc/python/SpicyGame/Scores.txt", self.universe)
-            
-            
+            Stats.WriteFile("Scores.txt", self.universe)
+
+
             while not isValid:
                 replay = input("continue? (y or n): ")
                 if replay == "y":
@@ -384,21 +384,23 @@ class Arena:
                     isValid = True
                 else:
                     print("invalid input try again!")
-        
-        #Checks if any monsters left (i.e. if game is won)
-                                
-        if (len(self.universe.monsters)==0):
-            
-            self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
 
-            print('VICTORY!')
-            
-            Stats.WriteFile("/Users/mateiborc/python/SpicyGame/Scores.txt", self.universe)
-            
+        #Checks if any monsters left (i.e. if game is won)
+
+        if (len(self.universe.monsters)==0):
+
+            self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
+            Stats.WriteFile("Scores.txt", self.universe)
+
             #option to restart the game
             isValid = False
             self.universe.exit = True
-            
+
+            # Player defeated.
+            f = open("sprites/winnerScreen.txt", "r")
+            winnerScreen = f.read()
+            print(winnerScreen)
+
             while not isValid:
                 replay = input("continue? (y or n): ")
                 if replay == "y":
@@ -408,8 +410,8 @@ class Arena:
                     isValid = True
                 else:
                     print("invalid input try again!")
-            
-            
+
+
 
     def draw(self, screen):
         self.player.drawArena(screen)
