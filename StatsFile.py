@@ -10,8 +10,11 @@ class Stats:
         
     def WriteFile(self, path):
         f = open(path, "w")
-        f.write("Total damage inflicted: " + str(self.Arena.damageInflicted))
-        f.write("Total damage received: " + str(self.Arena.damageReceived))
+        f.write("SCORE: " + str(self.universe.score) + "\n")
+        f.write("Total damage inflicted: " + str(self.universe.damageInflicted) + "\n")
+        f.write("Total damage received: " + str(self.universe.damageReceived) + "\n")
+        f.close()
+        
         
 
         

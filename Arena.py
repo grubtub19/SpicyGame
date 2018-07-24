@@ -362,10 +362,15 @@ class Arena:
             print(defeatScreen)
 
             sleep(1)
-
+            
             #option to restart the game
             isValid = False
             self.universe.exit = True
+            
+            #Calculates Final score
+            self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
+            print (self.universe.score)
+            
             while not isValid:
                 replay = input("continue? (y or n): ")
                 if replay == "y":
