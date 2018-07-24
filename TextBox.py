@@ -1,4 +1,5 @@
 from Entity import *
+import copy
 
 
 class TextBox(Entity):
@@ -28,10 +29,13 @@ class TextBox(Entity):
         """
         DONT TOUCH. IDK HOW IT WORKS ANYMORE
         """
-        self.sprite = self.blankSprite
+        self.sprite = copy.deepcopy(self.blankSprite)
         for i in range(0, len(self.text)):
             self.sprite[self.height-i] = self.sprite[self.height-i][:2] + self.text[i] + self.sprite[self.height-i][len(self.text[i])+2:]
         self.drawArena(screen)
 
     def wipeScreen(self):
-        self.text.clear()
+        self.text = ["","",""]
+
+    def hasContent(self):
+        return len(self.text[0]) > 0

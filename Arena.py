@@ -26,13 +26,29 @@ class Arena:
         self.monster.arena_x = self.monsterNeutralX
         self.monster.arena_y = self.monsterY
 
-        # Just an example of how to access the textBox
-        self.universe.textBox.print("Heavy attack -> a")
-        self.universe.textBox.print("Normal Attack -> s")
-        self.universe.textBox.print("Light Attack -> d")
-
+        self.controls = Entity(0,0,["@------------------------@@@-------------------------@@@------------------------@@@---------------",
+                                    "|   Heavy Attack   'a'   |@|   Normal Attack   's'   |@|   Light Attack   'd'   |@|   Run   'r'   |",
+                                    "@------------------------@@@-------------------------@@@------------------------@@@---------------"],"", 35, 17)
         # For scaling the animation speed.
         self.animationSpeedScale = 1
+
+    def drawEverything(self, healthBar, textBox, controls, player, monster, playerDamage, monsterDamage):
+        if healthBar:
+            self.universe.playerHealthBar.drawArena(self.universe.screen)
+            self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
+        if textBox:
+            if self.universe.textBox.hasContent():
+                self.universe.textBox.drawBox(self.universe.screen)
+        if controls:
+            self.controls.drawArena(self.universe.screen)
+        if player:
+            self.player.drawArena(self.universe.screen)
+        if monster:
+            self.monster.drawArena(self.universe.screen)
+        if playerDamage:
+            self.player.damageText.drawArena(self.universe.screen)
+        if monsterDamage:
+            self.monster.damageText.drawArena(self.universe.screen)
 
     def doPlayerAttack(self, inputs):
         """
@@ -50,19 +66,14 @@ class Arena:
         #   -> Monster is Neutral
         #   -> 0.5 time scale
 
-        # Draw health bars.
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
-
         # Player starts attack.
         self.player.sprite = self.player.startAttackSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY - 2)
-        self.player.drawArena(self.universe.screen)
 
         # Monster stays neutral.
         self.monster.moveInArena(self.monsterNeutralX, self.monsterY)
-        self.monster.drawArena(self.universe.screen)
 
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=False, monsterDamage=False)
         # Print frame.
         self.universe.screen.print()
         sleep(1/self.animationSpeedScale * 0.5)
@@ -76,10 +87,6 @@ class Arena:
         #   -> Damage Numbers Appear
         #   -> 1.0 time scale
 
-        # Draw health bars.
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
-
         # Calculate attack and saves values in Monster (applies next frame)
         #Saves attack damage in counter for stats
 
@@ -88,15 +95,12 @@ class Arena:
 
         # Monster flinches.
         self.monster.sprite = self.monster.flinchSprite
-        self.monster.drawArena(self.universe.screen)
 
         # Player commences attack.
         self.player.sprite = self.player.endAttackSprite
         self.player.moveInArena(self.playerAttackX, self.playerY)
-        self.player.drawArena(self.universe.screen)
 
-        # Monster's damage is taken on this frame, so draw the damage numbers
-        self.monster.damageText.drawArena(self.universe.screen)
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=False, monsterDamage=True)
 
         # Print frame and sleep for 1.0 time scale
         self.universe.screen.print()
@@ -110,18 +114,16 @@ class Arena:
 
         # Apply attack and draw changed health bars
         self.player.applyAttack(self.player.moveset[moveNum], self.monster)
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Reset Player to neutral position and neutral sprite
         self.player.sprite = self.player.neutralSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY)
-        self.player.drawArena(self.universe.screen)
 
         # Reset Monster to neutral position and neutral sprite
         self.monster.sprite = self.monster.neutralSprite
         self.monster.moveInArena(self.monsterNeutralX, self.monsterY)
-        self.monster.drawArena(self.universe.screen)
+
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=False, monsterDamage=False)
 
         # Print frame and sleep for 0.5 time scale
         self.universe.screen.print()
@@ -156,18 +158,14 @@ class Arena:
         #   -> Player is Neutral
         #   -> 0.5 time scale
 
-        # Print health bars.
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
-
         # Monster starts attack.
         self.monster.sprite = self.monster.startAttackSprite
         self.monster.moveInArena(self.monsterNeutralX, self.monsterY)
-        self.monster.drawArena(self.universe.screen)
 
         # Player stays neutral.
         self.player.moveInArena(self.playerNeutralX, self.playerY)
-        self.player.drawArena(self.universe.screen)
+
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=False, monsterDamage=False)
 
         # Print frame.
         self.universe.screen.print()
@@ -182,10 +180,6 @@ class Arena:
         #   -> Player's Damage Numbers Appear
         #   -> 1.0 time scale
 
-        # Draw health bars.
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
-
         # Calculate attack to be applied during the next frame.
         damageRecStat = self.monster.calcAttack(self.monster.moveset[moveNum], self.player)
         self.universe.damageReceived += damageRecStat
@@ -193,16 +187,12 @@ class Arena:
         # Player flinches.
         self.player.sprite = self.player.flinchSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY)
-        self.player.drawArena(self.universe.screen)
 
         # Monster attacks
         self.monster.sprite = self.monster.endAttackSprite
         self.monster.moveInArena(self.monsterAttackX, self.monsterY)
-        self.monster.drawArena(self.universe.screen)
 
-
-        # Player's damage is taken on this frame, so draw the damage numbers
-        self.player.damageText.drawArena(self.universe.screen)
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=True, monsterDamage=False)
 
         # Print frame.
         self.universe.screen.print()
@@ -216,18 +206,16 @@ class Arena:
 
         # Apply attack to player and draws changed health bar
         self.monster.applyAttack(self.monster.moveset[moveNum], self.player)
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
 
         # Reset Monster to neutral position and neutral sprite
         self.monster.sprite = self.monster.neutralSprite
         self.monster.moveInArena(self.monsterNeutralX, self.monsterY)
-        self.monster.drawArena(self.universe.screen)
 
         # Reset Player to neutral position and neutral sprite
         self.player.sprite = self.player.neutralSprite
         self.player.moveInArena(self.playerNeutralX, self.playerY)
-        self.player.drawArena(self.universe.screen)
+
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=False, monsterDamage=False)
 
         # Print frame at 0.5 time scale
         self.universe.screen.print()
@@ -258,13 +246,9 @@ class Arena:
         #   -> 1.0 time scale
 
         if self.monster.applyStatusEffects():
-            self.player.drawArena(self.universe.screen)
             self.monster.sprite = self.monster.flinchSprite
-            self.monster.drawArena(self.universe.screen)
-            self.universe.playerHealthBar.drawArena(self.universe.screen)
-            self.universe.currentMonsterHealthBar.drawArena(
-                self.universe.screen)
-            self.monster.damageText.drawArena(self.universe.screen)
+            self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True,
+                                playerDamage=False, monsterDamage=False)
             self.universe.screen.print()
             sleep(1 / self.animationSpeedScale)
 
@@ -276,23 +260,14 @@ class Arena:
         #   -> 1.0 time scale
 
         if self.player.applyStatusEffects():
-            print("next is ui update")
-            self.player.drawArena(self.universe.screen)
-            self.monster.drawArena(self.universe.screen)
-            self.universe.playerHealthBar.drawArena(self.universe.screen)
-            self.universe.currentMonsterHealthBar.drawArena(
-                self.universe.screen)
-            self.player.damageText.drawArena(self.universe.screen)
+            self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True,
+                                playerDamage=False, monsterDamage=False)
             self.universe.screen.print()
             sleep(1 / self.animationSpeedScale)
 
         #   -> Extra frame is printed so that player's statusEffect damageText does not remain on screen while inputting
-            self.player.drawArena(self.universe.screen)
-            self.monster.drawArena(self.universe.screen)
-            self.universe.playerHealthBar.drawArena(self.universe.screen)
-            self.universe.currentMonsterHealthBar.drawArena(
-                self.universe.screen)
-            self.player.statusUI.draw(self.universe.screen)
+            self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True,
+                                playerDamage=False, monsterDamage=False)
             self.universe.screen.print()
 
     def update(self, inputs):
@@ -302,7 +277,11 @@ class Arena:
         acceptable_inputs = ['a','s','d','r']
 
         if len(inputs) != 1 or inputs not in acceptable_inputs:
-            print('Invalid input')
+            self.universe.textBox.print("Invalid Input")
+            self.universe.textBox.drawBox(self.universe.screen)
+            self.drawEverything(True, True, True, True, True, False, False)
+            self.universe.screen.print()
+            self.universe.textBox.wipeScreen()
             return
 
         if inputs == 'r':
@@ -319,7 +298,10 @@ class Arena:
             self.doMonsterAttack()
         else:
             # Monster defeated.
-            print('VICTORY!')
+            self.universe.textBox.print("VICTORY!")
+            self.drawEverything(True, True, True, True, True, False, False)
+            self.universe.screen.print()
+            self.universe.textBox.wipeScreen()
             sleep(2)
 
             # Remove monster from monster list.
@@ -333,65 +315,88 @@ class Arena:
             self.universe.isOverworld = True
 
         if self.player.currentHealth <= 0:
-            # Player defeated.
-            f = open("sprites/defeatScreen.txt", "r")
-            defeatScreen = f.read()
-            print(defeatScreen)
 
-            sleep(1)
+            #Calculates Final score
+            self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
+
+            # Player defeated.
+            self.universe.textBox.print("Score: " + str(self.universe.score))
+            self.universe.textBox.print("Please write your name: ")
+            defeat = Entity(0,0,"","",60,0)
+            defeat.setSprite("sprites/defeatScreen.txt")
+            defeat.drawArena(self.universe.screen)
+            self.drawEverything(healthBar=False, textBox=True, controls=False, player=False, monster=False,
+                                playerDamage=False, monsterDamage=False)
+            self.universe.textBox.wipeScreen()
+            self.universe.screen.print()
+
+            #print score in a new file
+
+            name = input()
+            Stats.WriteFile("Scores.txt", self.universe, name)
 
             #option to restart the game
             isValid = False
             self.universe.exit = True
 
-            #Calculates Final score
-            self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
-            print (self.universe.score)
-
-            #print score in a new file
-            Stats.WriteFile("Scores.txt", self.universe)
-
-
             while not isValid:
-                replay = input("continue? (y or n): ")
+                # Player defeated.
+                self.universe.textBox.print("Continue? (y/n)")
+                defeat.drawArena(self.universe.screen)
+                self.drawEverything(healthBar=False, textBox=True, controls=False, player=False, monster=False,
+                                    playerDamage=False, monsterDamage=False)
+                self.universe.textBox.wipeScreen()
+                self.universe.screen.print()
+
+                replay = input()
                 if replay == "y":
                     self.universe.reset = True
                     isValid = True
                 elif replay == "n":
                     isValid = True
                 else:
-                    print("invalid input try again!")
+                    self.universe.textBox.print("Invalid Input")
 
         #Checks if any monsters left (i.e. if game is won)
 
         if (len(self.universe.monsters)==0):
 
             self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
-            Stats.WriteFile("Scores.txt", self.universe)
+
+            self.universe.textBox.print("Score: " + str(self.universe.score))
+            self.universe.textBox.print("Please write your name: ")
+            winner = Entity(0, 0, "", "", 60, 0)
+            winner.setSprite("sprites/winnerScreen.txt")
+            defeat.drawArena(self.universe.screen)
+            self.drawEverything(healthBar=False, textBox=True, controls=False, player=False, monster=False,
+                                playerDamage=False, monsterDamage=False)
+            self.universe.textBox.wipeScreen()
+            self.universe.screen.print()
+
+            name = input()
+            Stats.WriteFile("Scores.txt", self.universe, name)
 
             #option to restart the game
             isValid = False
             self.universe.exit = True
-
-            # Player defeated.
-            f = open("sprites/winnerScreen.txt", "r")
-            winnerScreen = f.read()
-            print(winnerScreen)
-
             while not isValid:
-                replay = input("continue? (y or n): ")
+                self.universe.textBox.print("Play Again? (y/n)")
+                winner.drawArena(self.universe.screen)
+                self.drawEverything(healthBar=False, textBox=True, controls=False, player=False, monster=False,
+                                    playerDamage=False, monsterDamage=False)
+                self.universe.textBox.wipeScreen()
+                self.universe.screen.print()
+
+                replay = input()
                 if replay == "y":
                     self.universe.reset = True
                     isValid = True
                 elif replay == "n":
                     isValid = True
                 else:
-                    print("invalid input try again!")
+                    self.universe.textBox.print("Invalid Input")
 
 
 
     def draw(self, screen):
-        self.player.drawArena(screen)
-        self.monster.drawArena(screen)
-        self.universe.playerHealthBar.drawArena(self.universe.screen)
-        self.universe.currentMonsterHealthBar.drawArena(self.universe.screen)
+        self.drawEverything(healthBar=True, textBox=True, controls=True, player=True, monster=True, playerDamage=False, monsterDamage=False)

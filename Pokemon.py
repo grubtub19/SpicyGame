@@ -10,14 +10,14 @@ class Pokemon(Entity):
     """
         Any Entity that can battle is a Pokemon (Player, Monster)
     """
-    critMultiplier = 1.5
+    critMultiplier = 2
 
     def __init__(self, overworld_x, overworld_y, sprites_path, overworldChar, arena_x, arena_y, defensePower, health, evade, crit, moveset):
         self.neutralSprite = []
         self.startAttackSprite = []
         self.endAttackSprite = []
         self.flinchSprite = []
-
+        self.statusUI = StatusEffectUI(self, True,)
         self.loadSprites(sprites_path)
 
         Entity.__init__(self, overworld_x, overworld_y, self.neutralSprite, overworldChar, arena_x, arena_y)
@@ -118,7 +118,7 @@ class Pokemon(Entity):
                     if otherEffect.name == effect.name and otherEffect.damagePerTurn > mostDamagingEffect.damagePerTurn:
                         otherEffect = mostDamagingEffect #compares all effects of the same type and finds the most damaging
                 self.currentHealth -= mostDamagingEffect.damagePerTurn
-                self.damageText.setText(mostDamagingEffect.damagePerTurn, False, mostDamagingEffect)
+                self.statusUI.damageIsShown = True
                 print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
                 
             effect.duration -= 1

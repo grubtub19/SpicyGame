@@ -16,7 +16,6 @@ class Screen:
 
     def print(self):
         # TODO: optionally draw the textBox since we don't want it on some screens like the start menu
-        self.universe.textBox.drawBox(self.universe.screen)
         """Prints the buffer's contents to the console."""
         # This is an initial attempt to print some whitespace above the drawn
         # frames so that past frames don't show up in the console.

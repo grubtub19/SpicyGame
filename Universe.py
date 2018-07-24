@@ -18,13 +18,15 @@ class Universe:
 
     def __init__(self, screen_width, screen_height):
 
-        f = open("sprites/startingScreen.txt", "r")
-        startingScreen = f.read()
-        print(startingScreen)
-        self.textBox = TextBox(0,15)
         self.screen = Screen(self, screen_width, screen_height)
         self.screen_width = screen_width
         self.screen_height = screen_height
+
+        start = Entity(0,0,"","",45,0)
+        start.setSprite("sprites/startingScreen.txt",)
+        start.drawArena(self.screen)
+        self.screen.print()
+        self.textBox = TextBox(0,15)
 
         self.isOverworld = True  # False if the current stage is the Arena
         self.overworld = Overworld(
@@ -36,50 +38,56 @@ class Universe:
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
 
             health=1000, crit=0.2, moveset=[
-                Attack(name='Heavy Attack', damage=400, hitChance=0.4, statusEffect=StatusEffect(name="Spice", duration=5, damagePerTurn=20, sprite_path="sprites/spiceEffect.txt")),
-                Attack(name='Regular Attack', damage=150, hitChance=0.7, statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=6, sprite_path="sprites/poisonEffect.txt")),
-                Attack(name='Light Attack', damage=110, hitChance=1.05)
+                Attack(name='Heavy Attack', damage=450, hitChance=0.3, statusEffect=StatusEffect(name="Shock", duration=6, damagePerTurn=40, sprite_path="sprites/shockEffect.txt")),
+                Attack(name='Regular Attack', damage=150, hitChance=0.7, statusEffect=StatusEffect(name="Poison", duration=4, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
+                Attack(name='Light Attack', damage=60, hitChance=1.05, statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=40, sprite_path="sprites/spiceEffect.txt"))
             ])
         # array containing all monsters
         self.monsters = [
             Monster(
                 overworld_x=84, overworld_y=11,
                 sprites_path='sprites/pepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.1, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.1, crit=0.3,
                 moveset=[
                     Attack(name='Ultimate attack', damage=300, hitChance=9999,
-                           statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
-                    Attack(name='Spice Attack', damage=200, hitChance=0.7),
-                    Attack(name='Light Attack', damage=150, hitChance=1)
+                           statusEffect=StatusEffect(name="Poison", duration=4, damagePerTurn=37, sprite_path="sprites/poisonEffect.txt")),
+                    Attack(name='Spice Attack', damage=160, hitChance=0.7,
+                           statusEffect=StatusEffect(name="Shock", duration=6, damagePerTurn=8, sprite_path="sprites/shockEffect.txt")),
+                    Attack(name='Light Attack', damage=120, hitChance=1,
+                           statusEffect=StatusEffect(name="Spice", duration=3, damagePerTurn=14, sprite_path="sprites/spiceEffect.txt"))
                 ]),
             #devil pepper ascci
             Monster(
                 overworld_x=74, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=10, health=800, evade=0.1, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=10, health=600, evade=0.1, crit=0.6,
                 moveset=[
-                    Attack(name='Ultimate attack', damage=350, hitChance=9999,
-                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
-                    Attack(name='Regular Attack', damage=250, hitChance=0.7),
-                    Attack(name='Light Attack', damage=200, hitChance=1)
+                    Attack(name='Ultimate attack', damage=250, hitChance=9999,
+                           statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=38, sprite_path="sprites/spiceEffect.txt")),
+                    Attack(name='Regular Attack', damage=240, hitChance=0.6),
+                    Attack(name='Light Attack', damage=200, hitChance=1,
+                           statusEffect=StatusEffect(name="Spice", duration=3, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt"))
                 ]),
             #fire pepper assci orsomething
             Monster(
                 overworld_x=88, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
-                overworldChar="M", arena_x=30, arena_y=10, defensePower=50, health=1500, evade=0.1, crit=0.1,
+                overworldChar="M", arena_x=30, arena_y=10, defensePower=50, health=1500, evade=0.1, crit=0.3,
                 moveset=[
-                    Attack(name='Ultimate attack', damage=200, hitChance=9999,statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=200, sprite_path="sprites/spiceEffect.txt")),
-                    Attack(name='Regular Attack', damage=150, hitChance=0.6),
-                    Attack(name='Light Attack', damage=125, hitChance=1, statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=20, sprite_path="sprites/spiceEffect.txt"))
+                    Attack(name='Ultimate attack', damage=100, hitChance=9999,
+                           statusEffect=StatusEffect(name="Spice", duration=4, damagePerTurn=78, sprite_path="sprites/spiceEffect.txt")),
+                    Attack(name='Regular Attack', damage=50, hitChance=0.7,
+                           statusEffect=StatusEffect(name="Shock", duration=4, damagePerTurn=70, sprite_path="sprites/shockEffect.txt")),
+                    Attack(name='Light Attack', damage=30, hitChance=1,
+                           statusEffect=StatusEffect(name="Poison", duration=5, damagePerTurn=68, sprite_path="sprites/poisonEffect.txt"))
                 ])
         ]
 
         self.playerHealthBar = HealthBar(self.player)
 
         self.healthpot = [
-            HealthPot(overworld_x=78, overworld_y=11, overworldChar = "+", ASCII = ["+"], health = 150),
-            HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
+            HealthPot(overworld_x=78, overworld_y=11, overworldChar = "+", ASCII = ["+"], health = 400),
+            HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 400)
         ]
 
         #Counters for stats

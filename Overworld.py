@@ -52,11 +52,21 @@ class Overworld:
             if (self.universe.player.overworld_x == self.universe.healthpot[i].overworld_x and self.universe.player.overworld_y == self.universe.healthpot[i].overworld_y):
 
                 #ask if player wants health pot or not
-                foo = input("Do you want to use this health pot? (y/n)")
+                self.universe.textBox.print("+600 Health")
+                self.universe.textBox.print("Use the health potion? (y/n)")
+                self.draw(self.universe.screen)
+                self.universe.textBox.wipeScreen()
+                self.universe.screen.print()
+                foo = input()
 
                 while not(foo == "y" or foo == "n"):
-                    print ("Not a valid input")
-                    foo = input("Do you want to use this health pot? (y/n)")
+                    self.universe.textBox.print("Invalid Input")
+                    self.universe.textBox.print("+600 Health")
+                    self.universe.textBox.print("Use the health potion? (y/n)")
+                    self.draw(self.universe.screen)
+                    self.universe.textBox.wipeScreen()
+                    self.universe.screen.print()
+                    foo = input()
 
                 if foo == "y":
                     self.universe.player.currentHealth = self.universe.player.currentHealth + self.universe.healthpot[i].health
@@ -89,9 +99,6 @@ class Overworld:
         # Draw Player health bar.
         self.universe.playerHealthBar.drawOverworld(screen)
 
-        # Draw player.
-        self.universe.player.drawOverworld(screen)
-
         # Draws monsters.
         for i in range(len(self.universe.monsters)):
             self.universe.monsters[i].drawOverworld(screen)
@@ -99,3 +106,9 @@ class Overworld:
         #Draws health pot
         for i in range(len(self.universe.healthpot)):
             self.universe.healthpot[i].drawOverworld(screen)
+
+        if self.universe.textBox.hasContent():
+            self.universe.textBox.drawBox(self.universe.screen)
+
+        # Draw player.
+        self.universe.player.drawOverworld(screen)

@@ -9,9 +9,8 @@ class Stats:
         self.path = path
     
     @staticmethod    
-    def WriteFile(path, universe):
+    def WriteFile(path, universe, name):
         f = open(path, "w")
-        name = input("Please write your name: ")
         f.write("\n" + name)
         f.write("\n\t\tSCORE: " + str(universe.score) + "\n\n")
         f.write("Total damage inflicted: " + str(universe.damageInflicted) + "\n")
