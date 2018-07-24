@@ -15,8 +15,8 @@ class HealthBar(Entity):
             self.overworld_x, self.overworld_y = 0, 0
             self.arena_x, self.arena_y = 0, 0
         elif isinstance(owner, Monster):
-            # TODO: Find a way not to hardcode the Arena coordinates.
             self.overworld_x, self.overworld_y = 0, 0
+            # Hardcode based on Arena dimensions.
             self.arena_x, self.arena_y = 138, 18
 
         Entity.__init__(self,

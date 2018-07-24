@@ -27,10 +27,9 @@ class Arena:
         self.monster.arena_y = self.monsterY
 
         # Just an example of how to access the textBox
-        # TODO: Use the textBox instead of printing to the console
-        self.universe.textBox.print("heavy attack -> a")
+        self.universe.textBox.print("Heavy attack -> a")
         self.universe.textBox.print("Normal Attack -> s")
-        self.universe.textBox.print("light Attack -> d")
+        self.universe.textBox.print("Light Attack -> d")
 
         # For scaling the animation speed.
         self.animationSpeedScale = 1
@@ -307,12 +306,6 @@ class Arena:
             return
 
         if inputs == 'r':
-            # Run away.
-            print('run away')
-
-            # TODO: We'll need to remember the last position of Player in
-            # the Overworld so we can revert to it in case we run.
-
             # Destroy Arena and return to Overworld.
             self.universe.arena = None
             self.universe.isOverworld = True
@@ -321,27 +314,11 @@ class Arena:
 
         else:
             self.doPlayerAttack(inputs)
-            # TODO: Either remove this or turn it into a useful dialog.
-
-            # TODO: The health bar update after the player's hit lands
-            # is less than optimal. Fix this. Test it out to see
-            # what I mean, I'm short on time right now.
-
-            # Hacky drawing of intermediate action frames here.
-
-            # Damage is applied after the intermediate action frames show
-            # the attack successfully landing. This results in the
-            # health bar being shown to shorten only after the attack lands.
-            # Otherwise, the health bar is shown to shorten before the
-            # attack even lands.
-            # TODO: Allow for variable attack input.
-
         if self.monster.currentHealth > 0:
             #same as above but with the monster
             self.doMonsterAttack()
         else:
             # Monster defeated.
-            # TODO: Draw and print a small victory screen?
             print('VICTORY!')
             sleep(2)
 

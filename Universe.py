@@ -35,7 +35,7 @@ class Universe:
             sprites_path="sprites/player.txt",
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
 
-            health=1000, crit=0.2, moveset=[  # TODO: Balance these.
+            health=1000, crit=0.2, moveset=[
                 Attack(name='Heavy Attack', damage=400, hitChance=0.4, statusEffect=StatusEffect(name="Spice", duration=5, damagePerTurn=20, sprite_path="sprites/spiceEffect.txt")),
                 Attack(name='Regular Attack', damage=150, hitChance=0.7, statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=6, sprite_path="sprites/poisonEffect.txt")),
                 Attack(name='Light Attack', damage=110, hitChance=1.05)
@@ -46,7 +46,7 @@ class Universe:
                 overworld_x=84, overworld_y=11,
                 sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=20, health=1000, evade=0.1, crit=0.1,
-                moveset=[  # TODO: Balance these.
+                moveset=[
                     Attack(name='Ultimate attack', damage=300, hitChance=9999,
                            statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=20, sprite_path="sprites/poisonEffect.txt")),
                     Attack(name='Spice Attack', damage=200, hitChance=0.7),
@@ -57,7 +57,7 @@ class Universe:
                 overworld_x=74, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=10, health=800, evade=0.1, crit=0.1,
-                moveset=[  # TODO: Balance these.
+                moveset=[
                     Attack(name='Ultimate attack', damage=350, hitChance=9999,
                            statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=6, sprite_path="sprites/spiceEffect.txt")),
                     Attack(name='Regular Attack', damage=250, hitChance=0.7),
@@ -68,7 +68,7 @@ class Universe:
                 overworld_x=88, overworld_y=8,
                 sprites_path='sprites/pepperSprite.txt',
                 overworldChar="M", arena_x=30, arena_y=10, defensePower=50, health=1500, evade=0.1, crit=0.1,
-                moveset=[  # TODO: Balance these.
+                moveset=[
                     Attack(name='Ultimate attack', damage=200, hitChance=9999,statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=200, sprite_path="sprites/spiceEffect.txt")),
                     Attack(name='Regular Attack', damage=150, hitChance=0.6),
                     Attack(name='Light Attack', damage=125, hitChance=1, statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=20, sprite_path="sprites/spice
