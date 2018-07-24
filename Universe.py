@@ -71,7 +71,7 @@ class Universe:
                 moveset=[
                     Attack(name='Ultimate attack', damage=200, hitChance=9999,statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=200, sprite_path="sprites/spiceEffect.txt")),
                     Attack(name='Regular Attack', damage=150, hitChance=0.6),
-                    Attack(name='Light Attack', damage=125, hitChance=1, statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=20, sprite_path="sprites/spice
+                    Attack(name='Light Attack', damage=125, hitChance=1, statusEffect=StatusEffect(name="Spice", duration=2, damagePerTurn=20, sprite_path="sprites/spiceEffect.txt"))
                 ])
         ]
 
