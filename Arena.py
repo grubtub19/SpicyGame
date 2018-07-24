@@ -1,6 +1,7 @@
 from time import sleep
 import random
 import sys
+from Stats import *
 
 class Arena:    
     
@@ -371,6 +372,10 @@ class Arena:
             self.universe.score = self.universe.damageInflicted - self.universe.damageReceived
             print (self.universe.score)
             
+            #print score in a new file
+            Stats.WriteFile("/Users/mateiborc/python/SpicyGame/Scores.txt", self.universe)
+            
+            
             while not isValid:
                 replay = input("continue? (y or n): ")
                 if replay == "y":
@@ -378,10 +383,30 @@ class Arena:
                     isValid = True
                 elif replay == "n":
                     isValid = True
-
-
                 else:
                     print("invalid input try again!")
+        
+        #Checks if any monsters left (i.e. if game is won)
+                                
+        if (len(self.universe.monsters)==0):
+            print('VICTORY!')
+            Stats.WriteFile("/Users/mateiborc/python/SpicyGame/Scores.txt", self.universe)
+            
+            #option to restart the game
+            isValid = False
+            self.universe.exit = True
+            
+            while not isValid:
+                replay = input("continue? (y or n): ")
+                if replay == "y":
+                    self.universe.reset = True
+                    isValid = True
+                elif replay == "n":
+                    isValid = True
+                else:
+                    print("invalid input try again!")
+            
+            
 
     def draw(self, screen):
         self.player.drawArena(screen)
