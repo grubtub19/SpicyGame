@@ -79,6 +79,11 @@ class Universe:
             HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 150)
         ]
 
+        #Counters for stats
+        self.damageInflicted = 0
+        self.damageReceived = 0  
+        self.score = 0      
+        
         self.arena = None
         self.reset = False
         self.exit = False
