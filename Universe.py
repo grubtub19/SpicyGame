@@ -36,7 +36,7 @@ class Universe:
             overworldChar="P", arena_x=50, arena_y=10, defensePower=100, evade=0.2,
 
             health=1000, crit=0.2, moveset=[  # TODO: Balance these.
-                Attack(name='Heavy Attack', damage=400, hitChance=0.4, statusEffect=StatusEffect(name="Spice", duration=6, damagePerTurn=20, sprite_path="sprites/spiceEffect.txt")),
+                Attack(name='Heavy Attack', damage=400, hitChance=0.4, statusEffect=StatusEffect(name="Spice", duration=5, damagePerTurn=20, sprite_path="sprites/spiceEffect.txt")),
                 Attack(name='Regular Attack', damage=150, hitChance=0.7, statusEffect=StatusEffect(name="Poison", duration=3, damagePerTurn=6, sprite_path="sprites/poisonEffect.txt")),
                 Attack(name='Light Attack', damage=110, hitChance=1.05)
             ])
