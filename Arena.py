@@ -377,6 +377,8 @@ class Arena:
 
             name = input()
             Stats.WriteFile("Scores.txt", self.universe, name)
+            self.universe.textBox.print("Game stats exported")
+            self.universe.textBox.print("to Scores.txt")
 
             #option to restart the game
             isValid = False
