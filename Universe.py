@@ -86,8 +86,8 @@ class Universe:
         self.playerHealthBar = HealthBar(self.player)
 
         self.healthpot = [
-            HealthPot(overworld_x=78, overworld_y=11, overworldChar = "+", ASCII = ["+"], health = 400),
-            HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 400)
+            HealthPot(overworld_x=78, overworld_y=11, overworldChar = "+", ASCII = ["+"], health = 600),
+            HealthPot(overworld_x=84, overworld_y=7, overworldChar = "+", ASCII = ["+"], health = 600)
         ]
 
         #Counters for stats
