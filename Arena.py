@@ -333,9 +333,9 @@ class Arena:
             #print score in a new file
 
             name = input()
-            Stats.WriteFile("Scores.txt", self.universe, name)
+            Stats.WriteFile(name, self.universe)
             self.universe.textBox.print("Game stats exported")
-            self.universe.textBox.print("to Scores.txt")
+            self.universe.textBox.print("to %s.txt" % name)
 
             #option to restart the game
             isValid = False
@@ -376,9 +376,9 @@ class Arena:
             self.universe.screen.print()
 
             name = input()
-            Stats.WriteFile("Scores.txt", self.universe, name)
+            Stats.WriteFile(name, self.universe)
             self.universe.textBox.print("Game stats exported")
-            self.universe.textBox.print("to Scores.txt")
+            self.universe.textBox.print("to %s.txt" % name)
 
             #option to restart the game
             isValid = False
