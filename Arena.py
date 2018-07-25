@@ -334,6 +334,8 @@ class Arena:
 
             name = input()
             Stats.WriteFile("Scores.txt", self.universe, name)
+            self.universe.textBox.print("Game stats exported")
+            self.universe.textBox.print("to Scores.txt")
 
             #option to restart the game
             isValid = False
@@ -367,7 +369,7 @@ class Arena:
             self.universe.textBox.print("Please write your name: ")
             winner = Entity(0, 0, "", "", 60, 0)
             winner.setSprite("sprites/winnerScreen.txt")
-            defeat.drawArena(self.universe.screen)
+            winner.drawArena(self.universe.screen)
             self.drawEverything(healthBar=False, textBox=True, controls=False, player=False, monster=False,
                                 playerDamage=False, monsterDamage=False)
             self.universe.textBox.wipeScreen()
