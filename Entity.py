@@ -40,7 +40,10 @@ class Entity:
                     try:
                         screen.buffer[y + i][x + j] = ASCII[i][j]
                     except IndexError:
-                        print("out of bounds")
+                        # This is so that our program doesn't crash when a sprite
+                        # needs to be drawn out of bounds of the Screen dimensions.
+                        # print('out of bounds')
+                        pass
 
     def moveInArena(self, x, y):
         """Moves the entity to the specified x, y coordinates in the Arena.

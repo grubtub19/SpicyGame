@@ -18,7 +18,10 @@ class HealthPot:
                 try:
                     screen.buffer[y + i][x + j] = ASCII[i][j]
                 except IndexError:
-                    print("out of bounds")
+                    # This is so that our program doesn't crash when a sprite
+                    # needs to be drawn out of bounds of the Screen dimensions.
+                    # print('out of bounds')
+                    pass
 
     def drawOverworld(self, screen):
         self.draw(screen, self.overworldChar, self.overworld_x,self.overworld_y)
