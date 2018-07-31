@@ -150,7 +150,9 @@ class Arena:
             Draws and prints intermediate frames for the monster's attack animation.
         """
         #random monster attacks option
-        moveNum = random.choices([0, 1, 2], [0.08, 0.46, 0.46])[0]
+        #amoveNum = random.choices([0, 1, 2], [0.08, 0.46, 0.46])[0]
+        weighted_choices = [(0, 8), (1, 46), (2, 46)]
+        moveNum = random.choice([val for val, cnt in weighted_choices for i in range(cnt)])
 
 
         ########## Frame 1 ###########

@@ -41,8 +41,8 @@ class Pokemon(Entity):
         prob = random.randint(0, 100) / 100
         if finalHitChance >= prob:
             self.nextAttackHits = True
-            print("hit")
-            print("hit chance {}: prob {}".format(finalHitChance, prob))
+            #print("hit")
+            #print("hit chance {}: prob {}".format(finalHitChance, prob))
 
 
     def calcDamage(self, attack, target):
@@ -71,13 +71,13 @@ class Pokemon(Entity):
         if self.nextAttackHits:
             self.calcDamage(attack, target)
             target.damageText.setText(self.nextAttackDamage, self.nextAttackCrits, attack.statusEffect)
-            print("Setting damageText to: Damage = " + str(self.nextAttackDamage) + ", Crit = " + str(self.nextAttackCrits) + ". Real sprite is: " + str(target.damageText.sprite))
+            #print("Setting damageText to: Damage = " + str(self.nextAttackDamage) + ", Crit = " + str(self.nextAttackCrits) + ". Real sprite is: " + str(target.damageText.sprite))
             
             #returns integer that is used for stats
             return(self.nextAttackDamage)
         else:
             target.damageText.setMiss()
-            print("Setting damageText to MISS. Real sprite is: " + str(target.damageText.sprite))
+            #print("Setting damageText to MISS. Real sprite is: " + str(target.damageText.sprite))
             
             #returns integer that is used for stats
             return 0
@@ -88,9 +88,7 @@ class Pokemon(Entity):
             target.currentHealth -= self.nextAttackDamage
             if attack.statusEffect is not None:
                 self.addStatusEffect(attack.statusEffect, target)
-            else:
-                print("did not add effect")
-        print("Number of Status Effect on Player: " + str(len(target.currStatusEffects)))
+        #print("Number of Status Effect on Player: " + str(len(target.currStatusEffects)))
 
     def addStatusEffect(self, statusEffect, target):
         print("added status effect " + statusEffect.name)
@@ -119,14 +117,14 @@ class Pokemon(Entity):
                         otherEffect = mostDamagingEffect #compares all effects of the same type and finds the most damaging
                 self.currentHealth -= mostDamagingEffect.damagePerTurn
                 self.statusUI.damageIsShown = True
-                print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
+                #print("Applied " + str(mostDamagingEffect.damagePerTurn) + " damage of type " + mostDamagingEffect.name)
                 
             effect.duration -= 1
             if effect.duration <= 0:
                 toRemove.append(effect)
 
         for item in toRemove:
-            print("removed " + item.name + " from effects list")
+            #print("removed " + item.name + " from effects list")
             self.currStatusEffects.remove(item)
 
         return changed
